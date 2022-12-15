@@ -1,6 +1,11 @@
 body{
-    background: black;
-    color:white;
+    background: white;
+    color:black;
     max-width:600px;
     margin:auto;
+    font-family: sans-serif;
+}
+
+.excerpt{
+    font-style: italic;
 }
