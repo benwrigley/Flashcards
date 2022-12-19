@@ -26,10 +26,8 @@
             </div>
         </header>
 
-        <div class="text-sm mt-4">
-            <p>
-                {{$post->excerpt}}
-            </p>
+        <div class="text-sm mt-4 space-y-4">
+                {!! $post->excerpt !!}
 
         </div>
 
@@ -37,7 +35,7 @@
             <div class="flex items-center text-sm">
                 <img src="/images/lary-avatar.svg" alt="Lary avatar">
                 <div class="ml-3">
-                    <h5 class="font-bold">{{$post->author->name}}</h5>
+                    <x-author-link :author="$post->author"/>
                 </div>
             </div>
 

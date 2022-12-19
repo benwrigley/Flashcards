@@ -16,7 +16,7 @@
                         <div class="flex items-center lg:justify-center text-sm mt-4">
                             <img src="/images/lary-avatar.svg" alt="Lary avatar">
                             <div class="ml-3 text-left">
-                                <h5 class="font-bold">{{$post->author->name}}</h5>
+                                <x-author-link :author="$post->author"/>
                             </div>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                             {{$post->title}}
                         </h1>
 
-                        <div class="space-y-4 lg:text-lg leading-loose">
-                            {{$post->body}}
+                        <div class="space-y-4 lg:text-lg leading-loose space-y-4">
+                            {!! $post->body !!}
                         </div>
                     </div>
                 </article>
