@@ -1,17 +1,23 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<x-layout>
+    <div class="items-center h-screen flex justify-center">
+        <div class="mt-8 md:mt-0 ">
+            @auth
+                <span class="text-xs font-bold uppercase"> Welcome, {{ auth()->user()->name }} </span>
+                <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6 uppercase">
+                    @csrf
+                    <button type="submit">Log Out</button>
+                </form>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+            @else
+                <div class="bg-gray-400 max-w-max p-4 rounded text-center">
+                    Welcome to Flashcards
                 </div>
-            </div>
+                <div class="text-center text-sm p-2">
+                    <a href="/register" class="">Register</a>
+                    <a href="/login" class="ml-3">Login</a>
+                </div>
+            @endauth
         </div>
     </div>
-</x-app-layout>
+
+</x-layout>
