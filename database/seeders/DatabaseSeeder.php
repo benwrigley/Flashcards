@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
+use App\Models\Flashcard;
 use App\Models\Post;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,11 +23,24 @@ class DatabaseSeeder extends Seeder
         User::truncate();
         Category::truncate();
         Post::truncate();
+        Topic::truncate();
+        Flashcard::truncate();
 
-        $user = User::factory()->create();
+        $users = User::factory(2)->create();
 
-        $user = Post::factory(10)->create([
-            'user_id' => $user->id
-        ]);
+        foreach($users as $user){
+
+            $topics = Topic::factory(4)->create([
+                'user_id' => $user->id
+            ]);
+
+            foreach ($topics as $topic){
+                Flashcard::factory(10)->create([
+                    'user_id' => $user->id,
+                    'topic_id' => $topic->id
+                ]);
+            }
+        }
+
     }
 }

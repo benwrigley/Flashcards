@@ -2,18 +2,18 @@
     <section class="px-6 py-8">
 
         <main class="max-w-lg mx-auto bg-gray-400 p-6 rounded-xl">
-            <h1 class="text-center text-gray-700 font-bold text-xl">Log in<h1>
+            <h1 class="text-center text-white text-xl">Log in<h1>
             <form method="POST" action="/login" class="mt-10">
                 @csrf
 
                 <div class="mb-6">
-                    <label class="block mb-2 font-bold text-vs text-gray-700"
+                    <label class="block mb-2 text-vs text-white"
                         for="email"
                     >
                         Email
                     </label>
 
-                    <input class="border border-gray-400 p-2 w-full"
+                    <input class="border border-gray-400 p-2 w-full text-gray-900"
                             type="text"
                             name="email"
                             id="email"
@@ -28,13 +28,13 @@
 
 
                 <div class="mb-6">
-                    <label class="block mb-2 font-bold text-vs text-gray-700"
+                    <label class="block mb-2 text-vs text-white"
                         for="password"
                     >
                         Password
                     </label>
 
-                    <input class="border border-gray-400 p-2 w-full"
+                    <input class="border border-gray-400 p-2 w-full text-gray-900"
                             type="password"
                             name="password"
                             id="password"

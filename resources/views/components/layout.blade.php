@@ -8,27 +8,31 @@
 
 <body style="font-family: Open Sans, sans-serif" class="bg-gray-900 text-white">
     <section class="px-6 py-8">
-        {{-- <nav class="md:flex md:justify-between md:items-center">
+        <nav class="md:flex md:justify-between md:items-center">
             <div>
                 <a href="/">
                     Flashcards
                 </a>
             </div>
 
+            @auth
+                <div class="w-2/3"> <x-topics-breadcrumb :topic="isset($topic) ? $topic : null" /> </div>
+            @endauth
+
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
-                    <span class="text-xs font-bold uppercase"> Welcome, {{ auth()->user()->name }} </span>
-                    <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6 uppercase">
+                    <span> {{ auth()->user()->name }} </span>
+                    <form method="POST" action="/logout" class="font-semibold text-blue-500 ml-6">
                         @csrf
                         <button type="submit">Log Out</button>
                     </form>
 
                 @else
-                    <a href="/register" class="text-xs font-bold">Register</a>
-                    <a href="/login" class="ml-3 text-xs font-bold">Login</a>
+                    <a href="/register" class="text-xs">Register</a>
+                    <a href="/login" class="ml-3 text-xs">Login</a>
                 @endauth
             </div>
-        </nav> --}}
+        </nav>
 
         {{ $slot }}
 
