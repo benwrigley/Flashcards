@@ -20,8 +20,6 @@ class FlashcardFactory extends Factory
     {
 
         return [
-            'title' => implode(' ', $this->faker->words(2)),
-            'slug' => $this->faker->slug,
             'question' => '<p>' . implode('</p><p>' , $this->faker->paragraphs(2)) . '</p>',
             'answer' => '<p>' . implode('</p><p>' , $this->faker->paragraphs(2)) . '</p>',
             'topic_id' => Topic::factory(),

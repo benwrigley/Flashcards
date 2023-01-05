@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('topic_id');
             $table->foreignId('user_id');
-            $table->string('title');
-            $table->string('slug')->unique();
+            $table->integer('correct')->default('0');
+            $table->integer('incorrect')->default('0');
             $table->text('question');
             $table->text('answer');
             $table->timestamp('published_at')->nullable();
