@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flashcard;
 use App\Models\Topic;
-use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+
 
 class TopicController extends Controller
 {
@@ -21,6 +22,7 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
+
         return view('topics.show', [
             'topic' => $topic
         ]);

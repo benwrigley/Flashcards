@@ -7,12 +7,16 @@
             {{$topic->name}} -  {{ $topic->description }}
         </div>
 
-        @if ($topic->flashcards->count())
-            <a href="/flashcards/test/{{$topic->id}}">
+        @if ($topic->flashcards->count() || $topic->children->count())
+
+            <a href="/test/{{$topic->id}}">
                 <div class="flex justify-center">
                         <div class="bg-blue-400 p-2 rounded-3xl text-center text-3xl w-1/6"> Test Me! </div>
                 </div>
             </a>
+        @endif
+
+        @if ($topic->flashcards->count())
 
             <div class="text-center p-12" x-init="flashcardForm = true">
                 <x-flashcards-grid :flashcards="$topic->flashcards()->paginate(10)" />

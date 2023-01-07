@@ -28,4 +28,7 @@ class FlashcardController extends Controller
         return redirect('/topics/' . $flashcard->topic->slug)->with('success', 'Flashcard has been created');
 
     }
+
+
+
 }

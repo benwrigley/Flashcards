@@ -47,7 +47,7 @@
                 <button type="submit"
                         class="bg-gray-600 text-white rounded py-2 px-4 hover:bg-blue-500"
                 >
-                Submit
+                Create
                 </button>
             </div>
         </div>
