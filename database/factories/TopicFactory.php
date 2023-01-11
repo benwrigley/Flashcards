@@ -20,7 +20,7 @@ class TopicFactory extends Factory
         return [
             'name' => implode(' ', $this->faker->words(2)),
             'slug' => $this->faker->slug,
-            'description' => '<p>' . implode('</p><p>' , $this->faker->paragraphs(2)) . '</p>',
+            'description' => implode(' ', $this->faker->words(5)),
             'topic_id' => null,
             'user_id' => User::factory(),
         ];

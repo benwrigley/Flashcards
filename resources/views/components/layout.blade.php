@@ -22,14 +22,13 @@
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
                     <span> {{ auth()->user()->name }} </span>
-                    <form method="POST" action="/logout" class="font-semibold text-blue-500 ml-6">
-                        @csrf
+                    <form method="GET" action="/logout" class="font-semibold text-blue-500 ml-6">
                         <button type="submit">Log Out</button>
                     </form>
 
                 @else
-                    <a href="/register" class="text-xs">Register</a>
-                    <a href="/login" class="ml-3 text-xs">Login</a>
+                    <a href="/register">Register</a>
+                    <a href="/login" class="ml-3">Login</a>
                 @endauth
             </div>
         </nav>
@@ -38,8 +37,14 @@
 
     </section>
     @if (session()->has('success'))
-        <x-flash>
+        <x-flash color="bg-blue-500">
             {{ session()->get('success') }}
         </x-flash>
     @endif
+
+    @if (session()->has('error'))
+    <x-flash color="bg-red-500">
+        {{ session()->get('error') }}
+    </x-flash>
+@endif
 </body>

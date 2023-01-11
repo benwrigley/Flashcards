@@ -16,12 +16,15 @@ class FlashcardFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition( )
     {
 
         return [
-            'question' => '<p>' . implode('</p><p>' , $this->faker->paragraphs(2)) . '</p>',
-            'answer' => '<p>' . implode('</p><p>' , $this->faker->paragraphs(2)) . '</p>',
+            'question' => implode($this->faker->paragraphs(1)),
+            'answer' => implode($this->faker->paragraphs(1)),
+            'correct' => $this->faker->numberBetween(0,50),
+            'incorrect' => $this->faker->numberBetween(0,50),
+            'max_score' => $this->faker->numberBetween(1,5),
             'topic_id' => Topic::factory(),
             'user_id' => User::factory(),
         ];

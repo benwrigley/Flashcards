@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->integer('correct')->default('0');
             $table->integer('incorrect')->default('0');
+            $table->integer('max_score')->default('1');
             $table->text('question');
             $table->text('answer');
             $table->timestamp('published_at')->nullable();

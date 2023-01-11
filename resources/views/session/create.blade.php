@@ -2,12 +2,12 @@
     <section class="px-6 py-8">
 
         <main class="max-w-lg mx-auto bg-gray-400 p-6 rounded-xl">
-            <h1 class="text-center text-white text-xl">Log in<h1>
+            <h1 class="text-center text-gray-900 text-xl">Log in<h1>
             <form method="POST" action="/login" class="mt-10">
                 @csrf
 
                 <div class="mb-6">
-                    <label class="block mb-2 text-vs text-white"
+                    <label class="block mb-2 text-vs text-gray-900 font-bold"
                         for="email"
                     >
                         Email
@@ -23,12 +23,12 @@
                 </div>
 
                 @error('email')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-red-700 mt-1">{{ $message }}</p>
                 @enderror
 
 
                 <div class="mb-6">
-                    <label class="block mb-2 text-vs text-white"
+                    <label class="block mb-2 text-vs text-gray-900 font-bold"
                         for="password"
                     >
                         Password
@@ -43,7 +43,7 @@
                 </div>
 
                 @error('password')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-red-700 mt-1">{{ $message }}</p>
                 @enderror
 
                 <div class="mb-6">

@@ -3,7 +3,7 @@
     <form method="POST" action="/flashcard/create" class="bg-gray-700 rounded p-4 w-10/12">
         @csrf
 
-        <div class="lg:grid lg:grid-cols-4 items-center">
+        <div class="lg:grid lg:grid-cols-5 items-center">
             <div class="text-right">
                 <span class=" mr-4 align-middle"> New Flashcard: </span>
             </div>
@@ -31,6 +31,20 @@
                 @error('answer')
                     <p class="text-red-700 p-2 mb">{{ $message }}</p>
                 @enderror
+            </div>
+
+            <div class="ml-6 w-100">
+
+                <input class="border border-gray-400 p-2 w-full text-gray-700"
+                    type="text"
+                    name="points"
+                    id="points"
+                    placeholder="Max Score"
+                    value="{{ old('points') }}"
+                >
+                @error('points')
+                <p class="text-red-700 p-2 mb">{{ $message }}</p>
+            @enderror
             </div>
 
             <input

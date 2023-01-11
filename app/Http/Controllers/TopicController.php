@@ -31,8 +31,8 @@ class TopicController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'name' => ['required','max:30','min:5','regex:/^[a-zA-Z0-9\s\-\_]+$/'],
-            'description' => ['max:255'],
+            'name' => ['required','max:10','min:1','regex:/^[a-zA-Z0-9\s\-\_]+$/'],
+            'description' => ['max:30'],
             'topic_id' => ['exists:topics,id','nullable'],
         ]);
 

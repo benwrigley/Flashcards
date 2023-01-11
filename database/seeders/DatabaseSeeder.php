@@ -30,11 +30,22 @@ class DatabaseSeeder extends Seeder
 
         foreach($users as $user){
 
+            //create 4 main topics for a user
             $topics = Topic::factory(4)->create([
                 'user_id' => $user->id
             ]);
 
+
+            $l2topics = collect([]);
             foreach ($topics as $topic){
+                $l2topics = $l2topics->merge(Topic::factory(4)->create([
+                    'user_id' => $user->id,
+                    'topic_id' => $topic->id
+                ]));
+            }
+
+            foreach ($l2topics->random(8) as $topic){
+
                 Flashcard::factory(10)->create([
                     'user_id' => $user->id,
                     'topic_id' => $topic->id

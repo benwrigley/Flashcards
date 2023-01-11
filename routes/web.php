@@ -8,6 +8,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
+
 //Route::view('/','dashboard')->name('home');
 Route::get('/', [TopicController::class, 'index']);
 Route::get('topics/{topic:slug}', [TopicController::class, 'show'])->middleware('auth');
@@ -18,7 +19,7 @@ Route::post('register', [RegisterController::class, 'store'])->middleware('guest
 
 Route::get('login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
-Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
+Route::get('logout', [SessionsController::class, 'destroy']);
 
 Route::post('/topic/create', [TopicController::class, 'store'])->middleware('auth');
 

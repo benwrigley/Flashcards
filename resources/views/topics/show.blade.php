@@ -2,9 +2,14 @@
 <div x-data="{ topicForm:false, flashcardForm:false }">
     <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
 
-
-        <div class="italic text-5xl text-center mb-20">
+        <div class="pt-4">
+            <hr />
+        </div>
+        <div class="italic text-4xl text-center">
             {{$topic->name}} -  {{ $topic->description }}
+        </div>
+        <div class="pb-4">
+            <hr />
         </div>
 
         @if ($topic->flashcards->count() || $topic->children->count())

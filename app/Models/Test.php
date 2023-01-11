@@ -25,6 +25,33 @@ class Test extends Model
         return $this->belongsTo(Topic::class);
     }
 
+    public function getResult(){
+
+        //$result = array();
+
+        return round(($this->totalCorrect / ($this->totalCorrect + $this->totalIncorrect) *100) , 1);
+        // $message = "";
+        // switch (true){
+        //     case $score < 10:
+        //         $message = "Next time will be better!";
+        //         break;
+
+        //     case $score < 20:
+        //         $message = "Ok, today wasn't your best, but hang in there!";
+        //         break;
+
+        //     case $score < 30:
+        //         $message = "Better luck next time!";
+        //         break;
+
+        //     case $score < 40:
+        //         $message =
+
+        // }
+
+
+    }
+
     public function flashcards()
     {
         return $this->belongsToMany(Flashcard::class);

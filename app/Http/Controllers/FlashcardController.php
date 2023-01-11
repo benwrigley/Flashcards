@@ -14,14 +14,11 @@ class FlashcardController extends Controller
         $attributes = request()->validate([
             'question' => ['required','max:255'],
             'answer' => ['required','max:255'],
+            'points' => ['numeric','min:1','max:5','nullable'],
             'topic_id' => ['exists:topics,id','nullable'],
         ]);
 
         $attributes['user_id'] = Auth::id();
-
-        // $slug = Str::lower($attributes['name']) . "_" . Auth::id();
-        // $slug = preg_replace("/[^a-z0-9-_]/", '', $slug);
-        // $attributes['slug'] = $slug;
 
         $flashcard = Flashcard::create($attributes);
 
