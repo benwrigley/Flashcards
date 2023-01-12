@@ -1,4 +1,4 @@
-@props(['flashcards','href'])
+@props(['flashcard','count','test'])
 
 
     <div class="bg-gray-600 flex flex-col items-center p-10 rounded-2xl text-5xl text-center"
@@ -25,10 +25,10 @@
     ">
 
         <div x-show="!answershow">
-            {{$flashcards[0]->question}}
+            {{$flashcard->question}}
         </div>
         <div x-show="answershow">
-            {{$flashcards[0]->answer}}
+            {{$flashcard->answer}}
         </div>
         <div x-show="answershow" x-text="ans" class="mt-4">
         </div>
@@ -51,7 +51,23 @@
                     Reveal Answer!
                 </button>
             </div>
-            <div x-show="thumbs" class="flex">
+
+            <form method="POST" action="/answertest" x-data="{score : 1, answer : ''}" class="flex justify mt-10 text-3xl" x-show="thumbs">
+                @csrf
+                <div>
+                    Select score :
+                </div>
+                @for($i=0; $i < $flashcard->max_score + 1; $i++ )
+                    <div class="ml-2 bg-gray-400 rounded-full pl-1 pr-1">
+                        <x-radio-element :value="$i" :label="$i" xdata="answer" />
+                    </div>
+                @endfor
+                <input type="hidden" name="score" x-model="answer"/>
+                <input type="hidden" name="count" value="{{$count}}"/>
+                <input type="hidden" name="test" value="{{$test->id}}"/>
+
+            </form>
+            {{-- <div x-show="thumbs" class="flex">
 
                 <div>
                     <x-thumb-link icon="up" :href="$href . '&' . http_build_query(['correct' => 1])" />
@@ -60,14 +76,10 @@
                     <x-thumb-link icon="down" :href="$href . '&' . http_build_query(['correct' => 0])" />
                 </div>
 
-            </div>
+            </div> --}}
 
 
         </div>
     </div>
 
-    {{-- <div>
-        {{ $flashcards->appends(['foo' => 'bar'])->nextPageUrl() }}
-        {{ $flashcards->links() }}
-    </div> --}}
 

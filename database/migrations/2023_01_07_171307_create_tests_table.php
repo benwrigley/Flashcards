@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('topic_id');
-            $table->integer('totalCorrect')->default('0');
-            $table->integer('totalIncorrect')->default('0');
+            $table->integer('score')->default('0');
+            $table->integer('max_score')->default('0');
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });

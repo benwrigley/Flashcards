@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('test_id');
             $table->foreignId('flashcard_id');
+            $table->integer('score')->default('0');
         });
     }
 

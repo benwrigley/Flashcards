@@ -29,7 +29,7 @@ class Test extends Model
 
         //$result = array();
 
-        return round(($this->totalCorrect / ($this->totalCorrect + $this->totalIncorrect) *100) , 1);
+        return round(($this->score / ($this->max_score) *100) , 1);
         // $message = "";
         // switch (true){
         //     case $score < 10:

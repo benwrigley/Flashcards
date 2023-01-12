@@ -37,12 +37,12 @@
 
                 <input class="border border-gray-400 p-2 w-full text-gray-700"
                     type="text"
-                    name="points"
-                    id="points"
+                    name="max_score"
+                    id="max_score"
                     placeholder="Max Score"
-                    value="{{ old('points') }}"
+                    value="{{ old('max_score') }}"
                 >
-                @error('points')
+                @error('max_score')
                 <p class="text-red-700 p-2 mb">{{ $message }}</p>
             @enderror
             </div>

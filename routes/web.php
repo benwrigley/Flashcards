@@ -26,8 +26,9 @@ Route::post('/topic/create', [TopicController::class, 'store'])->middleware('aut
 Route::post('/flashcard/create', [FlashcardController::class, 'store'])->middleware('auth');
 
 Route::get('/test/{topic}', [TestController::class, 'store'])->middleware('auth');
-Route::get('/runtest/{test}', [TestController::class, 'run'])->middleware('auth');
-Route::get('/test/close/{test}', [TestController::class, 'close'])->middleware('auth');
+Route::get('/starttest/{test}', [TestController::class, 'start'])->middleware('auth');
+Route::post('/answertest', [TestController::class, 'answer'])->middleware('auth');
+Route::get('/closetest/{test}', [TestController::class, 'close'])->middleware('auth');
 
 
 

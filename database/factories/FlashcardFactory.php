@@ -22,8 +22,7 @@ class FlashcardFactory extends Factory
         return [
             'question' => implode($this->faker->paragraphs(1)),
             'answer' => implode($this->faker->paragraphs(1)),
-            'correct' => $this->faker->numberBetween(0,50),
-            'incorrect' => $this->faker->numberBetween(0,50),
+            'avg_score' => $this->faker->numberBetween(0,100),
             'max_score' => $this->faker->numberBetween(1,5),
             'topic_id' => Topic::factory(),
             'user_id' => User::factory(),
