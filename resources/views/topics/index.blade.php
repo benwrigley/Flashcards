@@ -1,7 +1,7 @@
 <x-layout>
 
 
-
+    <div x-data="{topicForm:false}">
         @auth
             <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
 
@@ -37,7 +37,7 @@
 
         @endauth
 
-
+    </div>
 
 
 </x-layout>

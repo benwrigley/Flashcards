@@ -1,8 +1,14 @@
-@props(['slug','label'])
+@props(['href','label','click'])
 
-<div class="mb-3 flex justify-center">
+<div class="mb-3 flex justify-center" x-on:click="{{$click}}">
 
-    <a href="{{isset($slug) ? '/topics/' . $slug : '/' }}"
-    {{ $attributes->merge(['class' => 'px-3 py-1 rounded-full uppercase font-semibold']) }}
-    >{{$label}}</a>
+    {{ $slot }}
+
+    <a
+        href="{{$href}}"
+        onclick="{{isset($href) ? '' : 'return false;'}}"
+        {{ $attributes->merge(['class' => 'px-3 py-1 rounded-full uppercase font-semibold']) }}
+    >
+        {{$label}}
+    </a>
 </div>

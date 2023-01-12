@@ -23,12 +23,14 @@
 
         @if ($topic->flashcards->count())
 
-            <div class="text-center p-12" x-init="flashcardForm = true">
+            <div class="text-center p-12">
                 <x-flashcards-grid :flashcards="$topic->flashcards()->paginate(10)" />
+                <div x-on:click="flashcardForm=true" class="bg-gray-400 p-2 rounded-3xl w-1/5 mt-10">
+                    New Flashcard ...
+                </div>
             </div>
 
         @elseif ($topic->children->count())
-            <div x-init="topicForm = true" />
             <x-subtopics-grid :topics="$topic->children"/>
 
         @else
