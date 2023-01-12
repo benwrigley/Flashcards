@@ -8,6 +8,7 @@ use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
@@ -63,7 +64,7 @@ class TestController extends Controller
         $flashcards = $test->flashcards;
 
         //update test score
-        $test->increment('score',$input['score']);
+        $test->increment('final_score',$input['score']);
         $test->increment('max_score',$flashcards[$count]->max_score);
 
 
@@ -75,6 +76,26 @@ class TestController extends Controller
 
         $flashcards[$count]->pivot->score = ($input['score'] / $flashcards[$count]->max_score) * 100;
         $flashcards[$count]->pivot->save();
+
+        $flashcards[$count]->avg_score = DB::table('flashcard_test')->where('flashcard_id',$flashcards[$count]->id)->avg('score');
+
+        $flashcards[$count]->save();
+
+
+
+        // $flashcard = Flashcard::withCount(['tests as avg_score' => function ($query) {
+        //     $query->select(DB::raw('AVG(score)'));
+        // }])->find($flashcards[$count]->id);
+
+        // $flashcard->save();
+
+        // $averageScore = $flashcards[$count]->tests()
+        //     ->select(DB::raw('AVG(score) as average_score'))
+        //     ->first()
+        //     ->average_score;
+
+        // dd($averageScore);
+
 
         $count++;
 

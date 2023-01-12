@@ -10,12 +10,5 @@
                 class="bg-gray-600"
             />
         @endforeach
-
-        <x-topic-button
-            label='New Topic...'
-            :href='null'
-            class="bg-gray-600"
-            click='topicForm = true'
-        />
     </div>
 @endif

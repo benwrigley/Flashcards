@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('topic_id');
             $table->foreignId('user_id');
-            $table->integer('avg_score')->default('100');
+            $table->integer('avg_score')->default('0');
             $table->integer('max_score')->default('1');
             $table->text('question');
             $table->text('answer');
