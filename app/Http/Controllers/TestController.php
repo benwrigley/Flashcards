@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
-    public function store(Topic $topic)
+    public function store(Topic $topic, $type)
     {
+
+        $limit = $type === '*' ? 100 : $type;
 
         $attributes['user_id'] = Auth::id();
         $attributes['topic_id'] = $topic->id;
@@ -23,11 +25,16 @@ class TestController extends Controller
         $topics = $topic->getDescendants();
         array_push($topics,$topic->id);
 
-        $flashcards = Flashcard::fromTopics($topics)->inRandomOrder(time())->get();
+        $flashcards = Flashcard::fromTopics($topics)
+                        ->orderBy('avg_score','asc')
+                        ->limit($limit)
+                        ->get();
 
         if($flashcards->count() < 1){
             return redirect('/topics/' . $topic->slug)->with('error', 'An error occurred');
         }
+
+        $flashcards = $flashcards->shuffle();
 
         foreach($flashcards as $flashcard)
         {

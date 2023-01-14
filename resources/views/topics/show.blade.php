@@ -1,7 +1,7 @@
 <x-layout :topic="$topic">
 
 
-<div x-data="{ topicForm:false, flashcardForm:false }">
+<div x-data="{ topicForm:false, flashcardForm:false, testOptions:false }">
 
     @if ($errors->flashcardCreate->count())
         <div x-init="flashcardForm = true" />
@@ -25,14 +25,30 @@
 
             @if ($topic->flashcards->count() || $topic->children->count())
 
-            <a href="/test/{{$topic->id}}">
-                <div>
-                        <div class="bg-blue-400 p-4 rounded-3xl text-center text-3xl"> Test Me! </div>
+                <div x-on:click="testOptions = ! testOptions">
+                    <div class="bg-blue-400 p-4 rounded-3xl text-center text-3xl"> Test Me! </div>
                 </div>
-            </a>
             @else
                 <div />
             @endif
+        </div>
+
+        <div x-show="testOptions" class="flex justify-around">
+            <a href="{{ route('test.store',[$topic->id,'*']) }}">
+                <div class="bg-blue-400 p-4 rounded-3xl text-center ">
+                    Everything!
+                </div >
+            </a>
+            <a href="{{ route('test.store',[$topic->id,'5']) }}">
+                <div class="bg-blue-400 p-4 rounded-3xl text-center ">
+                    Worst 5
+                </div>
+            </a>
+            <a href="{{ route('test.store',[$topic->id,'10']) }}">
+                <div class="bg-blue-400 p-4 rounded-3xl text-center ">
+                    Worst 10
+                </div>
+            </a>
         </div>
 
         <div class="pb-4">
