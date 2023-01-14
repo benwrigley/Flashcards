@@ -39,7 +39,7 @@
                     type="text"
                     name="max_score"
                     id="max_score"
-                    placeholder="Max Score"
+                    placeholder="Max Score (max is 5)"
                     value="{{ old('max_score') }}"
                 >
                 @error('max_score', 'flashcardCreate')

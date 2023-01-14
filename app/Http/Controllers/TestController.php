@@ -7,6 +7,7 @@ use App\Models\Test;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -101,8 +102,13 @@ class TestController extends Controller
     public function close(Test $test)
     {
 
+        if (($test->user->mostRecentTest()->completed_at === null) || !Carbon::parse($test->user->mostRecentTest()->completed_at)->isToday() ){
+            $test->user->increment('streak',1);
+        }
+
         $test->completed_at = now();
         $test->save();
+
 
         return view('tests.results', [
             'test' => $test

@@ -47,8 +47,8 @@
                 </div>
             </form>
             <div x-show="!thumbs">
-                <button class="text-2xl bg-gray-400 pt-3 pr-4 pl-4 pb-3 rounded-3xl" x-on:click="isAnswered">
-                    Reveal...
+                <button class="text-2xl bg-gray-400 pt-3 pr-4 pl-4 pb-3 rounded-3xl hover:bg-gray-200" x-on:click="isAnswered">
+                    Reveal answer ...
                 </button>
             </div>
 

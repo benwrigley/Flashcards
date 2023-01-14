@@ -22,7 +22,7 @@
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
-                    <span x-on:click="scoreboard = ! scoreboard"> {{ auth()->user()->name }} </span>
+                    <span x-on:click="scoreboard = ! scoreboard"> {{ auth()->user()->name }}  - Streak: {{ auth()->user()->streak }} </span>
 
                     <form method="GET" action="/logout" class="font-semibold text-blue-500 ml-6">
                         <button type="submit">Log Out</button>

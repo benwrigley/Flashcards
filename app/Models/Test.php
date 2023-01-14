@@ -27,33 +27,14 @@ class Test extends Model
 
     public function getResult(){
 
-        //$result = array();
-
-        return round(($this->final_score / ($this->max_score) *100) , 1);
-        // $message = "";
-        // switch (true){
-        //     case $score < 10:
-        //         $message = "Next time will be better!";
-        //         break;
-
-        //     case $score < 20:
-        //         $message = "Ok, today wasn't your best, but hang in there!";
-        //         break;
-
-        //     case $score < 30:
-        //         $message = "Better luck next time!";
-        //         break;
-
-        //     case $score < 40:
-        //         $message =
-
-        // }
-
-
+        return $this->final_score ?
+            round(($this->final_score / ($this->max_score) *100) , 1) :
+            0;
     }
 
     public function flashcards()
     {
         return $this->belongsToMany(Flashcard::class);
     }
+
 }

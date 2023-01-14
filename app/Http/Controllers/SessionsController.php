@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -24,7 +25,15 @@ class SessionsController extends Controller
         ]);
 
         if (auth()->attempt($attributes)){
-            return redirect('/')->with('success','Welcome back ' . Auth::user()->name);
+
+            $user = auth()->user();
+
+            if (! (Carbon::parse($user->mostRecentTest()->completed_at)->isToday() ||  Carbon::parse($user->mostRecentTest()->completed_at)->isYesterday())){
+                $user->streak = 0;
+                $user->save();
+            }
+
+            return redirect('/')->with('success','Welcome back ' . $user->name);
         }
 
         throw ValidationException::withMessages(['email' => 'Your provided credentials cannot be verified. Please try again.']);

@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->tests->count();
     }
 
+    public function mostRecentTest()
+    {
+        return $this->tests->sortByDesc('completed_at')->first();
+    }
+
     public function topics()
     {
         return $this->hasMany(Topic::class);
