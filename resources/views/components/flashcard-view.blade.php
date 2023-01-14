@@ -58,7 +58,7 @@
                     Select score :
                 </div>
                 @for($i=0; $i < $flashcard->max_score + 1; $i++ )
-                    <div class="ml-2 bg-gray-400 rounded-full pl-1 pr-1">
+                    <div class="ml-2 bg-gray-400 rounded-full pl-1 pr-1 hover:bg-gray-200">
                         <x-radio-element :value="$i" :label="$i" xdata="answer" />
                     </div>
                 @endfor

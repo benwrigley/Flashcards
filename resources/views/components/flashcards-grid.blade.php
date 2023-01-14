@@ -18,8 +18,17 @@
                 {{$flashcard->avg_score}}%
             </div>
             <div class="text-sm italic col-span-1 flex">
-                @include('icons/edit', ['width' => 20, 'height' => 20]) &nbsp;&nbsp;
-                @include('icons/delete', ['width' => 20, 'height' => 20])
+                <a href="{{route('flashcard.edit', $flashcard->id)}}">
+                    @include('icons/edit', ['width' => 20, 'height' => 20]) &nbsp;&nbsp;
+                </a>
+                <form action={{route('flashcard.destroy', $flashcard->id)}} onsubmit="return confirm('Are you sure you want to delete?')" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" value="DELETE">
+
+                    <button type="submit">
+                        @include('icons/delete', ['width' => 20, 'height' => 20])
+                    </button>
+                </form>
             </div>
 
         @endforeach

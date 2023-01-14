@@ -41,10 +41,6 @@ class TestController extends Controller
 
     public function start(Test $test){
 
-        // $flashcards =  cache()->remember("flashcards." . $test->id, 600, function() use($test){
-        //     return $test->flashcards();
-        // });
-
         return view('tests.show', [
             'test' => $test,
             'flashcards' => $test->flashcards,
@@ -70,32 +66,12 @@ class TestController extends Controller
 
         //update flashcard score
 
-        // $percentage = ($input['score'] / $flashcards[$count]->max_score) * 100;
-        // $flashcards[$count]->avg_score = ($flashcards[$count]->avg_score + $percentage) / 2;
-        // $flashcards[$count]->save();
-
         $flashcards[$count]->pivot->score = ($input['score'] / $flashcards[$count]->max_score) * 100;
         $flashcards[$count]->pivot->save();
 
         $flashcards[$count]->avg_score = DB::table('flashcard_test')->where('flashcard_id',$flashcards[$count]->id)->avg('score');
 
         $flashcards[$count]->save();
-
-
-
-        // $flashcard = Flashcard::withCount(['tests as avg_score' => function ($query) {
-        //     $query->select(DB::raw('AVG(score)'));
-        // }])->find($flashcards[$count]->id);
-
-        // $flashcard->save();
-
-        // $averageScore = $flashcards[$count]->tests()
-        //     ->select(DB::raw('AVG(score) as average_score'))
-        //     ->first()
-        //     ->average_score;
-
-        // dd($averageScore);
-
 
         $count++;
 
@@ -111,47 +87,6 @@ class TestController extends Controller
 
     }
 
-    // public function run(Test $test, Request $request)
-    // {
-
-    //     if (!is_null($request->input('correct'))){
-
-    //         $flashcard = Flashcard::find($request->input('flashcard'));
-
-    //         if($request->input('correct')){
-    //             $flashcard->increment('correct',1);
-    //             $test->increment('totalCorrect',1);
-    //         }
-    //         else
-    //         {
-    //             $flashcard->increment('incorrect',1);
-    //             $test->increment('totalIncorrect',1);
-    //         }
-
-    //     }
-
-    //     if ($request->input('test-over')){
-    //         return redirect('/test/close/' . $test->id);
-    //     }
-
-    //     $flashcards = $test->flashcards()->paginate(1);
-
-    //     //build the next url
-    //     $href = '';
-
-    //     if ($flashcards->currentPage() === $flashcards->lastPage()){
-    //         $href = request()->url() . '?' .  http_build_query(['test-over' => true, 'flashcard' => $flashcards[0]->id ]);
-    //     }
-    //     else {
-    //         $href = $flashcards->appends(['flashcard' => $flashcards[0]->id])->nextPageUrl();
-    //     }
-
-    //     return view('tests.show', [
-    //         'test' => $test,
-    //         'flashcards' => $flashcards,
-    //         'href' => $href
-    //     ]);
-    // }
 
     public function close(Test $test)
     {

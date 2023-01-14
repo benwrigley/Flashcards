@@ -7,21 +7,23 @@
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 <body style="font-family: Open Sans, sans-serif" class="bg-gray-900 text-white">
-    <section class="px-6 py-8">
+    <section class="px-6 py-8" x-data="{scoreboard:false}">
         <nav class="md:flex md:justify-between md:items-center">
             <div>
                 <a href="/">
-                    Flashcards
+                    FLASHCARDS
                 </a>
             </div>
 
             @auth
                 <div class="w-2/3"> <x-topics-breadcrumb :topic="isset($topic) ? $topic : null" /> </div>
+                <x-user-stats />
             @endauth
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
-                    <span> {{ auth()->user()->name }} </span>
+                    <span x-on:click="scoreboard = ! scoreboard"> {{ auth()->user()->name }} </span>
+
                     <form method="GET" action="/logout" class="font-semibold text-blue-500 ml-6">
                         <button type="submit">Log Out</button>
                     </form>

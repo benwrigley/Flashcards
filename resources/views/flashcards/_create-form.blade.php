@@ -1,6 +1,6 @@
 
 <div x-show="flashcardForm" class="fixed bottom-10 w-full flex justify-center">
-    <form method="POST" action="/flashcard/create" class="bg-gray-700 rounded p-4 w-10/12">
+    <form method="POST" action="{{route('flashcard.store')}}" class="bg-gray-700 rounded p-4 w-10/12">
         @csrf
 
         <div class="lg:grid lg:grid-cols-5 items-center">
@@ -15,7 +15,7 @@
                     id="question"
                     required
                 >{{ old('question') }}</textarea>
-                @error('question')
+                @error('question','flashcardCreate')
                     <p class="text-red-700 p-2 mb">{{ $message }}</p>
                 @enderror
             </div>
@@ -28,7 +28,7 @@
                     id="answer"
                     required
                 >{{ old('answer') }}</textarea>
-                @error('answer')
+                @error('answer','flashcardCreate')
                     <p class="text-red-700 p-2 mb">{{ $message }}</p>
                 @enderror
             </div>
@@ -42,7 +42,7 @@
                     placeholder="Max Score"
                     value="{{ old('max_score') }}"
                 >
-                @error('max_score')
+                @error('max_score', 'flashcardCreate')
                 <p class="text-red-700 p-2 mb">{{ $message }}</p>
             @enderror
             </div>

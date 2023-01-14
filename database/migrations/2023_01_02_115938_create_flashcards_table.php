@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('max_score')->default('1');
             $table->text('question');
             $table->text('answer');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });

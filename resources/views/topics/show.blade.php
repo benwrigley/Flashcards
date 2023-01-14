@@ -1,5 +1,16 @@
 <x-layout :topic="$topic">
+
+
 <div x-data="{ topicForm:false, flashcardForm:false }">
+
+    @if ($errors->flashcardCreate->count())
+        <div x-init="flashcardForm = true" />
+    @endif
+
+    @if ($errors->topicCreate->count())
+        <div x-init="topicForm = true" />
+    @endif
+
     <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
 
         <div class="pt-4">

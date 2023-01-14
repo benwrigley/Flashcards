@@ -9,6 +9,7 @@ use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
 
+
 //Route::view('/','dashboard')->name('home');
 Route::get('/', [TopicController::class, 'index']);
 Route::get('topics/{topic:slug}', [TopicController::class, 'show'])->middleware('auth');
@@ -21,9 +22,11 @@ Route::get('login', [SessionsController::class, 'create'])->name('login')->middl
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 Route::get('logout', [SessionsController::class, 'destroy']);
 
-Route::post('/topic/create', [TopicController::class, 'store'])->middleware('auth');
+Route::post('/topic/store', [TopicController::class, 'store'])->middleware('auth');
 
-Route::post('/flashcard/create', [FlashcardController::class, 'store'])->middleware('auth');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy']);
+});
 
 Route::get('/test/{topic}', [TestController::class, 'store'])->middleware('auth');
 Route::get('/starttest/{test}', [TestController::class, 'start'])->middleware('auth');

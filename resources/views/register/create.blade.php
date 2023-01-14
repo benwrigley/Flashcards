@@ -25,30 +25,6 @@
                     @enderror
                 </div>
 
-
-
-
-                {{-- <div class="mb-6">
-                    <label class="block mb-2  font-bold text-vs text-gray-700"
-                        for="username"
-                    >
-                        Username
-                    </label>
-
-                    <input class="border border-gray-400 p-2 w-full text-gray-700"
-                            type="text"
-                            name="username"
-                            id="username"
-                            value="{{ old('username') }}"
-                            required
-                    >
-                    @error('username')
-                        <p class="text-red-700 p-2 mb">{{ $message }}</p>
-                    @enderror
-                </div> --}}
-
-
-
                 <div class="mb-6">
                     <label class="block mb-2  font-bold text-vs text-gray-700"
                         for="email"
