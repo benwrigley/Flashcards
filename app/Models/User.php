@@ -45,10 +45,15 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-    // public function posts()
-    // {
-    //     return $this->hasMany(Post::class);
-    // }
+    public function averageScore()
+    {
+        return round($this->tests->avg('final_score'),1);
+    }
+
+    public function testsCompleted()
+    {
+        return $this->tests->count();
+    }
 
     public function topics()
     {

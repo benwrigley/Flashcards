@@ -15,6 +15,7 @@ class TestController extends Controller
     public function store(Topic $topic, $type)
     {
 
+        //limit on questions
         $limit = $type === '*' ? 100 : $type;
 
         $attributes['user_id'] = Auth::id();
@@ -34,8 +35,10 @@ class TestController extends Controller
             return redirect('/topics/' . $topic->slug)->with('error', 'An error occurred');
         }
 
+        //randomise
         $flashcards = $flashcards->shuffle();
 
+        //link the cards to the test
         foreach($flashcards as $flashcard)
         {
             $test->flashcards()->attach($flashcard->id);

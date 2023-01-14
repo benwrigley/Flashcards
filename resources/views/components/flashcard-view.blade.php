@@ -24,13 +24,13 @@
         }
     ">
 
-        <div x-show="!answershow">
-            {{$flashcard->question}}
+        <div x-show="!answershow" class="italic p-4 text-3xl">
+            "{{$flashcard->question}}"
         </div>
-        <div x-show="answershow">
-            {{$flashcard->answer}}
+        <div x-show="answershow" class="p-4 text-gray-400 italic text-3xl">
+            "{{$flashcard->answer}}"
         </div>
-        <div x-show="answershow" x-text="ans" class="mt-4">
+        <div x-show="answershow" x-text="ans" class="mt-4 text-3xl">
         </div>
 
         <div class="w-2/3 flex items-end flex-col">
@@ -47,8 +47,8 @@
                 </div>
             </form>
             <div x-show="!thumbs">
-                <button class="text-2xl bg-gray-400 p-3 rounded-3xl" x-on:click="isAnswered">
-                    Reveal Answer!
+                <button class="text-2xl bg-gray-400 pt-3 pr-4 pl-4 pb-3 rounded-3xl" x-on:click="isAnswered">
+                    Reveal...
                 </button>
             </div>
 
@@ -67,16 +67,6 @@
                 <input type="hidden" name="test" value="{{$test->id}}"/>
 
             </form>
-            {{-- <div x-show="thumbs" class="flex">
-
-                <div>
-                    <x-thumb-link icon="up" :href="$href . '&' . http_build_query(['correct' => 1])" />
-                </div>
-                <div>
-                    <x-thumb-link icon="down" :href="$href . '&' . http_build_query(['correct' => 0])" />
-                </div>
-
-            </div> --}}
 
 
         </div>

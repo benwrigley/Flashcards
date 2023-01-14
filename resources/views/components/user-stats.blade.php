@@ -3,13 +3,13 @@
         Completed Tests:
     </div>
     <div >
-        {{auth()->user()->tests->count()}}
+        {{ Auth::user()->testsCompleted(); }}
     </div>
     <div class="mr-2 col-span-5">
         Avg Score:
     </div>
     <div>
-        {{auth()->user()->tests->avg('final_score')}}%
+        {{ Auth::user()->averageScore(); }}%
     </div>
 
 </div>

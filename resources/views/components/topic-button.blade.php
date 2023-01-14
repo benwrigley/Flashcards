@@ -7,7 +7,7 @@
     <a
         href="{{$href}}"
         onclick="{{isset($href) ? '' : 'return false;'}}"
-        {{ $attributes->merge(['class' => 'px-3 py-1 rounded-full uppercase font-semibold']) }}
+        {{ $attributes->merge(['class' => 'px-3 py-1 rounded-full uppercase font-semibold hover:text-blue-200']) }}
     >
         {{$label}}
     </a>

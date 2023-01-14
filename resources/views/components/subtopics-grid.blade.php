@@ -7,7 +7,7 @@
                 :label="$topic->name"
                 :href="'/topics/' . $topic->slug"
                 click=''
-                class="bg-gray-600"
+                class="bg-gray-600 hover:bg-gray-400"
             />
         @endforeach
     </div>
