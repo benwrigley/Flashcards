@@ -28,7 +28,7 @@ class SessionsController extends Controller
 
             $user = auth()->user();
 
-            if (! (Carbon::parse($user->mostRecentTest()->completed_at)->isToday() ||  Carbon::parse($user->mostRecentTest()->completed_at)->isYesterday())){
+            if ($user->mostRecentTest()  && ! (Carbon::parse($user->mostRecentTest()->completed_at)->isToday() ||  Carbon::parse($user->mostRecentTest()->completed_at)->isYesterday())){
                 $user->streak = 0;
                 $user->save();
             }

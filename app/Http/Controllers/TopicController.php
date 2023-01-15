@@ -34,6 +34,7 @@ class TopicController extends Controller
             'name' => ['required','max:50','min:1','regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/'],
             'description' => ['max:150'],
             'topic_id' => ['exists:topics,id','nullable'],
+            'background' => ['required']
         ]);
 
         $attributes['user_id'] = Auth::id();

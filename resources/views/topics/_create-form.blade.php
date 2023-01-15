@@ -3,7 +3,7 @@
     <form method="POST" action="/topic/store" class="bg-gray-700 rounded p-4 w-10/12">
         @csrf
 
-        <div class="lg:grid lg:grid-cols-4 items-baseline">
+        <div class="lg:grid lg:grid-cols-5 items-baseline">
             <div class="text-right">
                 <span class=" mr-4 align-middle"> New Topic: </span>
             </div>
@@ -30,12 +30,13 @@
                         placeholder="Description"
                         id="description"
                         value="{{ old('description') }}"
-                        required
                 >
                 @error('description','topicCreate')
                     <p class="text-red-700 p-2 mb">{{ $message }}</p>
                 @enderror
             </div>
+
+            <x-color-picker name="background"/>
 
             <input
                 type="hidden"

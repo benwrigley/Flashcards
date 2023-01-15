@@ -7,7 +7,7 @@
                 :label="$topic->name"
                 :href="'/topics/' . $topic->slug"
                 click=''
-                class="bg-gray-600 hover:bg-gray-400"
+                class="{{ isSet($topic->background) ? $topic->background : 'bg-gray-600' }} hover:bg-gray-400"
             />
         @endforeach
     </div>

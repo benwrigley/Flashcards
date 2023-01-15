@@ -18,8 +18,9 @@ return new class extends Migration
             $table->foreignId('topic_id')->nullable();
             $table->foreignId('user_id');
             $table->string('slug')->unique();
+            $table->string('background')->nullable();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
