@@ -1,6 +1,5 @@
 @props(['xdata','value','label'])
 
-{{-- <button @click="{{$xdata}} = '{{$value}}'"> --}}
-<button @click="alert('Hello World!')">
+<button @click="{{$xdata}} = '{{$value}}'">
     {{$label}}
 </button>
