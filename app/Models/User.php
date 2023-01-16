@@ -47,7 +47,11 @@ class User extends Authenticatable
 
     public function averageScore()
     {
-        return round($this->tests->avg('final_score'),1);
+        return round(
+                ($this->tests->sum('final_score') / $this->tests->sum('max_score') * 100),
+                1
+        );
+
     }
 
     public function testsCompleted()

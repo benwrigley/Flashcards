@@ -17,7 +17,7 @@
 
             @auth
                 <div class="w-2/3"> <x-topics-breadcrumb :topic="isset($topic) ? $topic : null" /> </div>
-                <x-user-stats />
+                <x-scoreboard />
             @endauth
 
             <div class="mt-8 md:mt-0 flex items-center">
