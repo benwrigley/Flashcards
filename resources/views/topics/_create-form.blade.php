@@ -1,6 +1,6 @@
 
 <div x-show="topicForm" class="fixed bottom-10 w-full flex justify-center">
-    <form method="POST" action="/topic/store" class="bg-gray-700 rounded p-4 w-10/12">
+    <form method="POST" action="/topic" class="bg-gray-700 rounded p-4 w-10/12">
         @csrf
 
         <div class="lg:grid lg:grid-cols-5 items-baseline">

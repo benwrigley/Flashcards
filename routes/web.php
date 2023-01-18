@@ -22,10 +22,9 @@ Route::get('login', [SessionsController::class, 'create'])->name('login')->middl
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 Route::get('logout', [SessionsController::class, 'destroy']);
 
-Route::post('/topic/store', [TopicController::class, 'store'])->middleware('auth');
-
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy']);
+    Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy']);
 });
 
 Route::get('/test/{topic}/{type}', [TestController::class, 'store'])->middleware('auth')->name('test.store');

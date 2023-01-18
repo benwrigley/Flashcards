@@ -15,9 +15,9 @@ class Topic extends Model
 
     protected $guarded = ['id'];
 
-    public function scopeMine($query)
+    public function scopeMine($query, $parentId = null)
     {
-        return $query->where(['user_id' => Auth::id(), 'topic_id' => null]);
+        return $query->where(['user_id' => Auth::id(), 'topic_id' => $parentId ?? null]);
     }
 
     public function user()

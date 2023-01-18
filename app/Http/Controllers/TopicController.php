@@ -48,4 +48,70 @@ class TopicController extends Controller
         return redirect('/topics/' . $topic->slug)->with('success', $topic->name . ' has been created');
 
     }
+
+    public function update(Topic $topic)
+    {
+
+        $attributes = request()->validate([
+            'name' => ['required','max:50','min:1','regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/'],
+            'description' => ['max:150'],
+            'topic_id' => ['exists:topics,id','nullable'],
+            'background' => ['required']
+        ]);
+
+        $slug = Str::lower($attributes['name']) . "_" . Auth::id();
+        $slug = preg_replace("/[^a-z0-9-_]/", '', $slug);
+        $attributes['slug'] = $slug;
+
+
+        $topic->update($attributes);
+
+        return redirect('/topics/' . $topic->slug)->with('success', 'Topic has been updated');
+
+    }
+
+    public function edit(Topic $topic)
+    {
+
+        $topics = $this->_getHeirarchy($topic);
+
+        return view('topics.edit')->with(['topic' => $topic, 'topics' => $topics]);
+    }
+
+    public function destroy(Topic $topic)
+    {
+
+        if ($topic->children->count() || $topic->flashcards->count()){
+            return redirect('/topics/' . $topic->slug)->with('error', 'Please delete or reassign flashcards and subtopics first');
+        }
+
+        $returnpath = $topic->parent ? '/topics/' . $topic->parent->slug : '/';
+
+        $topic->delete();
+
+        return redirect($returnpath)->with('success', 'Topic has been deleted');
+
+
+    }
+
+    private function _getHeirarchy($thisTopic, $topicname =null, $topic = null)
+    {
+
+        $topics = Topic::mine($topic->id ?? null)->orderBy('name')->get();
+
+        $collect = collect([]);
+
+        foreach ($topics as $topic){
+
+            if ($topic->id === $thisTopic->id || $topic->flashcards->count()){
+                continue;
+            }
+
+            $name = $topicname ? $topicname . " // " . $topic->name : $topic->name;
+            $collect[$name] = $topic->id;
+            $collect = $collect->merge($this->_getHeirarchy($thisTopic, $name, $topic));
+        }
+
+        return $collect;
+    }
 }
