@@ -54,7 +54,7 @@
                         Parent Topic
                     </label>
                     <select id="topic_id" name="topic_id" class="text-gray-900 rounded p-1.5">
-                        <option value="{{ null }}">No Parent</option>
+                        <option value="{{ null }}">This is a main topic</option>
                         @foreach ($topics as $name => $id)
                             <option value="{{ $id }}" {{ ($id === $topic->topic_id) ? 'selected' : '' }}>{{ $name }}</option>
                         @endforeach
