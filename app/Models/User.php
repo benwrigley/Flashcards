@@ -60,7 +60,9 @@ class User extends Authenticatable
 
     public function testsCompleted()
     {
-        return Test::myCompleted()->count();;
+        return cache()->rememberForever("test_completed." . $this->id, function(){
+            return Test::myCompleted()->count();
+        });
     }
 
     public function mostRecentTest()

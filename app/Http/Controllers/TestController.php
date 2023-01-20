@@ -96,6 +96,7 @@ class TestController extends Controller
             $test->save();
 
             cache()->forget('average_score.' . $test->user_id);
+            cache()->forget('test_completed.' . $test->user_id);
 
             return redirect(route('test.close',$test->id));
         }
