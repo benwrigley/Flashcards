@@ -6,7 +6,14 @@
                 {{$count + 1 }} of {{$flashcards->count()}}
             </div>
             <div>
-            <a href="/closetest/{{ $test->id }} ">@include('icons/cross',['width' => 30, 'height' => 30, 'color' => 'red'])</a>
+                <form action={{route('test.close', $test->id)}} onsubmit="return confirm('Are you sure you want to stop? This will not update your streak OR your total tests complete.')" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" value="GET">
+
+                    <button type="submit">
+                        @include('icons/cross',['width' => 30, 'height' => 30, 'color' => 'red'])
+                    </button>
+                </form>
             </div>
         </div>
         <div>

@@ -7,6 +7,7 @@ use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Test extends Model
 {
@@ -14,6 +15,11 @@ class Test extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeMyCompleted($query){
+
+        return $query->where(['user_id' => Auth::id()])->whereNotNull('completed_at');
+
+    }
 
     public function user()
     {

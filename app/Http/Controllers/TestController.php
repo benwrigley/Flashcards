@@ -87,8 +87,17 @@ class TestController extends Controller
         $count++;
 
         if ($flashcards->count() === $count){
-            return redirect('/closetest/' . $test->id);
+
+            if (($test->user->mostRecentTest()->completed_at === null) || !Carbon::parse($test->user->mostRecentTest()->completed_at)->isToday() ){
+                $test->user->increment('streak',1);
+            }
+
+            $test->completed_at = now();
+            $test->save();
+
             cache()->forget('average_score.' . $test->user_id);
+
+            return redirect(route('test.close',$test->id));
         }
 
         return view('tests.show', [
@@ -102,14 +111,6 @@ class TestController extends Controller
 
     public function close(Test $test)
     {
-
-        if (($test->user->mostRecentTest()->completed_at === null) || !Carbon::parse($test->user->mostRecentTest()->completed_at)->isToday() ){
-            $test->user->increment('streak',1);
-        }
-
-        $test->completed_at = now();
-        $test->save();
-
 
         return view('tests.results', [
             'test' => $test

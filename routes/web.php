@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/test/{topic}/{type}', [TestController::class, 'store'])->middleware('auth')->name('test.store');
 Route::get('/starttest/{test}', [TestController::class, 'start'])->middleware('auth');
 Route::post('/answertest', [TestController::class, 'answer'])->middleware('auth');
-Route::get('/closetest/{test}', [TestController::class, 'close'])->middleware('auth');
+Route::get('/tests/{test}/close', [TestController::class, 'close'])->middleware('auth')->name('test.close');
 
 
 
