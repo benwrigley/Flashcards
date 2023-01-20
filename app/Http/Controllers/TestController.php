@@ -88,6 +88,7 @@ class TestController extends Controller
 
         if ($flashcards->count() === $count){
             return redirect('/closetest/' . $test->id);
+            cache()->forget('average_score.' . $test->user_id);
         }
 
         return view('tests.show', [

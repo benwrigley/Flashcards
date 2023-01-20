@@ -47,16 +47,20 @@ class User extends Authenticatable
 
     public function averageScore()
     {
-        return round(
-                ($this->tests->sum('final_score') / $this->tests->sum('max_score') * 100),
-                1
-        );
+
+        return cache()->remember("average_score." . $this->id, 60000, function(){
+            return round(
+                (Test::myCompleted()->sum('final_score') / Test::myCompleted()->sum('max_score') * 100),
+                    1
+            );
+        });
+
 
     }
 
     public function testsCompleted()
     {
-        return $this->tests->count();
+        return Test::myCompleted()->count();;
     }
 
     public function mostRecentTest()
