@@ -53,7 +53,6 @@ class Topic extends Model
             return $this->_getAncestors($this , collect([]));
         });
 
-
     }
 
     private function _getAncestors(Topic $topic,Collection $ancestory){

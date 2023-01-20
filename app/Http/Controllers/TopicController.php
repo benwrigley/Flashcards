@@ -66,6 +66,8 @@ class TopicController extends Controller
 
         $topic->update($attributes);
 
+        cache()->forget('ancestors.' . $topic->id);
+
         return redirect('/topics/' . $topic->slug)->with('success', 'Topic has been updated');
 
     }
