@@ -15,7 +15,7 @@ class TopicController extends Controller
     {
 
         return view('topics.index', [
-            'topics' => Topic::mine()->orderBy('name')->get()
+            'topics' => Auth::check() ? Topic::mine()->orderBy('name')->get() : null
         ]);
 
     }
