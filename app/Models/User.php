@@ -48,6 +48,10 @@ class User extends Authenticatable
     public function averageScore()
     {
 
+        if ($this->testsCompleted() < 1){
+            return 0;
+        }
+
         return cache()->remember("average_score." . $this->id, 60000, function(){
             return round(
                 (Test::myCompleted()->sum('final_score') / Test::myCompleted()->sum('max_score') * 100),
