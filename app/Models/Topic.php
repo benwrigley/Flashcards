@@ -59,7 +59,7 @@ class Topic extends Model
 
         $ancestory->prepend($topic);
 
-        if($topic->parent()->exists()){
+        if($topic->topic_id){
             $this->_getAncestors($topic->parent,$ancestory);
         }
 
