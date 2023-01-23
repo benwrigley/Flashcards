@@ -86,10 +86,13 @@ class TestController extends Controller
 
         $count++;
 
+        //is the test completed
         if ($flashcards->count() === $count){
 
+            $success = "Test Completed!";
             if (($test->user->mostRecentTest()->completed_at === null) || !Carbon::parse($test->user->mostRecentTest()->completed_at)->isToday() ){
                 $test->user->increment('streak',1);
+                $success = "Streak updated, keep it up!";
             }
 
             $test->completed_at = now();
@@ -97,8 +100,9 @@ class TestController extends Controller
 
             cache()->forget('average_score.' . $test->user_id);
             cache()->forget('test_completed.' . $test->user_id);
+            cache()->forget('least_tested.' . $test->user_id);
 
-            return redirect(route('test.close',$test->id));
+            return redirect(route('test.close',$test->id))->with('success', $success);
         }
 
         return view('tests.show', [

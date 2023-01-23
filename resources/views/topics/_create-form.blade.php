@@ -1,13 +1,17 @@
 
 <div x-show="topicForm" class="fixed bottom-10 w-full flex justify-center">
-    <form method="POST" action="/topic" class="bg-gray-700 rounded p-4 w-10/12">
-        @csrf
 
-        <div class="lg:grid lg:grid-cols-5 items-baseline">
+    <form method="POST" action="/topic" class="bg-gray-800 rounded p-4 w-10/12">
+        @csrf
+        <div class="flex justify-center">
+            <div class="pr-10">
+                {{-- @include('icons/info',['width' => 30, 'height' => 30]) --}}
+            </div>
             <div class="text-right">
+
                 <span class=" mr-4 align-middle"> New Topic: </span>
             </div>
-            <div >
+            <div class="w-1/4">
 
                 <input class="border border-gray-400 p-2 w-full text-gray-700"
                         type="text"
@@ -22,7 +26,7 @@
                 @enderror
             </div>
 
-            <div class="ml-6">
+            <div class="ml-6 w-1/4">
 
                 <input class="border border-gray-400 p-2 w-full text-gray-700"
                         type="textarea"
@@ -50,6 +54,7 @@
                 >
                 Create
                 </button>
+
             </div>
         </div>
     </form>

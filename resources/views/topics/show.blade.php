@@ -1,7 +1,7 @@
 <x-layout :topic="$topic">
 
 
-<div x-data="{ topicForm:false, flashcardForm:false, testOptions:false }">
+<div x-data="{ topicForm:false, flashcardForm:false}">
 
     @if ($errors->flashcardCreate->count())
         <div x-init="flashcardForm = true" />
@@ -11,10 +11,10 @@
         <div x-init="topicForm = true" />
     @endif
 
-    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
+    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6 bg-gray-800 p-4 rounded">
 
-        <div class="border-t-2 p-4 border-b-2" >
-            <div class="flex items-baseline ">
+        <div class="p-4 border-b-2 mb-10 ml-3 mr-3" >
+            <div class="flex items-baseline mb-4 ">
 
                 <div class="text-right mr-2">
                     <a href="{{route('topic.edit', $topic->id)}}">
@@ -32,54 +32,42 @@
                     </form>
                 </div>
 
-                <div class="italic text-4xl text-center w-9/12">
-                    {{$topic->name}} -  {{ $topic->description }}
+                <div class="italic text-4xl text-center bg-gray-700 rounded-3xl m-3 p-4 w-full">
+                    <div>
+                        {{$topic->name}}
+                    </div>
+                    <div class="text-2xl">
+                        {{ $topic->description }}
+                    </div>
                 </div>
 
-                @if ($topic->flashcards->count() || $topic->children->count())
-
-                    <div x-on:click="testOptions = ! testOptions">
-                        <div class="bg-blue-400 p-4 rounded-3xl text-center text-3xl hover:bg-blue-300"> Test Me! </div>
-                    </div>
-                @endif
             </div>
 
-            <div x-show="testOptions" class="flex justify-evenly mt-3">
-                <a href="{{ route('test.store',[$topic->id,'*']) }}">
-                    <div class="bg-blue-400 p-3 rounded-3xl text-center ">
-                        Everything!
-                    </div >
-                </a>
-                <a href="{{ route('test.store',[$topic->id,'5']) }}">
-                    <div class="bg-blue-400 p-3 rounded-3xl text-center ">
-                        Worst 5
-                    </div>
-                </a>
-                <a href="{{ route('test.store',[$topic->id,'10']) }}">
-                    <div class="bg-blue-400 p-3 rounded-3xl text-center ">
-                        Worst 10
-                    </div>
-                </a>
-            </div>
+            {{-- Test Section --}}
+            @if ($topic->flashcards->count() || $topic->children->count())
+                <x-test-grid :topic="$topic"/>
+            @endif
         </div>
 
-        @if ($topic->flashcards->count())
 
-            <div class="text-center p-12">
-                <x-flashcards-grid :flashcards="$topic->flashcards()->paginate(10)" />
-                <div x-on:click="flashcardForm=true" class="px-3 py-1 rounded-full uppercase font-semibold bg-gray-600 w-1/5 mt-8 text-center hover:bg-gray-400">
-                    New Flashcard ...
-                </div>
-            </div>
-
-        @elseif ($topic->children->count())
+        @if ($topic->children->count())
             <x-subtopics-grid :topics="$topic->children"/>
-            <div x-on:click="topicForm=true" class="px-3 py-1 rounded-full uppercase font-semibold bg-gray-600 w-1/5 mt-8 text-center hover:bg-gray-400">
+            <div x-on:click="topicForm=true" class="px-3 py-1 rounded-full uppercase font-semibold bg-gray-600 w-1/5 mt-12 text-center hover:bg-gray-400">
                 New Subtopic ...
             </div>
+        @elseif ($topic->flashcards->count())
+
+            <x-flashcards-grid :flashcards="$topic->flashcards()->paginate(10)"/>
+            <div x-on:click="flashcardForm=true" class="px-3 py-1 rounded-full uppercase font-semibold bg-gray-600 w-1/5 mt-12 text-center hover:bg-gray-500">
+                New Flashcard ...
+            </div>
+
+        @endif
+
+    </main>
 
 
-        @else
+    @if (!$topic->flashcards->count() && !$topic->children->count())
 
         <div class="flex justify-center p-16 items-baseline">
 
@@ -95,8 +83,7 @@
 
         </div>
 
-        @endif
-    </main>
+    @endif
 
 
     @include ('topics/_create-form', ['topic' => $topic])

@@ -1,6 +1,6 @@
 
 <div x-show="flashcardForm" class="fixed bottom-10 w-full flex justify-center">
-    <form method="POST" action="{{route('flashcard.store')}}" class="bg-gray-700 rounded p-4 w-10/12">
+    <form method="POST" action="{{route('flashcard.store')}}" class="bg-gray-800 rounded p-4 w-10/12">
         @csrf
 
         <div class="lg:grid lg:grid-cols-5 items-center">
@@ -39,7 +39,7 @@
                     type="text"
                     name="max_score"
                     id="max_score"
-                    placeholder="Max Score (max is 5)"
+                    placeholder="Maximum Points (1-5)"
                     value="{{ old('max_score') }}"
                 >
                 @error('max_score', 'flashcardCreate')

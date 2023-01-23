@@ -1,6 +1,6 @@
 @props(['href','label','click'])
 
-<div class="mb-3 flex justify-center" x-on:click="{{$click}}">
+<div x-on:click="{{$click}}" class="p-1 m-2 text-white">
 
     {{ $slot }}
 

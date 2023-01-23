@@ -1,9 +1,11 @@
 @props(['flashcards'])
 
 @if ($flashcards->count() > 0)
-    <div class="grid grid-cols-12">
-        <div class="col-span-8"> </div>
-        <div class="col-span-2 flex justify-center">
+    <div class="grid grid-cols-12 ml-10 items-center space-y-2">
+        <div class="col-span-8 italic underline">
+            Flashcards
+        </div>
+        <div class="col-span-2 flex justify-center italic underline">
             Average Score
         </div>
         <div class="col-span-2"></div>

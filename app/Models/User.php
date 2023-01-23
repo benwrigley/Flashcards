@@ -8,6 +8,7 @@ use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -52,13 +53,32 @@ class User extends Authenticatable
             return 0;
         }
 
-        return cache()->remember("average_score." . $this->id, 60000, function(){
+        return cache()->rememberForever("average_score." . $this->id, function(){
             return round(
                 (Test::myCompleted()->sum('final_score') / Test::myCompleted()->sum('max_score') * 100),
                     1
             );
         });
 
+    }
+
+    public function leastTestedTopic(){
+
+        if ($this->testsCompleted() < 1){
+            return null;
+        }
+
+        return cache()->rememberForever("least_tested." . $this->id, function(){
+            $topic = DB::table('tests')->selectRaw('count(tests.topic_id) as topic_count, topics.id')
+                ->join('topics', 'topics.id', 'tests.topic_id')
+                ->where('tests.user_id', $this->id)
+                ->whereNotNull('tests.completed_at')
+                ->groupBy('topics.id')
+                ->orderBy('topic_count')
+                ->first();
+
+            return Topic::find($topic->id);
+        });
 
     }
 
@@ -82,5 +102,10 @@ class User extends Authenticatable
     public function tests()
     {
         return $this->hasMany(Test::class);
+    }
+
+    public function flashcards()
+    {
+        return $this->hasMany(Flashcard::class);
     }
 }

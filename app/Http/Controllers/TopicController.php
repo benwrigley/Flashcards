@@ -45,7 +45,7 @@ class TopicController extends Controller
 
         $topic = Topic::create($attributes);
 
-        return redirect('/topics/' . $topic->slug)->with('success', $topic->name . ' has been created');
+        return redirect($topic->topic_id ? '/topics/' . $topic->parent->slug :  '/')->with('success', $topic->name . ' has been created');
 
     }
 
