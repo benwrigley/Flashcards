@@ -33,7 +33,7 @@ class TestController extends Controller
                         ->get();
 
         if($flashcards->count() < 1){
-            return redirect('/topics/' . $topic->slug)->with('error', 'An error occurred');
+            return redirect('/topics/' . $topic->slug)->with('error', 'Add flashcards to subtopics first');
         }
 
         //randomise
