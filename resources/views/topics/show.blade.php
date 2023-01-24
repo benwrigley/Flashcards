@@ -51,6 +51,9 @@
 
 
         @if ($topic->children->count())
+            {{-- <div class="text-center text-3xl italic">
+                Subtopics
+            </div> --}}
             <x-subtopics-grid :topics="$topic->children"/>
             <div x-on:click="topicForm=true" class="px-3 py-1 rounded-full uppercase font-semibold bg-gray-600 w-1/5 mt-12 text-center hover:bg-gray-400">
                 New Subtopic ...
