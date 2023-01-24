@@ -64,15 +64,14 @@ class User extends Authenticatable
 
     public function leastTestedTopic(){
 
-        if ($this->testsCompleted() < 1){
+        if (Topic::mine()->count() < 1){
             return null;
         }
 
         return cache()->rememberForever("least_tested." . $this->id, function(){
-            $topic = DB::table('tests')->selectRaw('count(tests.topic_id) as topic_count, topics.id')
-                ->join('topics', 'topics.id', 'tests.topic_id')
-                ->where('tests.user_id', $this->id)
-                ->whereNotNull('tests.completed_at')
+            $topic = DB::table('topics')->selectRaw('count(tests.topic_id) as topic_count, topics.id')
+                ->leftJoin('tests', 'topics.id', 'tests.topic_id')
+                ->where ('topics.user_id' , $this->id)
                 ->groupBy('topics.id')
                 ->orderBy('topic_count')
                 ->first();
