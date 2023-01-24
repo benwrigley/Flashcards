@@ -6,7 +6,9 @@ use App\Models\Flashcard;
 use App\Models\Topic;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 
 class TopicController extends Controller
@@ -31,7 +33,13 @@ class TopicController extends Controller
     public function store()
     {
         $attributes = request()->validateWithBag('topicCreate',[
-            'name' => ['required','max:50','min:1','regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/'],
+            'name' => [
+                'required',
+                'max:50',
+                'min:1',
+                'regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/',
+                Rule::unique('topics')->where(fn ($query) => $query->where('user_id', Auth::id()))
+            ],
             'description' => ['max:150'],
             'topic_id' => ['exists:topics,id','nullable'],
             'background' => ['required']
@@ -53,7 +61,13 @@ class TopicController extends Controller
     {
 
         $attributes = request()->validate([
-            'name' => ['required','max:50','min:1','regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/'],
+            'name' => [
+                'required',
+                'max:50',
+                'min:1',
+                'regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/',
+                Rule::unique('topics') //->where(fn ($query) => $query->where('user_id', Auth::id()))
+            ],
             'description' => ['max:150'],
             'topic_id' => ['exists:topics,id','nullable'],
             'background' => ['required']
