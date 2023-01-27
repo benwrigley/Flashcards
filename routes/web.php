@@ -6,31 +6,53 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\VerificationController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 
 
-//Route::view('/','dashboard')->name('home');
+
+
+
+
 Route::get('/', [TopicController::class, 'index']);
-Route::get('topics/{topic:slug}', [TopicController::class, 'show'])->middleware('auth');
-//Route::get('posts/{post:slug}', [PostContoller::class, 'show']);
 
-Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
-Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::get('login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
-Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
-Route::get('logout', [SessionsController::class, 'destroy']);
+Route::group(['middleware' => ['guest']], function () {
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy']);
-    Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy']);
+    Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+    Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+
+    Route::get('login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
+    Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
+
 });
 
-Route::get('/test/{topic}/{type}', [TestController::class, 'store'])->middleware('auth')->name('test.store');
-Route::get('/starttest/{test}', [TestController::class, 'start'])->middleware('auth');
-Route::post('/answertest', [TestController::class, 'answer'])->middleware('auth');
-Route::get('/tests/{test}/close', [TestController::class, 'close'])->middleware('auth')->name('test.close');
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/email/verify',[VerificationController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
+    Route::post('/email/verify/resend',[VerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.resend');
+
+    Route::get('logout', [SessionsController::class, 'destroy']);
+});
+
+
+Route::group(['middleware' => ['auth','verified']], function () {
+    Route::get('topics/{topic:slug}', [TopicController::class, 'show']);
+    Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy']);
+    Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','show']);
+
+    Route::get('/test/{topic}/{type}', [TestController::class, 'store'])->name('test.store');
+    Route::get('/starttest/{test}', [TestController::class, 'start']);
+    Route::post('/answertest', [TestController::class, 'answer']);
+    Route::get('/tests/{test}/close', [TestController::class, 'close'])->name('test.close');
+});
+
+
+
+
 
 
 

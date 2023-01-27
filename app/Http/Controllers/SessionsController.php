@@ -33,7 +33,9 @@ class SessionsController extends Controller
                 $user->save();
             }
 
-            return redirect('/')->with('success','Welcome back ' . $user->name);
+            return redirect()->intended()->with('success','Welcome back ' . $user->name);
+
+            //return redirect('/')->with('success','Welcome back ' . $user->name);
         }
 
         throw ValidationException::withMessages(['email' => 'Your provided credentials cannot be verified. Please try again.']);

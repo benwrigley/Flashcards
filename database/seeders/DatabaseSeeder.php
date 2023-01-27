@@ -21,8 +21,6 @@ class DatabaseSeeder extends Seeder
     {
 
         User::truncate();
-        Category::truncate();
-        Post::truncate();
         Topic::truncate();
         Flashcard::truncate();
 
