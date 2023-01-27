@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FlashcardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostContoller;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
@@ -16,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [TopicController::class, 'index']);
+
+Route::get('/', [HomeController::class, 'show']);
 
 
 Route::group(['middleware' => ['guest']], function () {
@@ -40,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 Route::group(['middleware' => ['auth','verified']], function () {
+    Route::get('topics/', [TopicController::class, 'index'])->name('topics.home');
     Route::get('topics/{topic:slug}', [TopicController::class, 'show']);
     Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy']);
     Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','show']);

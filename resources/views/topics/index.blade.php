@@ -2,7 +2,6 @@
 
 
     <div x-data="{topicForm:true}">
-        @auth
             <main class="w-4/6 mx-auto mt-6 lg:mt-20 space-y-6 bg-gray-800 p-3 rounded">
 
                 @if ($topics->count())
@@ -26,20 +25,6 @@
             <div>
                 @include ('topics/_create-form')
             </div>
-        @else
-
-            <div class="h-96 flex justify-center items-center">
-                <div class="mt-8 md:mt-0 ">
-                    <div class="bg-gray-400 p-4 rounded text-center text-2xl">
-                        Welcome to Flashcards
-                    </div>
-                    <div class="text-center p-2 mt-2 text-xl">
-                        <a href="/login">Login</a> or <a href="/register">Register</a> to get started
-                    </div>
-                </div>
-            </div>
-
-        @endauth
 
     </div>
 
