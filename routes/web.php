@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'show']);
+Route::get('/email/verify/sendconfirm',[VerificationController::class, 'sendconfirm'])->name('verification.sendconfirm');
 
 
 Route::group(['middleware' => ['guest']], function () {
