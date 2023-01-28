@@ -1,5 +1,6 @@
-<x-layout>
+<html>
 
+<body>
     <div class="flex flex-col">
         <div>
             Thank you for registering with flashcards! Please click the link below to verify your email address and let's get you testing!
@@ -9,5 +10,6 @@
             <a href="{{ $url }}"> Verify Email </a>
         </div>
     </div>
+</body>
 
-</x-layout>
+</html>

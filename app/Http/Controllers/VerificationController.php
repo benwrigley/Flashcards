@@ -31,8 +31,12 @@ class VerificationController extends Controller
 
         $user->sendEmailVerificationNotification();
 
-        return redirect('/')->with('success','If you have an account, we have resent your link.');
+        return redirect(route('verification.sendconfirm'));
 
 
+    }
+
+    public function sendConfirm(Request $request){
+        return view('auth.verify-email-sent');
     }
 }
