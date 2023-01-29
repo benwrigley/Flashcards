@@ -2,7 +2,7 @@
 
     <section class="px-6 py-8">
 
-        <main class="w-1/2 mx-auto bg-gray-400 p-6 rounded-xl">
+        <main class="w-1/2 mx-auto bg-gray-400 p-6 rounded-xl mt-3">
             <h1 class="text-center font-bold text-xl text-gray-900">Update Topic</h1>
             <form action="{{route('topic.update',$topic->id)}}" class="mt-10" method="POST">
                 <input type="hidden" name="_method" value="PUT">
@@ -69,7 +69,7 @@
 
                 <div class="mb-6">
                     <button type="submit"
-                            class="bg-gray-900 text-white rounded py-2 px-4 hover:bg-blue-500"
+                            class="bg-gray-900 text-white rounded py-2 px-4 mt-2 hover:bg-gray-600"
                     >
                     Update
                 </button>
