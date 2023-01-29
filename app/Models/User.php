@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Post;
 use App\Models\Topic;
+use App\Notifications\PasswordReset;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -86,6 +88,22 @@ class User extends Authenticatable implements MustVerifyEmail
         return cache()->rememberForever("test_completed." . $this->id, function(){
             return Test::myCompleted()->count();
         });
+    }
+
+
+    public function sendPasswordResetNotification($token){
+
+        // $this->notify(new MyCustomResetPasswordNotification($token)); <--- remove this line, use Mail instead like below:
+
+        $data = [ $this->email ];
+        Mail::send('emails.reset-password',
+        [
+            'name' => $this->name,
+            'reset_url' => route('password.reset', [
+                'token' => $token,
+                'email' => $this->email]),
+            ],
+            function($message) use($data){ $message->subject('Reset Password Request'); $message->to($data[0]); });
     }
 
     public function mostRecentTest()

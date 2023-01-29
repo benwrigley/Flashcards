@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FlashcardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostContoller;
@@ -29,6 +30,11 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::get('login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
     Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
+
+    Route::get('/forgot-password', [ResetPasswordController::class, 'requestForm'])->name('password.request');
+    Route::post('/forgot-password', [ResetPasswordController::class, 'send'])->name('password.email');
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->name('password.reset');
+    Route::post('/reset-password', [ResetPasswordController::class, 'update'])->name('password.update');
 
 });
 
