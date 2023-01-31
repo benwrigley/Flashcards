@@ -11,8 +11,8 @@
             <div>
                 <form method="post" action="{{route('password.update')}}" class="flex flex-col items-center">
                     @csrf
-                    <div>
-                        <input class="border border-gray-400 p-2 w-full text-gray-700"
+                    <div class="mb-4">
+                        <input class="border border-gray-400 p-2 w-full text-gray-700 rounded"
                             type = "text"
                             id = "email"
                             name= "email"
@@ -24,8 +24,8 @@
                             <p class="text-red-700 p-2 mb">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div>
-                        <input class="border border-gray-400 p-2 w-full text-gray-700"
+                    <div class="mb-4">
+                        <input class="border border-gray-400 p-2 w-full text-gray-700 rounded"
                             type = "password"
                             id = "password"
                             name= "password"
@@ -36,8 +36,8 @@
                             <p class="text-red-700 p-2 mb">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div>
-                        <input class="border border-gray-400 p-2 w-full text-gray-700"
+                    <div class="mb-4">
+                        <input class="border border-gray-400 p-2 w-full text-gray-700 rounded"
                         type = "password"
                         id = "password_confirmation"
                         name= "password_confirmation"
@@ -49,7 +49,7 @@
                         @enderror
                     </div>
                     <input type="hidden" name="token" value="{{$token}}">
-                    <button type="submit" class="bg-gray-700 hover:bg-gray-500 rounded-3xl p-3 text-xl mt-3"> Reset </button>
+                    <button type="submit" class="bg-gray-700 hover:bg-gray-500 rounded-3xl p-3 text-xl mt-3"> Save Password </button>
                 </form>
             </div>
         </main>

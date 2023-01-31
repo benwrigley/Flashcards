@@ -99,9 +99,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         Mail::send('emails.reset-password',
         [
             'name' => $this->name,
+            'subject' => 'Reset Password Request',
             'reset_url' => route('password.reset', [
                 'token' => $token,
-                'email' => $this->email]),
+                'email' => $this->email])
             ],
             function($message) use($data){ $message->subject('Reset Password Request'); $message->to($data[0]); });
     }
