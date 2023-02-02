@@ -25,8 +25,7 @@ Route::get('/email/verify/sendconfirm',[VerificationController::class, 'sendconf
 
 Route::group(['middleware' => ['guest']], function () {
 
-    Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
-    Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+    Route::resource('register', RegisterController::class)->only(['store','create']);
 
     Route::get('login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
     Route::post('login', [SessionsController::class, 'store'])->middleware('guest');

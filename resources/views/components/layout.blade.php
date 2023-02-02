@@ -39,7 +39,7 @@
                     </form>
 
                 @else
-                    <a href="/register">Register</a>
+                    <a href="{{route('register.create')}}">Register</a>
                     <a href="/login" class="ml-3">Login</a>
                 @endauth
             </div>

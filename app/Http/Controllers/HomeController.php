@@ -14,6 +14,6 @@ class HomeController extends Controller
             return redirect(route('topics.home'));
         }
 
-        return view('auth.login');
+        return view('session.create');
     }
 }
