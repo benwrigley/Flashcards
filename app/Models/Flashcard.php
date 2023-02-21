@@ -8,12 +8,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
 
 class Flashcard extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
+
+
+    public function shorterQuestion($limit){
+
+        return Str::limit($this->question, $limit , '...');
+
+    }
 
     public function scopeFromTopics($query,$topics)
     {

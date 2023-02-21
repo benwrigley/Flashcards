@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flashcard;
+use App\Models\Topic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,14 @@ class FlashcardController extends Controller
 
         return redirect('/topics/' . $flashcard->topic->slug)->with('success', 'Flashcard has been created');
 
+    }
+
+    public function create(Request $request)
+    {
+
+        $topic= Topic::find($request->topic);
+
+        return view('flashcards.create')->with('topic', $topic);
     }
 
 

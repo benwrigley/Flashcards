@@ -1,4 +1,4 @@
-<div x-show="scoreboard" x-on:click.outside="scoreboard = false" class="items-center grid grid-cols-2 fixed right-20 p-4 bg-gray-800 border-4 top-12 rounded-b space-y-1.5 mt-3 border-gray-900">
+<div x-show="scoreboard" x-on:click.outside="scoreboard = false" class="items-center grid grid-cols-2 fixed right-20 p-4 bg-gray-800 border-4 top-12 rounded-b space-y-1.5 mt-3 border-gray-900" style="display:none">
     <div class="mr-2 ">
         Total Flashcards:
     </div>

@@ -1,5 +1,5 @@
 
-<div x-show="flashcardForm" class="fixed bottom-10 w-full flex justify-center">
+<div x-show="flashcardForm" class="fixed bottom-10 w-full flex justify-center" style="display:none">
     <form method="POST" action="{{route('flashcard.store')}}" class="bg-gray-800 rounded p-4 w-10/12">
         @csrf
 

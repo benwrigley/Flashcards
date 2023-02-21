@@ -50,8 +50,9 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('topics/', [TopicController::class, 'index'])->name('topics.home');
     Route::get('topics/{topic:slug}', [TopicController::class, 'show']);
-    Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy']);
-    Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','show']);
+    //Route::get('flashcard/{topic:slug}', [FlashcardController::class, 'create']);
+    Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy','create']);
+    Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','show','create']);
 
     Route::get('/test/{topic}/{type}', [TestController::class, 'store'])->name('test.store');
     Route::get('/starttest/{test}', [TestController::class, 'start']);

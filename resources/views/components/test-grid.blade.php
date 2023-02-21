@@ -1,5 +1,5 @@
 @props(['topic'])
-<div class="left-14 fixed top-50 bg-gray-800 p-5 rounded w-56 border-gray-900 border-4">
+<div class="bg-gray-800 p-5 rounded w-56 border-gray-900 border-4">
     <div class="text-3xl text-center mb-2">
         Test Me!
     </div>

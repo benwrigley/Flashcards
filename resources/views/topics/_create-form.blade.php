@@ -1,5 +1,5 @@
 
-<div x-show="topicForm" class="fixed bottom-10 w-full flex justify-center">
+<div x-show="topicForm" class="fixed bottom-0 md:bottom-10 w-screen md:w-full flex justify-center" style="display:none">
 
     <form method="POST" action="/topic" class="bg-gray-800 rounded p-4 w-10/12">
         @csrf

@@ -1,7 +1,7 @@
 @props(['flashcard','count','test'])
 
 
-    <div class="bg-gray-800 flex flex-col items-center p-10 rounded-2xl text-5xl text-center border"
+    <div class="bg-gray-800 flex flex-col items-center p-2 md:p-10 rounded-2xl text-center border"
         x-data="{
             answershow : false,
             thumbs : false,
@@ -26,14 +26,16 @@
         }
     ">
 
-
-        <div x-show="!answershow" class="p-4 text-3xl bg-gray-700 rounded w-full">
+        {{-- Question --}}
+        <div x-show="!answershow" class="m-1 p-1 md:p-4 text-xl md:text-3xl bg-gray-700 rounded w-full">
             {{$flashcard->question}}
         </div>
-        <div x-show="answershow" class="p-4 bg-gray-700 rounded text-3xl w-full">
+        {{-- Answer --}}
+        <div x-show="answershow" class="m-1 p-1 md:p-4 text-xl md:text-3xl bg-gray-700 rounded w-full" x-cloak>
             {{$flashcard->answer}}
         </div>
-        <div x-show="answershow" x-text="ans" class="mt-4 text-3xl bg-gray-600 rounded text-3xl w-full p-4 ">
+        {{-- Your Answer --}}
+        <div x-show="answershow" x-text="ans" class="m-1 p-1 md:p-4 text-xl md:text-3xl bg-gray-600 rounded w-full" x-cloak>
         </div>
 
         <div class="w-2/3 flex items-end flex-col">
@@ -49,19 +51,17 @@
                     <p class="text-red-400 p-2 mb" x-text="error" ></p>
                 </div>
             </form>
-            <div x-show="reveal">
-                <button class="text-2xl bg-gray-700 pt-3 pr-4 pl-4 pb-3 rounded-3xl hover:bg-gray-600" x-on:click="isAnswered">
-                    Reveal answer ...
-                </button>
+            <div x-show="reveal" x-on:click="isAnswered" class="text-xl md:text-2xl" x-cloak>
+                <x-form-submit label="Reveal answer ..." />
             </div>
 
-            <form method="POST" action="/answertest" x-data="{score : 1, answer : ''}" class="flex justify mt-10 text-3xl p-2" x-show="thumbs">
+            <form method="POST" action="/answertest" x-data="{score : 1, answer : ''}" class="flex justify mt-10 text-3xl p-2" x-show="thumbs" x-cloak>
                 @csrf
-                <div>
+                <div class="text-xl md:text-3xl">
                     Select score :
                 </div>
                 @for($i=0; $i < $flashcard->max_score + 1; $i++ )
-                    <div class="ml-2 bg-gray-600 rounded-full pl-1 pr-1 hover:bg-gray-500">
+                    <div class="ml-2 bg-gray-600 rounded-full pl-1 pr-1 hover:bg-gray-500 text-xl md:text-3xl">
                         <x-radio-element :value="$i" :label="$i" xdata="answer" />
                     </div>
                 @endfor

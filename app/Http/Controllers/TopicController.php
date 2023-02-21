@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Flashcard;
 use App\Models\Topic;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,14 @@ class TopicController extends Controller
         return view('topics.show', [
             'topic' => $topic
         ]);
+    }
+
+    public function create(Request $request)
+    {
+
+        $topic= Topic::find($request->topic);
+
+        return view('topics.create')->with(['topic' => $topic]);
     }
 
     public function store()
@@ -66,7 +75,7 @@ class TopicController extends Controller
                 'max:50',
                 'min:1',
                 'regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/',
-                Rule::unique('topics') //->where(fn ($query) => $query->where('user_id', Auth::id()))
+                Rule::unique('topics')->ignore($topic->id), //->where(fn ($query) => $query->where('user_id', Auth::id()))
             ],
             'description' => ['max:150'],
             'topic_id' => ['exists:topics,id','nullable'],

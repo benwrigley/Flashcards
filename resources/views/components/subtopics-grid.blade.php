@@ -1,7 +1,7 @@
 @props(['topics'])
 
 @if ( $topics->count() > 0)
-    <div class="lg:grid lg:grid-cols-3 text-center">
+    <div class="grid grid-cols-3 text-center">
         @foreach ($topics as $topic)
             <x-topic-button
                 :label="$topic->name"

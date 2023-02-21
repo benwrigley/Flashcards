@@ -1,6 +1,41 @@
 <x-layout>
 
-    <section class="px-6 py-8">
+    <x-form-layout title="Update Topic" method="Post" :action="route('topic.update',$topic->id)">
+
+        <input type="hidden" name="_method" value="PUT">
+
+        <x-form-field type="text" id="name" :value="old('name',$topic->name)" required="required"  placeholder="Topic Name" />
+        <x-form-textarea id="description" :value="old('name',$topic->description)" required="required"  placeholder="Description" rows="3"/>
+
+        <div class="mb-6">
+            <label class="mb-2 font-bold text-vs text-gray-200"
+                for="name"
+            >
+                Parent
+            </label>
+            <select id="topic_id" name="topic_id" class="text-gray-900 rounded p-1.5">
+                <option value="{{ null }}">This is a main topic</option>
+                @foreach ($topics as $name => $id)
+                    <option value="{{ $id }}" {{ ($id === $topic->topic_id) ? 'selected' : '' }}>{{ $name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+
+
+
+
+        <x-color-picker name="background" :selected="$topic->background"/>
+
+
+        <x-form-submit label="Update" />
+
+
+
+    </x-form-layout>
+
+
+    {{-- <section class="px-6 py-8">
 
         <main class="w-1/2 mx-auto bg-gray-400 p-6 rounded-xl mt-3">
             <h1 class="text-center font-bold text-xl text-gray-900">Update Topic</h1>
@@ -75,7 +110,7 @@
                 </button>
             </form>
         </main>
-    </section>
+    </section> --}}
 
 
 

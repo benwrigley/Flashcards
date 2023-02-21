@@ -1,5 +1,5 @@
 @props(['name','selected'])
-<div class="flex justify">
+<div class="flex justify mb-2">
     @foreach([
         'bg-blue-300',
         'bg-purple-400',

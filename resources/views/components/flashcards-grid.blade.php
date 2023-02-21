@@ -1,11 +1,11 @@
 @props(['flashcards'])
 
 @if ($flashcards->count() > 0)
-    <div class="grid grid-cols-12 ml-10 items-center space-y-2">
-        <div class="col-span-8 italic underline">
+    <div class="grid grid-cols-12 ml-10 items-center md:space-y-2">
+        <div class="col-span-6 md:col-span-8 italic underline">
             Flashcards
         </div>
-        <div class="col-span-2 flex justify-center italic underline">
+        <div class="col-span-4 md:col-span-2 flex justify-center italic underline">
             Average Score
         </div>
         <div class="col-span-2"></div>
@@ -14,7 +14,14 @@
         @foreach ($flashcards as $flashcard)
 
             <div class="italic col-span-8 text-left pt-2">
-                '{{ Str::limit($flashcard->question, $limit = 50, $end = '...') }}'
+                {{-- larger --}}
+                <div class="md:block hidden">
+                    '{{$flashcard->shorterQuestion(80)}}'
+                </div>
+                {{-- smaller --}}
+                <div class="md:hidden block">
+                    '{{$flashcard->shorterQuestion(30)}}'
+                </div>
             </div>
             <div class="col-span-2 text-center">
                 {{$flashcard->avg_score}}%
