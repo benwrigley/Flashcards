@@ -7,8 +7,8 @@
     'length',
     'required'])
 
-<div class="mb-4 w-4/6">
-    <input class="border border-gray-400 p-2 text-gray-700 rounded text-sm md:text-xl w-full"
+{{-- <div class="mb-4 w-4/6"> --}}
+    <input class="border border-gray-400 p-2 text-gray-700 rounded text-sm lg:text-xl w-full"
             type = "{{$type}}"
             id = "{{$id}}"
             name= "{{$id}}"
@@ -16,9 +16,9 @@
             size= "{{$size ?? 20}}"
             placeholder = "{{$placeholder}}"
             value="{{ $value }}"
-            {{ $required }}
+            {{ $required ?? '' }}
     >
     @error($id)
-        <p class="text-red-700 text-sm md:text-xl md:p-2 mb">{{ $message }}</p>
+        <p class="text-red-700 text-sm lg:text-xl lg:p-2 mb">{{ $message }}</p>
     @enderror
-</div>
+{{-- </div> --}}

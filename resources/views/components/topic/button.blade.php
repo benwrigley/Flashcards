@@ -1,6 +1,6 @@
 @props(['href','label','click'])
 
-<div x-on:click="{{$click}}" class="p-1 m-2 text-white hover:scale-125 duration-500 md:text-xl text-sm">
+<div x-on:click="{{$click}}" class="p-1 m-2 text-white hover:scale-125 duration-500 lg:text-xl text-sm">
 
     {{ $slot }}
 

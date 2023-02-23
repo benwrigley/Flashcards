@@ -1,13 +1,18 @@
 <x-layout>
 
-    <x-form-layout title="Update Topic" method="Post" :action="route('topic.update',$topic->id)">
+    <x-form.layout title="Update Topic" method="Post" :action="route('topic.update',$topic->id)">
 
         <input type="hidden" name="_method" value="PUT">
 
-        <x-form-field type="text" id="name" :value="old('name',$topic->name)" required="required"  placeholder="Topic Name" />
-        <x-form-textarea id="description" :value="old('name',$topic->description)" required="required"  placeholder="Description" rows="3"/>
+        <div class="mb-2 w-5/6">
+            <x-form.field type="text" id="name" :value="old('name',$topic->name)" required="required"  placeholder="Topic Name" />
+        </div>
 
-        <div class="mb-6">
+        <div class="mb-2 w-5/6">
+            <x-form.textarea id="description" :value="old('name',$topic->description)" required="required"  placeholder="Description" rows="3"/>
+        </div>
+
+        <div class="mb-6 w-5/6 text-center">
             <label class="mb-2 font-bold text-vs text-gray-200"
                 for="name"
             >
@@ -21,18 +26,13 @@
             </select>
         </div>
 
+        <x-form.color-picker name="background" :selected="$topic->background"/>
+
+        <x-form.submit label="Update" />
 
 
 
-
-        <x-color-picker name="background" :selected="$topic->background"/>
-
-
-        <x-form-submit label="Update" />
-
-
-
-    </x-form-layout>
+    </x-form.layout>
 
 
     {{-- <section class="px-6 py-8">
@@ -100,7 +100,7 @@
 
 
 
-                <x-color-picker name="background" :selected="$topic->background"/>
+                <x-form.color-picker name="background" :selected="$topic->background"/>
 
                 <div class="mb-6">
                     <button type="submit"

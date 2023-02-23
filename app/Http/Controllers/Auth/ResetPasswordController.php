@@ -24,8 +24,13 @@ class ResetPasswordController
         );
 
         return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['success' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
+                ? redirect(route('login'))->with(['success' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+
+
+        // return $status === Password::RESET_LINK_SENT
+        //             ? back()->with(['success' => __($status)])
+        //             : back()->withErrors(['email' => __($status)]);
 
     }
 

@@ -1,7 +1,22 @@
 <x-layout :topic="$topic">
 
 
-<div x-data="{ topicForm:false, flashcardForm:false, testshow:false}">
+   {{-- Test Section --}}
+@if ($topic->flashcards->count() || $topic->children->count())
+    <div x-data="{ testshow:false }" class="absolute">
+        <div class="fixed right-1 bottom-1 lg:left-10 lg:top-1/2 block lg:text-3xl" x-on:click="testshow = ! testshow">
+            <x-form.submit label="Test Me!" bgcolor="bg-blue-500" />
+        </div>
+
+        <div class="mx-auto inset-x-2 inset-y-2" x-show="testshow" x-cloak>
+            <x-test.grid :topic="$topic"/>
+        </div>
+    </div>
+@endif
+
+
+
+<div x-data="{ topicForm:false, flashcardForm:false}">
 
     @if ($errors->flashcardCreate->count())
         <div x-init="flashcardForm = true" />
@@ -11,9 +26,9 @@
         <div x-init="topicForm = true" />
     @endif
 
-    <main class="sm:mt-10 md:mt-20 max-w-6xl mx-auto space-y-6 bg-gray-800 p-4 rounded">
+    <main class="sm:mt-10 lg:mt-20 max-w-6xl mx-auto space-y-6 bg-gray-800 p-4 rounded">
 
-        <div class="p-4 border-b-2 md:mb-10 md:mx-3" >
+        <div class="p-4 border-b-2 lg:mb-10 lg:mx-3" >
             <div class="flex items-baseline mb-4 ">
 
                 <div class="text-right mr-2">
@@ -32,40 +47,23 @@
                     </form>
                 </div>
 
-                <div class="italic text-center bg-gray-700 rounded-3xl ml-2 md:m-3 md:p-4 p-2 w-full">
-                    <div class="md:text-4xl text-2xl">
+                <div class="italic text-center bg-gray-700 rounded-3xl ml-2 lg:m-3 lg:p-4 p-2 w-full">
+                    <div class="lg:text-4xl text-2xl">
                         {{$topic->name}}
                     </div>
-                    <div class=" text-sm md:text-2xl">
+                    <div class=" text-sm lg:text-2xl">
                         {{ $topic->description }}
                     </div>
                 </div>
 
             </div>
 
-            {{-- Test Section --}}
-            @if ($topic->flashcards->count() || $topic->children->count())
-
-                {{-- Larger --}}
-                <div class="fixed top-50 left-5 md:block hidden" x-cloak>
-                    <x-test-grid :topic="$topic"/>
-                </div>
-
-                {{-- Smaller --}}
-                <div class="fixed right-1 bottom-1 md:hidden block" x-on:click="testshow = ! testshow" x-cloak>
-                    <x-form-submit label="Test Me!" bgcolor="bg-blue-500" />
-                </div>
-
-                <div class="mx-auto fixed inset-x-0 inset-y-0 top-10 left-10" x-show="testshow" x-cloak>
-                    <x-test-grid :topic="$topic"/>
-                </div>
-            @endif
         </div>
 
         @if ($topic->children->count())
-            <x-subtopics-grid :topics="$topic->children"/>
+            <x-topic.grid :topics="$topic->children"/>
         @elseif ($topic->flashcards->count())
-            <x-flashcards-grid :flashcards="$topic->flashcards()->paginate(10)"/>
+            <x-flashcard.grid :flashcards="$topic->flashcards()->paginate(10)"/>
         @endif
 
     </main>
@@ -73,22 +71,22 @@
     {{-- New topic and Flashcard buttons --}}
     <div class="max-w-6xl mx-auto space-y-6 mt-5">
         @if ($topic->children->count())
-            <x-topic-new-button :topic="$topic" />
+            <x-topic.new-button :topic="$topic" />
         @elseif ($topic->flashcards->count())
-            <x-flashcard-new-button :topic="$topic" />
+            <x-flashcard.new-button :topic="$topic" />
         @endif
 
         @if (!$topic->flashcards->count() && !$topic->children->count())
 
             <div class="flex justify-center p-16 items-baseline">
 
-                <x-flashcard-new-button :topic="$topic" />
+                <x-flashcard.new-button :topic="$topic" />
 
                 <div class="mx-10">
                     OR
                 </div>
 
-                <x-topic-new-button :topic="$topic" />
+                <x-topic.new-button :topic="$topic" />
             </div>
 
         @endif

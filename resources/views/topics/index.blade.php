@@ -6,12 +6,12 @@
 
                 @if ($topics->count())
 
-                    <x-subtopics-grid :topics="$topics"/>
+                    <x-topic.grid :topics="$topics"/>
 
                 @else
 
-                    <div class="rounded-3xl bg-gray-700 md:p-2 md:text-3xl text-center md:m-4 text-sm p-1"> Hey {{ Auth::user()->name }}, I can see you are new to Flashcards. Welcome! </div>
-                    <div class="text-sm md:text-xl lg:p-2 pl-4 md:ml-14 inline-block lg:space-y-6 p-1 space-y-3">
+                    <div class="rounded-3xl bg-gray-700 lg:p-2 lg:text-3xl text-center lg:m-4 text-sm p-1"> Hey {{ Auth::user()->name }}, I can see you are new to Flashcards. Welcome! </div>
+                    <div class="text-sm lg:text-xl lg:p-2 pl-4 lg:ml-14 inline-block lg:space-y-6 p-1 space-y-3">
                          <p>1. Start by adding a top-level topic like 'Maths' or 'History' at the bottom of this page.</p>
                          <p>2. Then you can create more top-level topics or click a the topic you just made to add sub-topics like 'Algebra' or 'Modern History'.</p>
                          <p>3. Keep adding as many topics/subtopics/subsubtopics and then add some flashcards.</p>
@@ -22,12 +22,12 @@
 
 
             </main>
-            <div class="hidden md:block">
+            <div class="hidden lg:block">
                 @include ('topics/_create-form')
             </div>
-            <div class="block md:hidden fixed bottom-5">
+            <div class="block lg:hidden fixed bottom-5">
                 <a href="{{route('topic.create')}}">
-                    <x-form-submit label="New Topic" />
+                    <x-form.submit label="New Topic" />
                 </a>
             </div>
 

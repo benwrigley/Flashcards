@@ -3,7 +3,7 @@
 @if ( $topics->count() > 0)
     <div class="grid grid-cols-3 text-center">
         @foreach ($topics as $topic)
-            <x-topic-button
+            <x-topic.button
                 :label="$topic->name"
                 :href="'/topics/' . $topic->slug"
                 click=''
