@@ -3,9 +3,9 @@
 
    {{-- Test Section --}}
 @if ($topic->flashcards->count() || $topic->children->count())
-    <div x-data="{ testshow:false }" class="absolute">
-        <div class="fixed right-1 bottom-1 lg:left-10 lg:top-1/2 block lg:text-3xl" x-on:click="testshow = ! testshow">
-            <x-form.submit label="Test Me!" bgcolor="bg-blue-500" />
+    <div x-data="{ testshow:false }" class="absolute w-auto">
+        <div class="fixed right-1 bottom-1 lg:left-10 lg:top-1/2 block lg:text-3xl w-fit">
+            <x-form.submit label="Test Me!" bgcolor="bg-blue-500" click="testshow = ! testshow" type="button"/>
         </div>
 
         <div class="mx-auto inset-x-2 inset-y-2" x-show="testshow" x-cloak>
