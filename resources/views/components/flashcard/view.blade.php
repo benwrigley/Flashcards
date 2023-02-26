@@ -55,17 +55,18 @@
                 <x-form.submit label="Reveal answer ..." />
             </div>
 
-            <form method="POST" action="/answertest" x-data="{score : 1, answer : ''}" class="flex justify mt-10 text-3xl p-2" x-show="thumbs" x-cloak>
+            <form method="POST" action="/answertest" class="flex justify mt-10 text-3xl p-2" x-show="thumbs" x-cloak x-ref="scoreForm">
                 @csrf
-                <div class="text-xl lg:text-3xl">
-                    Select score :
-                </div>
-                @for($i=0; $i < $flashcard->max_score + 1; $i++ )
-                    <div class="ml-2 bg-gray-600 rounded-full pl-1 pr-1 hover:bg-gray-500 text-xl lg:text-3xl">
-                        <x-form.radio-element :value="$i" :label="$i" xdata="answer" />
+
+
+                <div class="flex justify-center p-2 mb-4 items-center">
+                    <div class="text-xl lg:text-3xl mr-4">
+                        Select score :
                     </div>
-                @endfor
-                <input type="hidden" name="score" x-model="answer"/>
+                    <x-form.radio :list="range(0,$flashcard->max_score)" name="score" click="$refs.scoreForm.submit()"/>
+
+                </div>
+
                 <input type="hidden" name="count" value="{{$count}}"/>
                 <input type="hidden" name="test" value="{{$test->id}}"/>
 

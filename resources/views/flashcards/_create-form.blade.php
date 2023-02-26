@@ -15,9 +15,10 @@
             </div>
 
 
-            <div class="ml-6 w-100">
 
-                    <x-form.field type="text" name="max_score" id="max_score" placeholder="Max Score (1-5)" required="required" :value="old('max_score')" length="1" />
+
+            <div class="ml-6 w-100 flex justify-center">
+                <x-form.radio :list="range(1,5)" name="max_score" class=""/>
 
             </div>
 

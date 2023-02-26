@@ -8,8 +8,12 @@
         <div class="mb-2 w-5/6">
             <x-form.textarea id="answer" placeholder="Answer" :value="old('answer',$flashcard->answer)" rows="3" required="required" />
         </div>
-        <div class="mb-2 w-5/6">
-            <x-form.field type="text" id="max_score" placeholder="Max Score(1-5)" :value="old('max_score',$flashcard->max_score)" length="1" required="required" />
+        <div class="w-5/6 flex justify-center p-2 mb-4 items-center">
+            <div class="mr-4">
+                Max Score:
+            </div>
+            <x-form.radio :list="range(1,5)" name="max_score" class="" :select="old('max_score',$flashcard->max_score)"/>
+
         </div>
         <x-form.submit label="Update" />
     </x-form.layout>
