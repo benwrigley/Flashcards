@@ -8,7 +8,7 @@
             <x-form.submit label="Test Me!" bgcolor="bg-blue-500" click="testshow = ! testshow" type="button"/>
         </div>
 
-        <div class="mx-auto inset-x-2 inset-y-2" x-show="testshow" x-cloak>
+        <div class="flex h-screen justify-center items-center" x-show="testshow" x-cloak>
             <x-test.grid :topic="$topic"/>
         </div>
     </div>
