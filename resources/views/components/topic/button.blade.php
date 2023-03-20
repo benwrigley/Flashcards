@@ -18,7 +18,7 @@
         {{$label}}
     </a>
     @isset($description)
-        <div x-show="description" class="text-xs bg-gray-600 w-1/2 absolute left-1/2 rounded">
+        <div x-show="description" class="text-xs bg-gray-600 w-1/2 absolute left-1/2 rounded invisible lg:visible">
             {{$description}}
         </div>
     @endisset
