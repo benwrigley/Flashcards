@@ -44,7 +44,7 @@
 
                     <textarea class="border border-gray-400 p-2 w-full text-gray-700 rounded" x-model="ans" x-on:keydown="answered=true;reveal=true"
                         name="answer"
-                        placeholder="Type your answer ... "
+                        placeholder="Type your answer ... ({{$flashcard->max_score}} points)"
                         id="answer"
                         required
                     >{{ old('answer') }}</textarea>
