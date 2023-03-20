@@ -9,7 +9,7 @@
         </div>
 
         <div class="mb-2 w-5/6">
-            <x-form.textarea id="description" :value="old('name',$topic->description)" required="required"  placeholder="Description" rows="3"/>
+            <x-form.textarea id="description" :value="old('description',$topic->description)" required="required"  placeholder="Description" rows="3"/>
         </div>
 
         <div class="mb-6 w-5/6 text-center">
