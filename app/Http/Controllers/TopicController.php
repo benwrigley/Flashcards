@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Flashcard;
 use App\Models\Topic;
+use App\Rules\SpecialCharacters;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,7 @@ class TopicController extends Controller
                 'required',
                 'max:50',
                 'min:1',
-                'regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/',
+                new SpecialCharacters,
                 Rule::unique('topics')->where(fn ($query) => $query->where('user_id', Auth::id()))
             ],
             'description' => ['max:150'],
@@ -74,7 +75,7 @@ class TopicController extends Controller
                 'required',
                 'max:50',
                 'min:1',
-                'regex:/^[a-zA-Z0-9\s\-\_\,\(\)]+$/',
+                new SpecialCharacters,
                 Rule::unique('topics')->ignore($topic->id), //->where(fn ($query) => $query->where('user_id', Auth::id()))
             ],
             'description' => ['max:150'],
