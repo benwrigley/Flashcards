@@ -6,11 +6,11 @@
         <div class="flex justify-center items-center">
 
             <div class="w-1/4">
-                <x-form.field type="text" id="name" placeholder="New Topic Name" :value="old('name')" />
+                <x-form.field type="text" id="name" placeholder="New Topic Name" :value="old('name')" length="100" errorbag="topicCreate"/>
             </div>
 
             <div class="ml-6 w-1/4">
-                <x-form.field type="text" id="description" placeholder="Description" :value="old('description')" />
+                <x-form.field type="text" id="description" placeholder="Description" :value="old('description')" length="200" errorbag="topicCreate" />
             </div>
 
             <x-form.color-picker name="background"/>

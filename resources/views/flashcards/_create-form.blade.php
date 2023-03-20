@@ -8,10 +8,10 @@
                 <span class=" mr-4 align-middle"> New Flashcard: </span>
             </div>
             <div class="px-2" >
-                <x-form.textarea type="textarea" name="question" id="question" placeholder="Question" required="required" :value="old('question')" rows="2" />
+                <x-form.textarea type="textarea" name="question" id="question" placeholder="Question" required="required" :value="old('question')" rows="2" errorbag="flashcardCreate"/>
             </div>
             <div class="px-2" >
-                <x-form.textarea type="textarea" name="answer" id="answer" placeholder="Answer" required="required" :value="old('answer')" rows="2" />
+                <x-form.textarea type="textarea" name="answer" id="answer" placeholder="Answer" required="required" :value="old('answer')" rows="2" errorbag="flashcardCreate" />
             </div>
 
 
