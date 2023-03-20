@@ -61,7 +61,10 @@ class FlashcardController extends Controller
     public function edit(Flashcard $flashcard)
     {
 
-        return view('flashcards.edit')->with('flashcard', $flashcard);
+        $topics = $this->_getAllTopics($flashcard->topic);
+
+        return view('flashcards.edit')->with(['flashcard' => $flashcard,'topics' => $topics]);
+
     }
 
 
@@ -72,6 +75,7 @@ class FlashcardController extends Controller
             'question' => ['required','max:255'],
             'answer' => ['required','max:255'],
             'max_score' => ['numeric','min:1','max:5','nullable'],
+            'topic_id' => ['exists:topics,id','nullable'],
         ]);
 
 
@@ -85,6 +89,29 @@ class FlashcardController extends Controller
 
         return redirect('/topics/' . $flashcard->topic->slug)->with('success', 'Flashcard has been updated');
 
+    }
+
+
+    private function _getAllTopics($thisTopic, $topicname =null, $topic = null)
+    {
+
+        $topics = Topic::mine($topic->id ?? null)->orderBy('name')->get();
+
+        $collect = collect([]);
+
+        foreach ($topics as $topic){
+
+            $name = $topicname ? $topicname . " // " . $topic->name : $topic->name;
+
+            if (!$topic->children->count()){
+                $collect[$name] = $topic->id;
+            }
+
+
+            $collect = $collect->merge($this->_getAllTopics($thisTopic, $name, $topic));
+        }
+
+        return $collect;
     }
 
 

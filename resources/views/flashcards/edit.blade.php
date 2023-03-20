@@ -8,6 +8,18 @@
         <div class="mb-2 w-5/6">
             <x-form.textarea id="answer" placeholder="Answer" :value="old('answer',$flashcard->answer)" rows="3" required="required" />
         </div>
+        <div class="mb-6 w-5/6 text-center">
+            <label class="mb-2 font-bold text-vs text-gray-200"
+                for="topic_id"
+            >
+                Parent
+            </label>
+            <select id="topic_id" name="topic_id" class="text-gray-900 rounded p-1.5">
+                @foreach ($topics as $name => $id)
+                    <option value="{{ $id }}" {{ ($id === $flashcard->topic_id) ? 'selected' : '' }}>{{ $name }}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="w-5/6 flex justify-center p-2 mb-4 items-center">
             <div class="mr-4">
                 Max Score:
