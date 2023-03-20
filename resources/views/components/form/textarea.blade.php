@@ -1,4 +1,4 @@
-@props(['id','type','placeholder','value','required','rows'])
+@props(['id','type','placeholder','value','required','rows','errorbag'])
 
 {{-- <div class="mb-4 w-4/6"> --}}
 
@@ -9,7 +9,7 @@
         rows="{{ $rows }}"
         placeholder="{{ $placeholder }}"
     >{{ $value  }}</textarea>
-    @error($id)
+    @error($id,$errorbag ?? null)
         <p class="text-red-700 p-2 mb">{{ $message }}</p>
     @enderror
 {{-- </div> --}}
