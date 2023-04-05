@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\TopicController;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -14,6 +15,7 @@ class HomeController extends Controller
             return redirect(route('topics.home'));
         }
 
-        return view('session.create');
+        return redirect(route('login'));
+
     }
 }

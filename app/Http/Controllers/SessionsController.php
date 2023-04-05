@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
 
 class SessionsController extends Controller
 {
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('session.create');
+
+        return Inertia::render('Session/Create');
 
     }
 
@@ -33,11 +36,11 @@ class SessionsController extends Controller
                 $user->save();
             }
 
-            return redirect()->intended()->with('success','Welcome back ' . $user->name);
+            return redirect(route('topics.home'))->with('notify', 'Welcome back ' . $user->name);
 
         }
 
-        throw ValidationException::withMessages(['email' => 'Your provided credentials cannot be verified. Please try again.']);
+        return back()->withErrors(['email' => 'Your provided credentials cannot be verified.']);
 
     }
 
@@ -47,7 +50,7 @@ class SessionsController extends Controller
 
         auth()->logout();
 
-        return redirect('/')->with('success', 'Goodbye!');
+        return Redirect::route('login')->with('notify', 'Goodbye!');
 
     }
 

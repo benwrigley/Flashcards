@@ -13,13 +13,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 
-
-
-
-
-
-
-Route::get('/', [HomeController::class, 'show']);
+Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/email/verify/sendconfirm',[VerificationController::class, 'sendconfirm'])->name('verification.sendconfirm');
 
 

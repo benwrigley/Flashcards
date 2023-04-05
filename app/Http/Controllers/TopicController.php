@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 
 class TopicController extends Controller
@@ -18,16 +19,21 @@ class TopicController extends Controller
     public function index()
     {
 
-        return view('topics.index', [
+        return Inertia::render('Topic/Index',[
             'topics' => Auth::check() ? Topic::mine()->orderBy('name')->get() : null
         ]);
+
+        // return view('topics.index', [
+        //     'topics' => Auth::check() ? Topic::mine()->orderBy('name')->get() : null
+        // ]);
 
     }
 
     public function show(Topic $topic)
     {
 
-        return view('topics.show', [
+        // return view('topics.show', [
+        return Inertia::render('Topic/Show',[
             'topic' => $topic
         ]);
     }
