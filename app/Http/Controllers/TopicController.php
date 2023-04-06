@@ -23,10 +23,6 @@ class TopicController extends Controller
             'topics' => Auth::check() ? Topic::mine()->orderBy('name')->get() : null
         ]);
 
-        // return view('topics.index', [
-        //     'topics' => Auth::check() ? Topic::mine()->orderBy('name')->get() : null
-        // ]);
-
     }
 
     public function show(Topic $topic)

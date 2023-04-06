@@ -6,12 +6,15 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class RegisterController extends Controller
 {
     public function create()
     {
-        return view('register.create');
+
+        return Inertia::render('Register/Create');
+        // return view('register.create');
     }
 
     public function store()
@@ -28,7 +31,7 @@ class RegisterController extends Controller
 
         //auth()->login($user);
 
-        return redirect('/')->with('success',$user->name . '. Your account has been created. Please check your email');;
+        return redirect(route('login'))->with('success',$user->name . '. Your account has been created. Please check your email');;
 
     }
 }

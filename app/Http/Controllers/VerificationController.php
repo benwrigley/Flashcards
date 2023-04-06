@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class VerificationController extends Controller
 {
@@ -12,13 +13,17 @@ class VerificationController extends Controller
 
     public function notice(){
 
-        return view('auth.verify-email');
+        return Inertia::render('Auth/VerifyEmail');
+
+        // return view('auth.verify-email');
     }
 
     public function verify(EmailVerificationRequest $request){
 
         $request->fulfill();
-        return redirect('/')->with('success','Thank you, account verified');
+
+
+        return redirect(route('login'))->with('success','Thank you, your account has been account verified');
     }
 
     public function resend(Request $request){
