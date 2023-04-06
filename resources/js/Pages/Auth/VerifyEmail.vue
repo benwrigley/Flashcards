@@ -25,13 +25,13 @@
 
 
         <div class="w-full grid place-items-center">
-            <div class="mb-10">
-                <div class="flex justify-center items-center mb-10 bg-gray-800 rounded p-5">
+            <div class="mb-10 border p-5 border-gray-500 rounded-xl">
+                <div class="flex justify-center items-center mb-10 lg:bg-gray-800 rounded p-5">
                     <WarningTriangle class="fill-red-600 mr-5" height="30" width="30" />
                     <p class="text-3xl text-center">Your account is not yet verified.</p>
 
                 </div>
-                <div class="text-center">
+                <div class="text-center lg:text-3xl text-2xl">
                     Please check your email for the verification link
                 </div>
             </div>
@@ -44,6 +44,7 @@
                 id="email"
                 placeholder="Email"
                 class="lg:w-1/3"
+                fieldclass="bg-gray-700"
 
             />
 

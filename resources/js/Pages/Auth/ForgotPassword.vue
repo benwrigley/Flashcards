@@ -27,7 +27,7 @@
             <FormInput
                 id="email"
                 placeholder="Enter Email Address"
-                class="lg:w-2/3 mt-3 mb-8"
+                class="lg:w-2/3 w-3/4 mt-3 mb-8"
 
             />
 

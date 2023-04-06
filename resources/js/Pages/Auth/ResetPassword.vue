@@ -34,7 +34,7 @@
             <FormInput
                 id="email"
                 placeholder="Enter Email Address"
-                class="lg:w-2/3"
+                class="lg:w-2/3 w-3/4"
 
             />
 
@@ -42,7 +42,7 @@
                 type="password"
                 id="password"
                 placeholder="New Password"
-                class="lg:w-2/3"
+                class="lg:w-2/3 w-3/4"
 
             />
 
@@ -50,11 +50,11 @@
                 type="password"
                 id="password_confirmation"
                 placeholder="Confirm Password"
-                class="lg:w-2/3"
+                class="lg:w-2/3 w-3/4"
 
             />
 
-            <div class="flex justify-between w-2/3">
+            <div class="flex justify-between lg:w-2/3 w-full">
                     <LinkButton
                         label="I've remembered!"
                         class="bg-gray-900 text-gray-500"

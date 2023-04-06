@@ -18,6 +18,7 @@ const props = defineProps({
         type: String,
         default: 'w-11/12 lg:w-4/6'
     },
+    fieldclass: String
 
 });
 
@@ -30,15 +31,14 @@ const form = inject('form');
 
     <div class="mb-4 text-black" :class="class">
 
-        <!-- @input="$emit('update:modelValue', $event.target.value);"
-                 v-text="modelValue" -->
-
         <input
             :id="id"
             :type="type"
             :placeholder="placeholder"
             v-model="form[props.id]"
-            class="border border-gray-400 p-2 text-gray-700 rounded text-sm lg:text-xl w-full"/>
+            class="border border-gray-400 p-2 text-gray-700 rounded text-base lg:text-xl w-full"
+            :class="fieldclass"/>
+
 
         <FormError v-if="form.errors[props.id]">
             {{ form.errors[props.id] }}
