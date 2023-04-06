@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ResetPasswordController
 {
 
     public function requestForm(){
-        return view('auth.forgot-password');
+        return Inertia::render('Auth/ForgotPassword');
     }
 
     public function send(Request $request){
@@ -27,15 +28,11 @@ class ResetPasswordController
                 ? redirect(route('login'))->with(['success' => __($status)])
                 : back()->withErrors(['email' => __($status)]);
 
-
-        // return $status === Password::RESET_LINK_SENT
-        //             ? back()->with(['success' => __($status)])
-        //             : back()->withErrors(['email' => __($status)]);
-
     }
 
     public function resetForm($token){
-        return view('auth.reset-password', ['token' => $token]);
+
+        return Inertia::render('Auth/ResetPassword', ['token' => $token]);
     }
 
     public function update(Request $request){
@@ -60,8 +57,8 @@ class ResetPasswordController
         );
 
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+            ? redirect(route('login'))->with(['success' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
     }
 
 }
