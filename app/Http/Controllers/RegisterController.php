@@ -29,9 +29,9 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        //auth()->login($user);
+        auth()->login($user);
 
-        return redirect(route('login'))->with('success',$user->name . '. Your account has been created. Please check your email');;
+        return redirect(route('home'))->with('success','Hi ' . $user->name . '! Please check your email to verify your account.');;
 
     }
 }

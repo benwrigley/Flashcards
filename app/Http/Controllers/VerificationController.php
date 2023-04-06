@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class VerificationController extends Controller
@@ -22,8 +23,7 @@ class VerificationController extends Controller
 
         $request->fulfill();
 
-
-        return redirect(route('login'))->with('success','Thank you, your account has been account verified');
+        return Redirect::route('login')->with('success','Thank you, your account has been account verified. Please login.');
     }
 
     public function resend(Request $request){
