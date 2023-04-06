@@ -10,11 +10,6 @@ import FormButton from '@/Shared/FormButton.vue'
 import LinkButton from '@/Shared/LinkButton.vue'
 
 
-
-
-defineProps({ errors: Object })
-
-
 const form = useForm({
     email: null,
     password: null,
@@ -25,7 +20,7 @@ provide('form', form);
 </script>
 
 <template>
-    <Layout>
+    <Layout title="Login">
         <div class="w-full grid place-items-center">
         <FormLayout title="Welcome to Flashcards!" method="post" :routeName="route('login')">
                 <FormInput
@@ -50,8 +45,8 @@ provide('form', form);
                     />
                 </div>
         </FormLayout>
-        <div class="mt-10">
-            Not registered yet? <LinkButton :link="route('register.create')" class="bg-gray-800" label="click here" />
+        <div class="mt-10 text-xl">
+            Not signed up yet? <LinkButton :link="route('register.create')" class="bg-gray-800" label="register here" />
         </div>
     </div>
     </Layout>
