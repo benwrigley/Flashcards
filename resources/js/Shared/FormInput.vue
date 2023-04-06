@@ -13,7 +13,11 @@ const props = defineProps({
     id : String,
     placeholder: String,
     modelValue : String,
-    error: String
+    error: String,
+    class : {
+        type: String,
+        default: 'w-11/12 lg:w-4/6'
+    },
 
 });
 
@@ -24,7 +28,7 @@ const form = inject('form');
 
 <template>
 
-    <div class="mb-4 w-11/12 lg:w-4/6 text-black">
+    <div class="mb-4 text-black" :class="class">
 
         <!-- @input="$emit('update:modelValue', $event.target.value);"
                  v-text="modelValue" -->

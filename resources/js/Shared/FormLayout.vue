@@ -2,10 +2,14 @@
 
 import { inject } from 'vue';
 
-    defineProps({
+    const props = defineProps({
         title: String,
         method : String,
         routeName: String,
+        box : {
+            type : Boolean,
+            default : true
+        }
 
     });
 
@@ -15,7 +19,9 @@ import { inject } from 'vue';
 
 <template>
 
-    <div class="lg:bg-gray-800 p-4 rounded-xl w-full lg:w-1/2">
+    <div
+        class="p-4 rounded-xl w-full lg:w-1/2"
+        :class="{'lg:bg-gray-800' : box}">
 
         <div v-if="title" class="text-2xl lg:text-3xl text-center mt-3 lg:mb-3">
             {{ title }}
