@@ -1,18 +1,20 @@
 <script setup>
 
     import Layout from '@/Shared/Layout.vue';
-    import TopicButton from '@/Shared/TopicButton.vue';
-    import TopicCreateForm from '@/Shared/TopicCreateForm.vue';
-
+    import TopicBlock from '@/Shared/Topic/TopicBlock.vue'
+    import { ref } from 'vue';
 
     defineProps({
         topics: Array
     });
 
+    let showTopicForm = ref(false);
+
+
 </script>
 
 <template>
-    <Layout title="Topics Index">
+    <Layout title="Topics Index" type="scrollable">
 
         <!-- Intro if no topics created -->
         <div v-if="topics.length < 1">
@@ -27,23 +29,14 @@
             </div>
         </div>
 
-        <!--  Topic Grid if there are any-->
-        <div v-else class="grid grid-cols-3 text-center lg:w-4/6">
-            <div v-for="topic in topics">
-
-                <TopicButton
-                    :label="topic.name"
-                    :description="topic.description"
-                    :href="'/topics/' + topic.slug"
-                    :class="(topic.background || 'bg-gray-600')"
-                />
-
-            </div>
+        <div class="w-5/6 text-white  text-lg lg:text-xl">
+            <TopicBlock :topics="topics" />
         </div>
+
 
         <!-- New Topic form -->
 
-        <TopicCreateForm />
+        <TopicCreateForm v-if="showTopicForm"/>
 
 
 
