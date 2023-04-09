@@ -9,7 +9,8 @@ import { inject } from 'vue';
         box : {
             type : Boolean,
             default : true
-        }
+        },
+        class:String
 
     });
 
@@ -21,7 +22,8 @@ import { inject } from 'vue';
 
     <div
         class="p-4 rounded-xl w-full lg:w-1/2"
-        :class="{'lg:bg-gray-800' : box}">
+        :class="{'lg:bg-gray-800' : box}"
+    >
 
         <div v-if="title" class="text-3xl text-center mt-3 mb-5">
             {{ title }}
@@ -29,7 +31,9 @@ import { inject } from 'vue';
 
         <div class="w-full mt-4">
 
-            <form @submit.prevent="form[method](routeName)" :class="$attrs.class || 'flex flex-col items-center'">
+            <form
+                @submit.prevent="form[method](routeName)"
+                :class="$attrs.class || 'flex flex-col items-center'">
 
                 <slot />
             </form>

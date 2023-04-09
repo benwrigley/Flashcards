@@ -25,8 +25,8 @@
 
 
         <div class="w-full grid place-items-center">
-            <div class="mb-10 border p-5 border-gray-500 rounded-xl">
-                <div class="flex justify-center items-center mb-10 lg:bg-gray-800 rounded p-5">
+            <div class="mb-10  p-5 rounded-xl">
+                <div class="flex justify-center items-center mb-10 bg-gray-800 rounded p-5">
                     <WarningTriangle class="fill-red-600 mr-5" height="30" width="30" />
                     <p class="text-3xl text-center">Your account is not yet verified.</p>
 
@@ -35,7 +35,7 @@
                     Please check your email for the verification link
                 </div>
             </div>
-        <FormLayout method="post" :routeName="route('verification.resend')" class="lg:flex lg:justify-between lg:items-baseline text-gray-500 text-center" :box="false">
+        <FormLayout method="post" :routeName="route('verification.resend')" class="lg:flex lg:justify-between lg:items-baseline text-gray-500 text-center fixed bottom-5 space-x-3 w-1/2" :box="false">
             <div class="text-xl lg:text-2xl mb-2 lg:mb-0">
                 No Email? Enter your email to resend
             </div>
@@ -44,12 +44,13 @@
                 id="email"
                 placeholder="Email"
                 class="lg:w-1/3"
-                fieldclass="bg-gray-700"
+                fieldclass="h-10"
 
             />
 
             <FormButton
                 label="Resend"
+                class="bg-gray-800"
             />
 
         </FormLayout>

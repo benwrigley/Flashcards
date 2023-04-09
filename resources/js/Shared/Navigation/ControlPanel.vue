@@ -34,7 +34,7 @@ const showPanel = ref(false);
 
             <div
                 id="dropdownHover"
-                class="z-10 rounded-lg shadow-md mx-auto dark:bg-gray-700 absolute grid grid-cols-3 w-max right-0 text-center p-4 space-x-2 normal-case "
+                class="z-50 rounded-lg shadow-md mx-auto dark:bg-gray-700 absolute grid grid-cols-3 w-max right-0 text-center p-4 space-x-2 normal-case "
                 v-show="showPanel"
                 @mouseleave="showPanel = false"
             >

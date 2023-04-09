@@ -45,7 +45,7 @@ provide('form', form);
                     />
                 </div>
         </FormLayout>
-        <div class="mt-10 lg:text-xl text-sm">
+        <div class="mt-10 lg:text-xl text-sm fixed bottom-5">
             Not signed up yet? <LinkButton :link="route('register.create')" class="bg-gray-800" label="register here" />
         </div>
     </div>
