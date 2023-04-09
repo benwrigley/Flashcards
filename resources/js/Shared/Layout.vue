@@ -9,6 +9,10 @@ const props = defineProps({
     title: {
       type :String,
       default: null
+    },
+    type: {
+      type: String,
+      default: 'centered'
     }
 
 });
@@ -20,9 +24,15 @@ const props = defineProps({
 
     <Head :title="title ? $page.props.appName + ' - ' + title : $page.props.appName" />
 
-    <Navbar v-if="$page.props.auth.user"/>
+    <Navbar v-if="$page.props.auth.user" class="z-10"/>
 
-    <main class="text-2xl grid place-items-center h-screen bg-gray-900">
+    <main
+      class="text-2xl bg-gray-900 z-0"
+      :class="{
+        'grid place-items-center h-screen' : (props.type === 'centered'),
+        'absolute lg:top-32 top-14 w-full flex justify-center' : (props.type === 'scrollable')
+        }"
+    >
       <slot />
 
     </main>
