@@ -42,7 +42,7 @@ class Topic extends Model
 
     public function children()
     {
-        return $this->hasMany(Topic::class);
+        return $this->hasMany(Topic::class)->withCount('flashcards');
     }
 
 
