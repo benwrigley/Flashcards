@@ -20,7 +20,8 @@ class TopicController extends Controller
     {
 
         return Inertia::render('Topic/Index',[
-            'topics' => Auth::check() ? Topic::mine()->orderBy('name')->get() : null
+            'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children.children.children.children.children')->withCount('flashcards')->get() : null,
+
         ]);
 
     }
