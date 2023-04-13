@@ -45,7 +45,7 @@ class TopicController extends Controller
 
     public function store()
     {
-        $attributes = request()->validateWithBag('topicCreate',[
+        $attributes = request()->validate([
             'name' => [
                 'required',
                 'max:50',
@@ -66,7 +66,12 @@ class TopicController extends Controller
 
         $topic = Topic::create($attributes);
 
-        return redirect($topic->topic_id ? '/topics/' . $topic->parent->slug :  '/')->with('success', $topic->name . ' has been created');
+
+
+        return redirect(route('topics.home', [$topic->id]))->with(['success' => $topic->name . ' has been created']);
+
+
+        //return redirect($topic->topic_id ? '/topics/' . $topic->parent->slug :  '/')->with('success', $topic->name . ' has been created');
 
     }
 
@@ -110,16 +115,15 @@ class TopicController extends Controller
     public function destroy(Topic $topic)
     {
 
-        if ($topic->children->count() || $topic->flashcards->count()){
-            return redirect('/topics/' . $topic->slug)->with('error', 'Please delete or reassign flashcards and subtopics first');
-        }
+        $name = $topic->name;
 
-        $returnpath = $topic->parent ? '/topics/' . $topic->parent->slug : '/';
+        if ($topic->children->count() || $topic->flashcards->count()){
+            return redirect(route('topics.home'))->with('error', 'Please delete or reassign flashcards and subtopics first');
+        }
 
         $topic->delete();
 
-        return redirect($returnpath)->with('success', 'Topic has been deleted');
-
+        return redirect(route('topics.home'))->with(['success' => $name . ' has been deleted']);
 
     }
 
