@@ -4,11 +4,15 @@
     import FlashcardNew from '@/Shared/SVG/FlashcardNew.vue'
     import IconButton from '@/Shared/IconButton.vue'
     import Edit from '@/Shared/SVG/Edit.vue'
+    import Trash from '@/Shared/SVG/Trash.vue'
     import { Link } from '@inertiajs/vue3'
+    import { inject } from 'vue'
 
     defineProps({
         topic: Object
     });
+
+    let {toggleCreateTopicForm,toggleDeleteTopicForm,currentTopic} = inject('toggleForms');
 
 
 </script>
@@ -25,6 +29,7 @@
                     {{ topic.flashcards_count }}
                 </div>
             </div>
+
             <!-- New Flashcard Button-->
             <div
                 v-if="topic.flashcards_count > 0 || topic.children.length < 1"
@@ -35,16 +40,19 @@
                     </IconButton>
                 </Link>
             </div>
+
             <!-- New Topic Button-->
             <div
                 v-if="topic.children.length > 0 || topic.flashcards_count < 1"
+                @click="currentTopic = topic; toggleCreateTopicForm()"
             >
-                <Link :href="route('topic.create',{topic:topic.id})">
+                <!-- <Link :href="route('topic.create',{topic:topic.id})"> -->
                     <IconButton tooltip="New Topic">
                         <TopicNew width="20" height="20"/>
                     </IconButton>
-                </Link>
+                <!-- </Link> -->
             </div>
+
             <!-- Edit Button-->
             <div>
                 <Link :href="route('topic.edit',topic.id)">
@@ -52,6 +60,17 @@
                         <Edit width="20" height="20"/>
                     </IconButton>
                 </Link>
+            </div>
+
+            <!-- Delete Button-->
+            <div
+                @click="currentTopic = topic; toggleDeleteTopicForm()"
+            >
+
+                <IconButton tooltip="Delete Topic">
+                    <Trash width="20" height="20"/>
+                </IconButton>
+
             </div>
         </div>
 

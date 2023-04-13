@@ -2,19 +2,52 @@
 
     import Layout from '@/Shared/Layout.vue';
     import TopicBlock from '@/Shared/Topic/TopicBlock.vue'
-    import { ref } from 'vue';
+    import TopicCreateForm from '@/Shared/TopicCreateForm.vue';
+    import TopicDeleteForm from '@/Shared/TopicDeleteForm.vue';
+    import { provide, ref, reactive } from 'vue';
 
-    defineProps({
-        topics: Array
+    const props = defineProps({
+        topics: Array,
+        openTree: {
+            type:Array,
+            default: []
+        }
     });
 
-    let showTopicForm = ref(false);
+    //Topic Forms
+    let showCreateTopicForm = ref(false);
+    let showDeleteTopicForm = ref(false);
+    let currentTopic = ref(null);
+    let backgroundFade = ref(false);
+
+
+    function toggleCreateTopicForm(){
+        showCreateTopicForm.value = ! showCreateTopicForm.value;
+        backgroundFade.value = ! backgroundFade.value;
+    }
+
+    function toggleDeleteTopicForm(){
+        showDeleteTopicForm.value = ! showDeleteTopicForm.value;
+        backgroundFade.value = ! backgroundFade.value;
+    }
+
+
+
+    //providing ability for topic Bars to open/close and populate forms
+    provide('toggleForms', {
+        toggleCreateTopicForm,
+        toggleDeleteTopicForm,
+        currentTopic
+    });
+
+    //passing down tree of topics to have open at the start
+    provide('openTree', props.openTree);
 
 
 </script>
 
 <template>
-    <Layout title="Topics Index" type="scrollable">
+    <Layout title="Topics Index" type="scrollable" :fade="backgroundFade">
 
         <!-- Intro if no topics created -->
         <div v-if="topics.length < 1">
@@ -28,17 +61,15 @@
                 <p class="bg-gray-800 rounded border border-emerald-600 w-full px-8 py-3">4. At any point, visit a topic/subtopic that has flashcards and click the test me button!</p>
             </div>
         </div>
-
+        <!-- Show the tree of all topics-->
         <div class="w-5/6 text-white  text-lg lg:text-xl">
             <TopicBlock :topics="topics" />
         </div>
 
 
-        <!-- New Topic form -->
-
-        <TopicCreateForm v-if="showTopicForm"/>
-
-
-
     </layout>
+
+    <!-- Create/Delete/Edit forms -->
+    <TopicCreateForm v-if="showCreateTopicForm"/>
+    <TopicDeleteForm v-if="showDeleteTopicForm"/>
 </template>

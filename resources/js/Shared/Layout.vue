@@ -13,7 +13,12 @@ const props = defineProps({
     type: {
       type: String,
       default: 'centered'
+    },
+    fade : {
+      type:Boolean,
+      default: false,
     }
+
 
 });
 
@@ -30,7 +35,8 @@ const props = defineProps({
       class="text-2xl bg-gray-900 z-0"
       :class="{
         'grid place-items-center h-screen' : (props.type === 'centered'),
-        'absolute lg:top-32 top-14 w-full flex justify-center' : (props.type === 'scrollable')
+        'absolute lg:top-32 top-14 w-full flex justify-center' : (props.type === 'scrollable'),
+        'opacity-10 blur-sm' : props.fade
         }"
     >
       <slot />

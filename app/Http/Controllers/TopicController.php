@@ -16,11 +16,17 @@ use Inertia\Inertia;
 
 class TopicController extends Controller
 {
-    public function index()
+    public function index($topicId = null)
     {
+
+        $topic = Topic::find($topicId);
+
+        $openTree = $topic ? $this->_getAncestors($topic) : [];
 
         return Inertia::render('Topic/Index',[
             'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children.children.children.children.children')->withCount('flashcards')->get() : null,
+            // 'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children')->withCount('flashcards')->get() : null,
+            'openTree' => $openTree
 
         ]);
 
@@ -146,5 +152,17 @@ class TopicController extends Controller
         }
 
         return $collect;
+    }
+
+    private function _getAncestors($topic)
+    {
+
+        $ancestors = [$topic->id];
+
+        if ($topic->parent){
+            $ancestors = array_merge($ancestors,$this->_getAncestors($topic->parent));
+        }
+
+        return $ancestors;
     }
 }

@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 Route::group(['middleware' => ['auth','verified']], function () {
-    Route::get('topics/', [TopicController::class, 'index'])->name('topics.home');
+    Route::get('topics/{id?}', [TopicController::class, 'index'])->name('topics.home');
     Route::get('topics/{topic:slug}', [TopicController::class, 'show']);
     //Route::get('flashcard/{topic:slug}', [FlashcardController::class, 'create']);
     Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy','create']);
