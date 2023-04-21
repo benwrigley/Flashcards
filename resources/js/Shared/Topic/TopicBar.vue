@@ -84,6 +84,7 @@ import { updateTopicParent } from '@/composables/updateTopicParent';
         @dragover.prevent
         @dragenter="$emit('childCounter',1);dragInside(true)"
         @dragleave="$emit('childCounter',-1);dragInside(false)"
+        @touchstart.stop="dragStartHandler($event,topic.id)"
     >
         <div class="rounded p-2 flex items-center relative">
 
@@ -97,7 +98,7 @@ import { updateTopicParent } from '@/composables/updateTopicParent';
             />
 
             <!-- Topic Name -->
-            <div class="truncate w-40 rounded px-2 py-1 text-center" :class="topic.background">
+            <div class="truncate w-32 lg:w-40 rounded px-2 py-1 text-center" :class="topic.background">
                 {{ topic.name }}
             </div>
             <!-- Topic Description -->
