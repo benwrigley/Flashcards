@@ -110,6 +110,23 @@ class TopicController extends Controller
 
     }
 
+    public function changeParent(Topic $topic)
+    {
+
+        $attributes = request()->validate([
+            'topic_id' => ['exists:topics,id','nullable','different:id'],
+        ]);
+
+        $topic->update($attributes);
+
+        cache()->forget('ancestors.' . $topic->id);
+
+        return redirect(route('topics.home', [$topic->topic_id]))->with(['success' => $topic->name . ' parent has been changed']);
+
+        //return redirect('/topics/' . $topic->slug)->with('success', 'Topic has been updated');
+
+    }
+
     public function edit(Topic $topic)
     {
 

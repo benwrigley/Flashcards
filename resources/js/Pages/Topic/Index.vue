@@ -19,6 +19,7 @@
     let showDeleteTopicForm = ref(false);
     let currentTopic = ref(null);
     let backgroundFade = ref(false);
+    let draggedItem = ref(null);
 
 
     function toggleCreateTopicForm(){
@@ -42,6 +43,9 @@
 
     //passing down tree of topics to have open at the start
     provide('openTree', props.openTree);
+
+    //sharing the item currently being dragged - null to start
+    provide('draggedItem',draggedItem);
 
 
 </script>

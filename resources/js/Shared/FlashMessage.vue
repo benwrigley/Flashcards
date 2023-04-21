@@ -1,7 +1,7 @@
 <script setup>
     import { usePage } from '@inertiajs/vue3';
     import { computed } from '@vue/reactivity';
-    import { onMounted, ref } from 'vue';
+    import { onMounted, ref, watch } from 'vue';
 
     const props = defineProps({
 
@@ -48,10 +48,17 @@
         }
     });
 
+    watch(flash, () => {
+        show.value = true;
+        setTimeout(() => {
+            show.value = false;
+        }, 4000);
+    });
+
     onMounted(() => {
         setTimeout(() => {
-            show.value = false
-        },5000);
+                show.value = false;
+            }, 4000);
     });
 
 </script>

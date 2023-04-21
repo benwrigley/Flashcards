@@ -25,7 +25,9 @@ const props = defineProps({
 </script>
 
 <template>
-<div class="bottom-0 fixed">*vue</div>
+<div class="bottom-0 fixed">*vue {{ !Object.values($page.props.flash).every(v => v===null) }}</div>
+
+
 
     <Head :title="title ? $page.props.appName + ' - ' + title : $page.props.appName" />
 

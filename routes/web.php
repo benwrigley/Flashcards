@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth','verified']], function () {
     //Route::get('flashcard/{topic:slug}', [FlashcardController::class, 'create']);
     Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy','create']);
     Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','show','create']);
+    Route::put('topic/{topic}/changeparent', [TopicController::class, 'changeParent'])->name('topic.change.parent');
+
 
     Route::get('/test/{topic}/{type}', [TestController::class, 'store'])->name('test.store');
     Route::get('/starttest/{test}', [TestController::class, 'start']);

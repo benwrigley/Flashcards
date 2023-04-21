@@ -1,6 +1,6 @@
 <script setup>
 
-    import { router, useForm } from '@inertiajs/vue3';
+    import { useForm } from '@inertiajs/vue3';
     import { inject, provide, computed} from 'vue';
     import FormLayout from '@/Shared/FormLayout.vue';
     import FormButton from '@/Shared/FormButton.vue';
@@ -31,8 +31,7 @@
 
     const cannotBeDeleted = computed(() =>{
 
-        console.log(currentTopic.value.flashcard_count);
-        return (currentTopic.value.children.length > 0 || currentTopic.value.flashcard_count > 0);
+        return (currentTopic.value.children.length > 0 || currentTopic.value.flashcards_count > 0);
     });
 
     const title = computed(() =>{
