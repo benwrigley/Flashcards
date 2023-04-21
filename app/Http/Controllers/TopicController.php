@@ -109,6 +109,10 @@ class TopicController extends Controller
     public function changeParent(Topic $topic)
     {
 
+        if ($topic->topic_id === request()->input('topic_id')){
+            return;
+        }
+
         $attributes = request()->validate([
             'topic_id' => ['exists:topics,id','nullable','different:id'],
         ]);
