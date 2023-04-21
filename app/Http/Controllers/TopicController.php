@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Flashcard;
 use App\Models\Topic;
-use App\Rules\SpecialCharacters;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -57,7 +56,7 @@ class TopicController extends Controller
                 'required',
                 'max:50',
                 'min:1',
-                new SpecialCharacters,
+                // new SpecialCharacters,
                 Rule::unique('topics')->where(fn ($query) => $query->where('user_id', Auth::id()))
             ],
             'description' => ['max:150'],
@@ -67,9 +66,19 @@ class TopicController extends Controller
 
         $attributes['user_id'] = Auth::id();
 
-        $slug = Str::lower($attributes['name']) . "_" . Auth::id();
-        $slug = preg_replace("/[^a-z0-9-_]/", '', $slug);
-        $attributes['slug'] = $slug;
+        $slug = Str::slug($attributes['name'] . Auth::id());
+        $uniqueSlug = $slug;
+        $counter = 1;
+
+        while (Topic::where('slug', $uniqueSlug)->exists()) {
+            $uniqueSlug = $slug . '-' . $counter++;
+        }
+
+        $attributes['slug'] = $uniqueSlug;
+
+        // $slug = Str::lower($attributes['name']) . "_" . Auth::id();
+        // $slug = preg_replace("/[^a-z0-9-_]/", '', $slug);
+        // $attributes['slug'] = $slug;
 
         $topic = Topic::create($attributes);
 

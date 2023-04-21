@@ -1,15 +1,16 @@
 <script setup>
 
 import { inject, ref, defineEmits, watch} from 'vue';
-import { useForm } from '@inertiajs/vue3';
 import ChevronDown from '@/Shared/SVG/ChevronDown.vue';
 import TopicBlock from './TopicBlock.vue';
 import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
+import { updateTopicParent } from '@/composables/updateTopicParent';
 
     const props = defineProps({
         topic: Object
     });
 
+    //managing which containers should be open
     const openTree = inject('openTree');
 
     const open = ref(openTree.includes(props.topic.id));
@@ -18,24 +19,28 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
         open.value = newValue.includes(parseInt(props.topic.id));
     }, {deep:true});
 
-    //const open = ref(openTree.includes(props.topic.id));
-    const draggedItem = inject('draggedItem');
 
-    const form = useForm({
-        topic_id: null
-    });
+    //toggle the window when the user clicks the chevron
+    function toggleOpen() {
+        open.value = !open.value;
+    }
 
-    //drag item login
+    //keep track of whether we are currently dragging over a child so we know which one to open and close
     let childCount = 0;
 
     function childCounter(v){
         childCount += v;
     }
 
-    function toggleOpen() {
-        open.value = !open.value;
-    }
 
+    //**DRAG AND DROP
+
+    //store item currently dragging
+    const draggedItem = inject('draggedItem');
+
+
+
+    //when an element is dropped on this element check its not a child and then submit the update to backend
     function dropHandler(e) {
 
         const draggedElement = document.getElementById(draggedItem.value);
@@ -47,18 +52,15 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
             return;
         }
 
-        form.topic_id = props.topic.id;
-        form.put(route('topic.change.parent', {topic : draggedItem.value}));
+        updateTopicParent(props.topic.id,draggedItem.value);
     }
 
+    //store the dragged item
     function dragStartHandler(e,item){
-
         draggedItem.value = item;
-        e.dataTransfer.effectAllowed="move";
-
-
     }
 
+    //increment the counter when dragging over/leaving a child
     function dragInside(b){
         if (b){
             childCounter(1);
@@ -86,7 +88,7 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
         <div class="rounded p-2 flex items-center relative">
 
             <ChevronDown
-                    v-if="topic.children && topic.children.length > 0"
+                    v-if="topic.descendants && topic.descendants.length > 0"
                     width="20"
                     height="20"
                     @click="toggleOpen"
@@ -95,7 +97,7 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
             />
 
             <!-- Topic Name -->
-            <div class="truncate w-32 rounded px-2 py-1 text-center" :class="topic.background">
+            <div class="truncate w-40 rounded px-2 py-1 text-center" :class="topic.background">
                 {{ topic.name }}
             </div>
             <!-- Topic Description -->
@@ -107,10 +109,10 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
 
         </div>
 
-        <div v-show="open && topic.children" class="relative ml-2 lg:ml-10">
+        <div v-show="open && topic.descendants" class="relative ml-2 lg:ml-10">
             <TopicBlock
                 @child-counter="childCounter"
-                :topics="topic.children"
+                :topics="topic.descendants"
             />
         </div>
     </div>

@@ -21,7 +21,7 @@
         name: null,
         description: null,
         background: null,
-        topic_id: currentTopic.value.id
+        topic_id: Object.keys(currentTopic.value).length > 0 ? currentTopic.value.id : null
     })
 
     function submit(){
@@ -31,7 +31,7 @@
             preserveScroll: true,
         });
 
-        if (Object.keys(currentTopic).length > 0){
+        if (Object.keys(currentTopic.value).length > 0){
             openTree.push(currentTopic.value.id);
         }
     }
@@ -40,8 +40,10 @@
 
 
     const title = computed(() =>{
-        return 'Create new ' + (Object.keys(currentTopic).length === 0  ? 'main topic' : 'subtopic in ' + currentTopic.value.name);
+        return 'Create new ' + (Object.keys(currentTopic.value).length > 0 ? 'subtopic in ' + currentTopic.value.name : 'main topic');
     });
+
+    console.log(currentTopic.value);
 
 </script>
 
