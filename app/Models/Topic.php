@@ -45,6 +45,16 @@ class Topic extends Model
         return $this->hasMany(Topic::class)->withCount('flashcards');
     }
 
+    public function descendants()
+    {
+        return $this->children()->with('descendants');
+    }
+
+    public function ancestors()
+    {
+        return $this->parent()->with('ancestors');
+    }
+
 
     public function getAncestors()
     {

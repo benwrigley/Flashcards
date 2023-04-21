@@ -31,7 +31,7 @@
 
     const cannotBeDeleted = computed(() =>{
 
-        return (currentTopic.value.children.length > 0 || currentTopic.value.flashcards_count > 0);
+        return (currentTopic.value.descendants.length > 0 || currentTopic.value.flashcards_count > 0);
     });
 
     const title = computed(() =>{

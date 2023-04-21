@@ -23,7 +23,7 @@
 <div class=" fill-white absolute right-2 flex space-x-2 items-center" >
             <div
                 class="text-base text-left hidden ml-3 truncate w-min lg:flex lg:items-center"
-                v-if="topic.flashcards_count > 0 || topic.children.length < 1"
+                v-if="topic.flashcards_count > 0 || topic.descendants.length < 1"
             >
                 <div>
                     {{ topic.flashcards_count }}
@@ -32,7 +32,7 @@
 
             <!-- New Flashcard Button-->
             <div
-                v-if="topic.flashcards_count > 0 || topic.children.length < 1"
+                v-if="topic.flashcards_count > 0 || topic.descendants.length < 1"
             >
                 <Link :href="route('flashcard.create',{topic:topic.id})">
                     <IconButton tooltip="New Flashcard">
@@ -43,7 +43,7 @@
 
             <!-- New Topic Button-->
             <div
-                v-if="topic.children.length > 0 || topic.flashcards_count < 1"
+                v-if="topic.descendants.length > 0 || topic.flashcards_count < 1"
                 @click="currentTopic = topic; toggleCreateTopicForm()"
             >
                 <!-- <Link :href="route('topic.create',{topic:topic.id})"> -->

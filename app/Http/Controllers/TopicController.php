@@ -24,8 +24,9 @@ class TopicController extends Controller
         $openTree = $topic ? $this->_getAncestors($topic) : [];
 
         return Inertia::render('Topic/Index',[
-            'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children.children.children.children.children')->withCount('flashcards')->get() : null,
+            //'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children.children.children.children.children.children')->withCount('flashcards')->get() : null,
             // 'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children')->withCount('flashcards')->get() : null,
+            'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('descendants')->withCount('flashcards')->get() : null,
             'openTree' => $openTree
 
         ]);
