@@ -28,25 +28,26 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
         open.value = !open.value;
     }
 
-    function dropped(e) {
+    function dropHandler(e) {
 
-        // prevent setting parent to self
-        if (parseInt(draggedItem.value) === parseInt(props.topic.id)){
+        const draggedElement = document.getElementById(draggedItem.value);
+        const thisElement = e.target;
+
+
+        // prevent setting parent to self or child
+        if (draggedElement.contains(thisElement)) {
             return;
         }
 
-        console.log("Dropped " + draggedItem.value + " on " +  props.topic.id);
-        // form.topic_id = props.topic.id;
-        // form.put(route('topic.change.parent', {topic : draggedItem.value}));
+        form.topic_id = props.topic.id;
+        form.put(route('topic.change.parent', {topic : draggedItem.value}));
     }
 
-    function dragstart(e,item){
+    function dragStartHandler(e,item){
 
         draggedItem.value = item;
         e.dataTransfer.effectAllowed="move";
 
-        console.log("dragging " + item);
-        console.log(props.topic.name);
 
     }
 
@@ -66,17 +67,15 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
 <template>
 
     <div
+        :id="topic.id"
         draggable="true"
-        @dragstart.stop="dragstart($event,topic.id)"
-        @drop.stop="dropped($event)"
+        @dragstart.stop="dragStartHandler($event,topic.id)"
+        @drop.stop="dropHandler($event)"
         @dragover.prevent
         @dragenter="$emit('childCounter',1);dragInside(true)"
         @dragleave="$emit('childCounter',-1);dragInside(false)"
     >
-        <div
-            class="rounded p-2 flex items-center relative"
-
-        >
+        <div class="rounded p-2 flex items-center relative">
 
             <ChevronDown
                     v-if="topic.children && topic.children.length > 0"
