@@ -4,7 +4,7 @@
     import TopicBlock from '@/Shared/Topic/TopicBlock.vue'
     import TopicCreateForm from '@/Shared/TopicCreateForm.vue';
     import TopicDeleteForm from '@/Shared/TopicDeleteForm.vue';
-    import { provide, ref, reactive } from 'vue';
+    import { provide, ref, reactive, onMounted, watch } from 'vue';
 
     const props = defineProps({
         topics: Array,
@@ -42,7 +42,8 @@
     });
 
     //passing down tree of topics to have open at the start
-    provide('openTree', props.openTree);
+    const openTree = reactive(props.openTree)
+    provide('openTree', openTree);
 
     //sharing the item currently being dragged - null to start
     provide('draggedItem',draggedItem);

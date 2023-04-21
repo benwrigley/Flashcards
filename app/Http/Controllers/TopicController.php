@@ -72,12 +72,7 @@ class TopicController extends Controller
 
         $topic = Topic::create($attributes);
 
-
-
-        return redirect(route('topics.home', [$topic->id]))->with(['success' => $topic->name . ' has been created']);
-
-
-        //return redirect($topic->topic_id ? '/topics/' . $topic->parent->slug :  '/')->with('success', $topic->name . ' has been created');
+        return redirect()->back()->with('success', $topic->name . ' has been created');
 
     }
 
@@ -121,9 +116,8 @@ class TopicController extends Controller
 
         cache()->forget('ancestors.' . $topic->id);
 
-        return redirect(route('topics.home', [$topic->topic_id]))->with(['success' => $topic->name . ' parent has been changed']);
+        return redirect()->back()->with(['success' => $topic->name . ' moved']);
 
-        //return redirect('/topics/' . $topic->slug)->with('success', 'Topic has been updated');
 
     }
 

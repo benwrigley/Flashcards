@@ -14,6 +14,8 @@
 
     let {toggleCreateTopicForm,toggleDeleteTopicForm,currentTopic} = inject('toggleForms');
 
+    let openTree = inject('openTree');
+
 
     const form = useForm({
         name: null,
@@ -24,8 +26,14 @@
 
     function submit(){
         form.post(route('topic.store'),{
-            onSuccess: () => toggleCreateTopicForm()
+            onSuccess: () => toggleCreateTopicForm(),
+            preserveState: true,
+            preserveScroll: true,
         });
+
+        if (Object.keys(currentTopic).length > 0){
+            openTree.push(currentTopic.value.id);
+        }
     }
 
     provide('form', form);

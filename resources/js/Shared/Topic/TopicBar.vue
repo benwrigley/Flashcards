@@ -1,6 +1,6 @@
 <script setup>
 
-import { inject, ref, defineEmits} from 'vue';
+import { inject, ref, defineEmits, watch} from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import ChevronDown from '@/Shared/SVG/ChevronDown.vue';
 import TopicBlock from './TopicBlock.vue';
@@ -10,7 +10,15 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
         topic: Object
     });
 
-    const open = ref(inject('openTree').includes(props.topic.id));
+    const openTree = inject('openTree');
+
+    const open = ref(openTree.includes(props.topic.id));
+
+    watch(() => openTree, (newValue, oldValue) => {
+        open.value = newValue.includes(parseInt(props.topic.id));
+    }, {deep:true});
+
+    //const open = ref(openTree.includes(props.topic.id));
     const draggedItem = inject('draggedItem');
 
     const form = useForm({
@@ -99,7 +107,7 @@ import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
 
         </div>
 
-        <div v-if="open && topic.children" class="relative ml-2 lg:ml-10">
+        <div v-show="open && topic.children" class="relative ml-2 lg:ml-10">
             <TopicBlock
                 @child-counter="childCounter"
                 :topics="topic.children"
