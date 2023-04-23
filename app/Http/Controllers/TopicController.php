@@ -56,7 +56,6 @@ class TopicController extends Controller
                 'required',
                 'max:50',
                 'min:1',
-                // new SpecialCharacters,
                 Rule::unique('topics')->where(fn ($query) => $query->where('user_id', Auth::id()))
             ],
             'description' => ['max:150'],
@@ -66,19 +65,8 @@ class TopicController extends Controller
 
         $attributes['user_id'] = Auth::id();
 
-        $slug = Str::slug($attributes['name'] . Auth::id());
-        $uniqueSlug = $slug;
-        $counter = 1;
+        $attributes['slug'] = $this->_generateSlug($attributes['name'] . Auth::id());
 
-        while (Topic::where('slug', $uniqueSlug)->exists()) {
-            $uniqueSlug = $slug . '-' . $counter++;
-        }
-
-        $attributes['slug'] = $uniqueSlug;
-
-        // $slug = Str::lower($attributes['name']) . "_" . Auth::id();
-        // $slug = preg_replace("/[^a-z0-9-_]/", '', $slug);
-        // $attributes['slug'] = $slug;
 
         $topic = Topic::create($attributes);
 
@@ -94,18 +82,14 @@ class TopicController extends Controller
                 'required',
                 'max:50',
                 'min:1',
-                new SpecialCharacters,
-                Rule::unique('topics')->ignore($topic->id), //->where(fn ($query) => $query->where('user_id', Auth::id()))
+                Rule::unique('topics')->ignore($topic->id)->where(fn ($query) => $query->where('user_id', Auth::id()))
             ],
             'description' => ['max:150'],
             'topic_id' => ['exists:topics,id','nullable'],
             'background' => ['required']
         ]);
 
-        $slug = Str::lower($attributes['name']) . "_" . Auth::id();
-        $slug = preg_replace("/[^a-z0-9-_]/", '', $slug);
-        $attributes['slug'] = $slug;
-
+        $attributes['slug'] = $this->_generateSlug($attributes['name'] . Auth::id());
 
         $topic->update($attributes);
 
@@ -189,5 +173,20 @@ class TopicController extends Controller
         }
 
         return $ancestors;
+    }
+
+    private function _generateSlug($name)
+    {
+
+        $slug = Str::slug($name);
+        $uniqueSlug = $slug;
+        $counter = 1;
+
+        while (Topic::where('slug', $uniqueSlug)->exists()) {
+            $uniqueSlug = $slug . '-' . $counter++;
+        }
+
+        return $uniqueSlug;
+
     }
 }
