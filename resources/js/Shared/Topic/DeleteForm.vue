@@ -4,14 +4,15 @@
     import { inject, provide, computed} from 'vue';
     import FormLayout from '@/Shared/FormLayout.vue';
     import FormButton from '@/Shared/FormButton.vue';
-    import WarningTriangle from './SVG/WarningTriangle.vue';
+    import WarningTriangle from '@/Shared/SVG/WarningTriangle.vue';
 
 
     defineProps({
         errors: Object,
     });
 
-    let {toggleCreateTopicForm,toggleDeleteTopicForm,currentTopic} = inject('toggleForms');
+    const currentTopic = inject('currentTopic');
+    const toggleForms = inject('toggleForms');
 
 
     const form = useForm({
@@ -23,7 +24,7 @@
 
     function submit(){
         form.delete(route('topic.destroy',{topic : currentTopic.value.id}),{
-            onSuccess: () => toggleDeleteTopicForm()
+            onSuccess: () => toggleForms.deleteTopic()
         });
     }
 
@@ -45,7 +46,7 @@
 
 <div class="fixed grid place-items-center h-screen w-screen">
 
-    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleDeleteTopicForm()'>
+    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleForms.deleteTopic()'>
 
         <div
 
@@ -54,7 +55,7 @@
                 <p>Please delete all subtopics and flashcards before this can be deleted.</p>
             </div>
 
-            <div class="flex justify-around w-full" @click="toggleDeleteTopicForm()">
+            <div class="flex justify-around w-full" @click="toggleForms.deleteTopic()">
                 <FormButton
                     type="button"
                     label="Cancel"
@@ -72,7 +73,7 @@
 
             <div class="flex justify-around w-full mt-6" >
                 <FormButton
-                @click="toggleDeleteTopicForm()"
+                @click="toggleForms.deleteTopic()"
                     type="button"
                     label="Cancel"
                 />

@@ -12,7 +12,8 @@
         errors: Object,
     });
 
-    let {toggleCreateTopicForm,toggleDeleteTopicForm,currentTopic} = inject('toggleForms');
+    const currentTopic = inject('currentTopic');
+    const toggleForms = inject('toggleForms');
 
     let openTree = inject('openTree');
 
@@ -24,11 +25,14 @@
         topic_id: Object.keys(currentTopic.value).length > 0 ? currentTopic.value.id : null
     })
 
+
     function submit(){
-        form.post(route('topic.store'),{
-            onSuccess: () => toggleCreateTopicForm(),
-            preserveState: true,
-            preserveScroll: true,
+        form.post(
+            route('topic.store'),
+            {
+                onSuccess: () => toggleForms.createTopic(),
+                preserveState: true,
+                preserveScroll: true,
         });
 
         if (Object.keys(currentTopic.value).length > 0){
@@ -43,7 +47,6 @@
         return 'Create new ' + (Object.keys(currentTopic.value).length > 0 ? 'subtopic in ' + currentTopic.value.name : 'main topic');
     });
 
-    console.log(currentTopic.value);
 
 </script>
 
@@ -51,7 +54,7 @@
 
 <div class="fixed grid place-items-center h-screen w-screen">
 
-    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleCreateTopicForm()'>
+    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleForms.createTopic()'>
 
         <FormInput
             id="name"
