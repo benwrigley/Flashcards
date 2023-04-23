@@ -2,50 +2,60 @@
 
     import Layout from '@/Shared/Layout.vue';
     import TopicBlock from '@/Shared/Topic/TopicBlock.vue'
-    import TopicCreateForm from '@/Shared/TopicCreateForm.vue';
-    import TopicDeleteForm from '@/Shared/TopicDeleteForm.vue';
+    import CreateForm from '@/Shared/Topic/CreateForm.vue';
+    import DeleteForm from '@/Shared/Topic/DeleteForm.vue';
+    import FlashcardCreateForm from '@/Shared/Flashcard/FlashcardCreateForm.vue';
+    import EditForm from '@/Shared/Topic/EditForm.vue';
     import IconButton from '@/Shared/IconButton.vue';
     import TopicNew from '@/Shared/SVG/TopicNew.vue';
-    import { provide, ref, reactive, onMounted, watch } from 'vue';
+    import { provide, ref, reactive } from 'vue';
     import { updateTopicParent } from '@/composables/updateTopicParent';
 
     const props = defineProps({
         topics: Array,
         openTree: {
             type:Array,
-            default: []
+            default: () => []
         }
     });
 
     //Topic Forms
-    let showCreateTopicForm = ref(false);
-    let showDeleteTopicForm = ref(false);
-    let currentTopic = ref({});
-    let backgroundFade = ref(false);
-    let draggedItem = ref(null);
-
-
-    function toggleCreateTopicForm(){
-        showCreateTopicForm.value = ! showCreateTopicForm.value;
-        backgroundFade.value = ! backgroundFade.value;
-    }
-
-    function toggleDeleteTopicForm(){
-        showDeleteTopicForm.value = ! showDeleteTopicForm.value;
-        backgroundFade.value = ! backgroundFade.value;
-    }
-
+    const  showCreateTopicForm = ref(false);
+    const  showDeleteTopicForm = ref(false);
+    const  showEditTopicForm = ref(false);
+    const  showCreateFlashcardForm = ref(false);
+    const  currentTopic = ref({});
+    const  backgroundFade = ref(false);
+    const  draggedItem = ref(null);
+    const  openTree = reactive(props.openTree)
 
 
     //providing ability for topic Bars to open/close and populate forms
-    provide('toggleForms', {
-        toggleCreateTopicForm,
-        toggleDeleteTopicForm,
-        currentTopic
-    });
+    const toggleForms = {
+        createTopic: () => {
+        showCreateTopicForm.value = !showCreateTopicForm.value;
+        backgroundFade.value = !backgroundFade.value;
+        },
+        deleteTopic: () => {
+        showDeleteTopicForm.value = !showDeleteTopicForm.value;
+        backgroundFade.value = !backgroundFade.value;
+        },
+        editTopic: () => {
+        showEditTopicForm.value = !showEditTopicForm.value;
+        backgroundFade.value = !backgroundFade.value;
+        },
+        createFlashcard: () => {
+        showCreateFlashcardForm.value = !showCreateFlashcardForm.value;
+        backgroundFade.value = !backgroundFade.value;
+        },
+    };
+
+
+    provide('toggleForms', toggleForms);
+    provide('currentTopic', currentTopic)
 
     //passing down tree of topics to have open at the start
-    const openTree = reactive(props.openTree)
+
     provide('openTree', openTree);
 
     //sharing the item currently being dragged - null to start
@@ -94,7 +104,9 @@
         </layout>
 
         <!-- Create/Delete/Edit forms -->
-        <TopicCreateForm v-if="showCreateTopicForm"/>
-        <TopicDeleteForm v-if="showDeleteTopicForm"/>
+        <CreateForm v-if="showCreateTopicForm"/>
+        <DeleteForm v-if="showDeleteTopicForm"/>
+        <EditForm v-if="showEditTopicForm"/>
+        <FlashcardCreateForm v-if="showCreateFlashcardForm"/>
     </div>
 </template>
