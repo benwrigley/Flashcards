@@ -12,7 +12,8 @@
         topic: Object
     });
 
-    let {toggleCreateTopicForm,toggleDeleteTopicForm,currentTopic} = inject('toggleForms');
+    const toggleForms = inject('toggleForms');
+    const currentTopic = inject('currentTopic');
 
 
 </script>
@@ -33,18 +34,19 @@
             <!-- New Flashcard Button-->
             <div
                 v-if="topic.flashcards_count > 0 || topic.descendants.length < 1"
+                @click="currentTopic = topic; toggleForms.createFlashcard()"
             >
-                <Link :href="route('flashcard.create',{topic:topic.id})">
-                    <IconButton tooltip="New Flashcard">
-                        <FlashcardNew width="20" height="20"/>
-                    </IconButton>
-                </Link>
+
+                <IconButton tooltip="New Flashcard">
+                    <FlashcardNew width="20" height="20"/>
+                </IconButton>
+
             </div>
 
             <!-- New Topic Button-->
             <div
                 v-if="topic.descendants.length > 0 || topic.flashcards_count < 1"
-                @click="currentTopic = topic; toggleCreateTopicForm()"
+                @click="currentTopic = topic; toggleForms.createTopic()"
             >
                 <!-- <Link :href="route('topic.create',{topic:topic.id})"> -->
                     <IconButton tooltip="New Topic">
@@ -54,17 +56,18 @@
             </div>
 
             <!-- Edit Button-->
-            <div>
-                <Link :href="route('topic.edit',topic.id)">
-                    <IconButton tooltip="Edit Topic">
-                        <Edit width="20" height="20"/>
-                    </IconButton>
-                </Link>
+            <div
+                @click="currentTopic = topic; toggleForms.editTopic()"
+            >
+                <IconButton tooltip="Edit Topic">
+                    <Edit width="20" height="20"/>
+                </IconButton>
+
             </div>
 
             <!-- Delete Button-->
             <div
-                @click="currentTopic = topic; toggleDeleteTopicForm()"
+                @click="currentTopic = topic; toggleForms.deleteTopic()"
             >
 
                 <IconButton tooltip="Delete Topic">
