@@ -2,9 +2,9 @@
 
     import { router, useForm } from '@inertiajs/vue3';
     import { inject, provide, computed, onMounted, ref } from 'vue';
-    import FormLayout from '@/Shared/FormLayout.vue';
-    import FormButton from '@/Shared/FormButton.vue';
-    import FormInput from '@/Shared/FormInput.vue';
+    import FormLayout from '@/Shared/Form/FormLayout.vue';
+    import FormButton from '@/Shared/Form/FormButton.vue';
+    import FormInput from '@/Shared/Form/FormInput.vue';
     import ItemPicker from '@/Shared/Form/ItemPicker.vue'
 
 

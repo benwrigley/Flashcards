@@ -17,10 +17,10 @@ class FlashcardController extends Controller
     public function store(Request $request)
     {
 
-        $attributes = request()->validateWithBag('flashcardCreate',[
+        $attributes = request()->validate([
             'question' => ['required','max:255'],
             'answer' => ['required','max:255'],
-            'max_score' => ['numeric','min:1','max:5','nullable'],
+            'max_score' => ['numeric','min:1','max:5','required'],
             'topic_id' => ['exists:topics,id','nullable'],
         ]);
 
@@ -32,7 +32,7 @@ class FlashcardController extends Controller
 
         $flashcard = Flashcard::create($attributes);
 
-        return redirect('/topics/' . $flashcard->topic->slug)->with('success', 'Flashcard has been created');
+        return redirect()->back()->with('success', 'Flashcard created in ' . $flashcard->topic->name);
 
     }
 

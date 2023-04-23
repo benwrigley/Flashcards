@@ -2,10 +2,10 @@
 
     import Layout from '@/Shared/Layout.vue';
     import TopicBlock from '@/Shared/Topic/TopicBlock.vue'
-    import CreateForm from '@/Shared/Topic/CreateForm.vue';
-    import DeleteForm from '@/Shared/Topic/DeleteForm.vue';
+    import TopicCreateForm from '@/Shared/Topic/TopicCreateForm.vue';
+    import TopicDeleteForm from '@/Shared/Topic/TopicDeleteForm.vue';
     import FlashcardCreateForm from '@/Shared/Flashcard/FlashcardCreateForm.vue';
-    import EditForm from '@/Shared/Topic/EditForm.vue';
+    import TopicEditForm from '@/Shared/Topic/TopicEditForm.vue';
     import IconButton from '@/Shared/IconButton.vue';
     import TopicNew from '@/Shared/SVG/TopicNew.vue';
     import { provide, ref, reactive } from 'vue';
@@ -104,9 +104,9 @@
         </layout>
 
         <!-- Create/Delete/Edit forms -->
-        <CreateForm v-if="showCreateTopicForm"/>
-        <DeleteForm v-if="showDeleteTopicForm"/>
-        <EditForm v-if="showEditTopicForm"/>
+        <TopicCreateForm v-if="showCreateTopicForm"/>
+        <TopicDeleteForm v-if="showDeleteTopicForm"/>
+        <TopicEditForm v-if="showEditTopicForm"/>
         <FlashcardCreateForm v-if="showCreateFlashcardForm"/>
     </div>
 </template>

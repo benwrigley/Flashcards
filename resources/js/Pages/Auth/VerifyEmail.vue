@@ -4,9 +4,9 @@
     import { Link,useForm } from '@inertiajs/vue3'
 
     import Layout from '@/Shared/Layout.vue'
-    import FormLayout from '@/Shared/FormLayout.vue'
-    import FormInput from '@/Shared/FormInput.vue'
-    import FormButton from '@/Shared/FormButton.vue'
+    import FormLayout from '@/Shared/Form/FormLayout.vue'
+    import FormInput from '@/Shared/Form/FormInput.vue'
+    import FormButton from '@/Shared/Form/FormButton.vue'
     import WarningTriangle from '@/Shared/SVG/WarningTriangle.vue'
 
 

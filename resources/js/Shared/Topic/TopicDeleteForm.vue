@@ -2,8 +2,8 @@
 
     import { useForm } from '@inertiajs/vue3';
     import { inject, provide, computed} from 'vue';
-    import FormLayout from '@/Shared/FormLayout.vue';
-    import FormButton from '@/Shared/FormButton.vue';
+    import FormLayout from '@/Shared/Form/FormLayout.vue';
+    import FormButton from '@/Shared/Form/FormButton.vue';
     import WarningTriangle from '@/Shared/SVG/WarningTriangle.vue';
 
 

@@ -2,7 +2,7 @@
 
 import { inject } from 'vue';
 
-import FormError from '@/Shared/FormError.vue';
+import FormError from '@/Shared/Form/FormError.vue';
 
 const props = defineProps({
     type : {

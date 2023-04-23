@@ -4,10 +4,10 @@
     import { useForm } from '@inertiajs/vue3'
 
     import Layout from '@/Shared/Layout.vue'
-    import FormLayout from '@/Shared/FormLayout.vue'
-    import FormInput from '@/Shared/FormInput.vue'
-    import FormButton from '@/Shared/FormButton.vue'
-    import LinkButton from '@/Shared/LinkButton.vue'
+    import FormLayout from '@/Shared/Form/FormLayout.vue'
+    import FormInput from '@/Shared/Form/FormInput.vue'
+    import FormButton from '@/Shared/Form/FormButton.vue'
+    import LinkButton from '@/Shared/Form/LinkButton.vue'
 
     const props = defineProps({
         token : String
