@@ -19,7 +19,7 @@
 <template>
 
     <!-- Show a topic bar for each topic -->
-    <div v-for="topic in topics" class="w-full pb-2">
+    <div v-for="topic in topics" :key="topic.id" class="w-full pb-2">
         <div
             class="shadow-sm shadow-gray-700"
 
