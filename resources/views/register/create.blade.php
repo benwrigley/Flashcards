@@ -4,7 +4,7 @@
             <x-form.field type="text" id="name" :value="old('name')" required="required" placeholder="Name" />
         </div>
         <div class="mb-4 w-4/6">
-            <x-form.field type="text" id="email" :value="old('email')" required="required" placeholder="Email" />
+            <x-form.field type="text" id="email" :value="old('email')" required="required" placeholder="Email" length="50"/>
         </div>
         <div class="mb-4 w-4/6">
             <x-form.field type="password" id="password" value="" required="required" placeholder="Password" />
