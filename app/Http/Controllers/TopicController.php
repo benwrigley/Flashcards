@@ -76,7 +76,7 @@ class TopicController extends Controller
                 'max:50',
                 'min:1',
                 new SpecialCharacters,
-                Rule::unique('topics')->ignore($topic->id), //->where(fn ($query) => $query->where('user_id', Auth::id()))
+                Rule::unique('topics')->ignore($topic->id)->where(fn ($query) => $query->where('user_id', Auth::id()))
             ],
             'description' => ['max:150'],
             'topic_id' => ['exists:topics,id','nullable'],
