@@ -2,10 +2,10 @@
 
     <x-form.layout title="Welcome to Flashcards!" method="POST" action="/login">
         <div class="mb-4 w-4/6">
-            <x-form.field type="test" id="email" :value="old('email')" placeholder="Email" required="required"/>
+            <x-form.field type="test" id="email" :value="old('email')" placeholder="Email" required="required" length="50"/>
         </div>
         <div class="mb-4 w-4/6">
-            <x-form.field type="password" id="password" value="" placeholder="Password" required="required"/>
+            <x-form.field type="password" id="password" value="" placeholder="Password" required="required" length="50"/>
         </div>
         <div class="mb-4 w-4/6 text-center flex justify-between">
             <div class="mb-4 w-4/6 text-left">
