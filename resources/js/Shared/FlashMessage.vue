@@ -52,12 +52,14 @@
         show.value = true;
         setTimeout(() => {
             show.value = false;
+            usePage().props.flash = {};
         }, 4000);
     });
 
     onMounted(() => {
         setTimeout(() => {
                 show.value = false;
+                usePage().props.flash = {};
             }, 4000);
     });
 
