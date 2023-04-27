@@ -6,16 +6,16 @@
     import FormButton from '@/Shared/Form/FormButton.vue';
     import FormInput from '@/Shared/Form/FormInput.vue';
     import ColorPicker from '@/Shared/Form/ColorPicker.vue'
+    import FormSelect from '../Form/FormSelect.vue';
 
 
-    defineProps({
+    const props = defineProps({
         errors: Object,
+        topicParents : Object
     });
 
     const currentTopic = inject('currentTopic');
     const toggleForms = inject('toggleForms');
-
-    let openTree = inject('openTree');
 
 
     const form = useForm({
@@ -44,6 +44,16 @@
     });
 
 
+    const parentTopics = computed(() =>{
+        props.topicParents.unshift({id: null, name: 'This is a main topic'});
+        return props.topicParents;
+    });
+
+    onMounted(() => {
+        router.reload({ only: ['topicParents'], data: { edittopic: currentTopic.value.id } })
+    });
+
+
 </script>
 
 <template>
@@ -62,6 +72,11 @@
             placeholder="Description"
             type="textarea"
             />
+        <FormSelect
+            label="Parent Topic"
+            id="topic_id"
+            :items="parentTopics"
+        />
         <ColorPicker
             id="background" />
 

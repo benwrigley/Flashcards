@@ -15,18 +15,19 @@ use Inertia\Inertia;
 
 class TopicController extends Controller
 {
-    public function index($topicId = null)
+    public function index(Request $request, $topicId = null)
     {
+
+        $editTopic = isset($request->edittopic) ? $request->edittopic : [];
 
         $topic = Topic::find($topicId);
 
         $openTree = $topic ? $this->_getAncestors($topic) : [];
 
         return Inertia::render('Topic/Index',[
-            //'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children.children.children.children.children.children')->withCount('flashcards')->get() : null,
-            // 'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('children')->withCount('flashcards')->get() : null,
             'topics' => Auth::check() ? Topic::mine()->orderBy('name')->with('descendants')->withCount('flashcards')->get() : null,
-            'openTree' => $openTree
+            'openTree' => $openTree,
+            'topicParents' => Inertia::lazy(fn () => ($editTopic ? Topic::find($editTopic)->getPossibleParents() : collect([]))),
 
         ]);
 
@@ -122,7 +123,7 @@ class TopicController extends Controller
     public function edit(Topic $topic)
     {
 
-        $topics = $this->_getHeirarchy($topic);
+        $topics = $topic->getPossibleParents();
 
         return view('topics.edit')->with(['topic' => $topic, 'topics' => $topics]);
     }
@@ -140,27 +141,6 @@ class TopicController extends Controller
 
         return redirect(route('topics.home'))->with(['success' => $name . ' has been deleted']);
 
-    }
-
-    private function _getHeirarchy($thisTopic, $topicname =null, $topic = null)
-    {
-
-        $topics = Topic::mine($topic->id ?? null)->orderBy('name')->get();
-
-        $collect = collect([]);
-
-        foreach ($topics as $topic){
-
-            if ($topic->id === $thisTopic->id || $topic->flashcards->count()){
-                continue;
-            }
-
-            $name = $topicname ? $topicname . " // " . $topic->name : $topic->name;
-            $collect[$name] = $topic->id;
-            $collect = $collect->merge($this->_getHeirarchy($thisTopic, $name, $topic));
-        }
-
-        return $collect;
     }
 
     private function _getAncestors($topic)

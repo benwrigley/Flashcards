@@ -16,7 +16,12 @@
         openTree: {
             type:Array,
             default: () => []
+        },
+        topicParents: {
+            type:Object,
+            default: []
         }
+
     });
 
     //Topic Forms
@@ -33,20 +38,20 @@
     //providing ability for topic Bars to open/close and populate forms
     const toggleForms = {
         createTopic: () => {
-        showCreateTopicForm.value = !showCreateTopicForm.value;
-        backgroundFade.value = !backgroundFade.value;
+            showCreateTopicForm.value = !showCreateTopicForm.value;
+            backgroundFade.value = !backgroundFade.value;
         },
         deleteTopic: () => {
-        showDeleteTopicForm.value = !showDeleteTopicForm.value;
-        backgroundFade.value = !backgroundFade.value;
+            showDeleteTopicForm.value = !showDeleteTopicForm.value;
+            backgroundFade.value = !backgroundFade.value;
         },
         editTopic: () => {
-        showEditTopicForm.value = !showEditTopicForm.value;
-        backgroundFade.value = !backgroundFade.value;
+            showEditTopicForm.value = !showEditTopicForm.value;
+            backgroundFade.value = !backgroundFade.value;
         },
         createFlashcard: () => {
-        showCreateFlashcardForm.value = !showCreateFlashcardForm.value;
-        backgroundFade.value = !backgroundFade.value;
+            showCreateFlashcardForm.value = !showCreateFlashcardForm.value;
+            backgroundFade.value = !backgroundFade.value;
         },
     };
 
@@ -64,8 +69,6 @@
     function dropHandler(){
         updateTopicParent(null,draggedItem.value);
     }
-
-
 
 </script>
 
@@ -106,7 +109,7 @@
         <!-- Create/Delete/Edit forms -->
         <TopicCreateForm v-if="showCreateTopicForm"/>
         <TopicDeleteForm v-if="showDeleteTopicForm"/>
-        <TopicEditForm v-if="showEditTopicForm"/>
+        <TopicEditForm v-if="showEditTopicForm" :topicParents="topicParents"/>
         <FlashcardCreateForm v-if="showCreateFlashcardForm"/>
     </div>
 </template>

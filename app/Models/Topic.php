@@ -55,46 +55,49 @@ class Topic extends Model
         return $this->parent()->with('ancestors');
     }
 
+    public function getPossibleParents(String $join = null, Array $exclude = null, Collection $topics = null){
 
-    public function getAncestors()
-    {
+        $collection = collect([]);
 
-        return cache()->remember("ancestors." . $this->id, 600, function(){
-            return $this->_getAncestors($this , collect([]));
-        });
+        $exclude = $exclude ?: $this->getAllDescendantsIds();
 
-    }
+        $topics = $topics  ?: Topic::where(['user_id' => $this->user_id, 'topic_id' => null])
+                    ->orderBy('name')
+                    ->with('descendants')
+                    ->get();
 
-    private function _getAncestors(Topic $topic,Collection $ancestory){
+        foreach ($topics as $topic){
 
-        $ancestory->prepend($topic);
+            if (in_array($topic->id,$exclude) || $topic->flashcards->count() > 0){
+                continue;
+            }
 
-        if($topic->topic_id){
-            $this->_getAncestors($topic->parent,$ancestory);
+            $collection->push([
+                'id' => $topic->id,
+                'name' => $join . $topic->name,
+            ]);
+
+            if ($topic->children){
+                $collection = $collection->merge($this->getPossibleParents(' ' . $join . '-', $exclude, $topic->descendants));
+            }
+
+
         }
 
-        return $ancestory;
-
-    }
-
-    public function getDescendants()
-    {
-        return $this->_getDescendants($this, []);
+        return $collection;
 
     }
 
 
-    private function _getDescendants(Topic $topic, Array $topics){
+    public function getAllDescendantsIds()
+{
+    $descendantsIds = [];
 
-        if ($topic->flashcards()->exists()){
-            array_push($topics, $topic->id);
-        }
-
-        foreach ($topic->children as $child){
-            $topics = $this->_getDescendants($child,$topics);
-        }
-
-        return $topics;
-
+    foreach ($this->descendants as $descendant) {
+        $descendantsIds[] = $descendant->id;
+        $descendantsIds = array_merge($descendantsIds, $descendant->getAllDescendantsIds());
     }
+
+    return $descendantsIds;
+}
 }
