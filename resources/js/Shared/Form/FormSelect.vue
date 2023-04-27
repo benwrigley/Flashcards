@@ -7,7 +7,7 @@
     const props = defineProps({
 
         items: {
-            type: Array,    // expects name value pairs
+            type: Object,    // expects name value pairs
             required: true
         },
         label: {
@@ -25,7 +25,7 @@
 </script>
 
 <template>
-    <div class="flex mb-5 items-center w-max space-x-3 text-xl">
+    <div class="flex mb-5 items-center w-max space-x-3 lg:text-xl">
         <p class="mr-2">{{ label }}</p>
 
 
@@ -34,8 +34,8 @@
             v-model="form[props.id]"
             class="text-gray-900 rounded p-1.5"
         >
-            <option v-for="(id, name) in items" :key="id" :value="id" :selected="id === topic.topic_id">
-                {{ name }}
+            <option v-for="item in items" :key="item.id" :value="item.id">
+                {{  item.name  }}
             </option>
         </select>
 
