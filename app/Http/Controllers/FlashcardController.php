@@ -32,7 +32,7 @@ class FlashcardController extends Controller
 
         $flashcard = Flashcard::create($attributes);
 
-        return redirect()->back()->with('success', 'Flashcard created in ' . $flashcard->topic->name);
+        return redirect()->route('topic.show',[$flashcard->topic->slug])->with('success', 'Flashcard created in ' . $flashcard->topic->name)->with('newflashcard',true);
 
     }
 
@@ -119,7 +119,9 @@ class FlashcardController extends Controller
 
         $flashcard->update($attributes);
 
-        return redirect('/topics/' . $flashcard->topic->slug)->with('success', 'Flashcard has been updated');
+        return redirect()->back()->with('success', 'Flashcard updated');
+
+        //return redirect('/topics/' . $flashcard->topic->slug)->with('success', 'Flashcard has been updated');
 
     }
 
