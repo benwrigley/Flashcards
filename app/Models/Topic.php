@@ -20,6 +20,19 @@ class Topic extends Model
         return $query->where(['user_id' => Auth::id(), 'topic_id' => $parentId ?? null]);
     }
 
+    public function scopeMyPossibleParents($query, $parentId = null)
+    {
+        return $query
+            ->where(['user_id' => Auth::id()])
+            ->doesntHave('children')
+            ->orderBy('name')
+            ->get()
+            ->map(
+                function ($item, $key){
+                    return ['id' => $item->id, 'name' => $item->name . " : " . $item->description];
+                });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -87,6 +100,7 @@ class Topic extends Model
         return $collection;
 
     }
+
 
 
     public function getAllDescendantsIds()

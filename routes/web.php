@@ -37,16 +37,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
     Route::post('/email/verify/resend',[VerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.resend');
 
-    Route::get('logout', [SessionsController::class, 'destroy']);
+    Route::get('logout', [SessionsController::class, 'destroy'])->name('logout');
 });
 
 
 Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('topics/{id?}', [TopicController::class, 'index'])->name('topics.home');
-    Route::get('topics/{topic:slug}', [TopicController::class, 'show']);
+    Route::get('topic/{topic:slug}', [TopicController::class, 'show'])->name('topic.show');
     //Route::get('flashcard/{topic:slug}', [FlashcardController::class, 'create']);
+    Route::delete('flashcards/{flashcards}', [FlashcardController::class,'destroyGroup'])->name('flashcard.destroy.group');
+    Route::put('flashcards/move', [FlashcardController::class,'moveGroup'])->name('flashcard.move.group');
     Route::resource('flashcard', FlashcardController::class)->only(['store','edit','update','destroy','create']);
-    Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','show','create']);
+    Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','create']);
     Route::put('topic/{topic}/changeparent', [TopicController::class, 'changeParent'])->name('topic.change.parent');
 
 

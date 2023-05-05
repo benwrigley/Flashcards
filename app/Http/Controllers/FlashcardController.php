@@ -52,8 +52,40 @@ class FlashcardController extends Controller
 
         $flashcard->delete();
 
-        return redirect('/topics/' . $topic->slug)->with('success', 'Flashcard has been deleted');
+        return redirect()->back()->with('success', 'Flashcard deleted');
 
+        //return redirect('/topics/' . $topic->slug)->with('success', 'Flashcard has been deleted');
+
+
+    }
+
+    public function destroyGroup(String $ids)
+    {
+        $ids = explode(',', $ids);
+
+        Flashcard::whereIn('id',$ids)->delete();
+
+        return redirect()->back()->with('success', 'Flashcards deleted');
+
+    }
+
+    public function moveGroup()
+    {
+
+        $attributes = request()->validate([
+            'topic_id' => ['exists:topics,id','nullable'],
+            'flashcards' => ['array']
+        ]);
+
+        $flashcards = Flashcard::whereIn('id',$attributes['flashcards'])->get();
+
+        foreach ($flashcards as $flashcard){
+            $flashcard->topic_id = $attributes['topic_id'];
+            $flashcard->save();
+        }
+
+
+        return redirect()->back()->with('success', 'Flashcards moved');
 
     }
 
