@@ -1,11 +1,11 @@
 <script setup>
 
-import { inject, ref, defineEmits, watch, computed} from 'vue';
-import { usePage } from '@inertiajs/vue3';
+import { inject, ref, watch, computed} from 'vue';
 import ChevronDown from '@/Shared/SVG/ChevronDown.vue';
 import TopicBlock from './TopicBlock.vue';
 import TopicBarButtons from '@/Shared/Topic/TopicBarButtons.vue'
 import { updateTopicParent } from '@/composables/updateTopicParent';
+import LinkButton from '@/Shared/Form/LinkButton.vue';
 
     const props = defineProps({
         topic: Object
@@ -81,23 +81,12 @@ import { updateTopicParent } from '@/composables/updateTopicParent';
     }
 
 
-    let additionalClass = computed(() => {
+    const additionalClass = computed(() => {
         if (childCount.value > 0 && props.topic.flashcards_count > 0 && draggedItem.value !== props.topic.id){
                 return "filter grayscale opacity-40 ";
         }
         return "";
     });
-
-    //increment the counter when dragging over/leaving a child
-    // function dragInside(b){
-    //     if (b){
-    //         childCounter(1);
-    //     }
-    //     else{
-    //         childCounter(-1);
-    //     }
-    //     open.value = (childCount > 0);
-    // }
 
 
 </script>
@@ -128,9 +117,11 @@ import { updateTopicParent } from '@/composables/updateTopicParent';
             />
 
             <!-- Topic Name -->
-            <div class="truncate w-32 lg:w-40 rounded px-2 py-1 text-center" :class="topic.background">
+            <LinkButton v-if="topic.flashcards_count > 0" :link="route('topic.show',[topic.slug])" :label="topic.name" :class="'truncate w-32 lg:w-40 rounded px-2 py-1 text-center ' + topic.background"/>
+            <div v-else class="truncate w-32 lg:w-40 rounded px-2 py-1 text-center duration-500" :class="topic.background">
                 {{ topic.name }}
             </div>
+
             <!-- Topic Description -->
             <div class="text-base text-left hidden lg:inline ml-3 truncate w-auto">
                 {{ topic.description }}

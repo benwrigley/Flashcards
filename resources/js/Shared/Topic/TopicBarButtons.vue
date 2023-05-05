@@ -5,7 +5,6 @@
     import IconButton from '@/Shared/IconButton.vue'
     import Edit from '@/Shared/SVG/Edit.vue'
     import Trash from '@/Shared/SVG/Trash.vue'
-    import { Link } from '@inertiajs/vue3'
     import { inject } from 'vue'
 
     defineProps({
@@ -23,8 +22,8 @@
 
 <div class=" fill-white absolute right-2 flex space-x-2 items-center" >
             <div
-                class="text-base text-left hidden ml-3 truncate w-min lg:flex lg:items-center"
-                v-if="topic.flashcards_count > 0 || topic.descendants.length < 1"
+                class="text-base text-left ml-3 truncate w-min lg:flex lg:items-center"
+                v-if="topic.flashcards_count > 0 && topic.descendants.length < 1"
             >
                 <div>
                     {{ topic.flashcards_count }}

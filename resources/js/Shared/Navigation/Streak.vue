@@ -4,7 +4,7 @@
         <div class="bg-green-600 text-center px-2 rounded-full text-2xl">
             {{ $page.props.auth.user.streak }}
         </div>
-        <div class="invisible lg:visible">
+        <div class="hidden lg:block">
             Streak Days
         </div>
     </div>

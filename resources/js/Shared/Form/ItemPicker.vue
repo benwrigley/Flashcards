@@ -33,8 +33,6 @@
 
     const form = inject('form');
 
-    console.log(props.label);
-
 </script>
 
 <template>
