@@ -2,6 +2,9 @@
 
 import ChevronDown from '@/Shared/SVG/ChevronDown.vue';
 import MenuDown from '@/Shared/SVG/MenuDown.vue';
+import IconButton from '@/Shared/IconButton.vue';
+import Home from '@/Shared/SVG/Home.vue';
+import Logout from '@/Shared/SVG/Logout.vue';
 
 
 import { ref} from 'vue';
@@ -34,18 +37,37 @@ const showPanel = ref(false);
 
             <div
                 id="dropdownHover"
-                class="z-50 rounded-lg shadow-md mx-auto dark:bg-gray-700 absolute grid grid-cols-3 w-max right-0 text-center p-4 space-x-2 normal-case "
+                class="z-50 rounded-lg shadow-md mx-auto dark:bg-gray-700 absolute  w-max right-0 text-center p-4 space-x-2 normal-case "
                 v-show="showPanel"
                 @mouseleave="showPanel = false"
             >
-                <div class="col-span-2  border-r pr-2 pb-1">Total Flashcards</div>
-                <div>245</div>
-                <div class="col-span-2  border-r pr-2 pb-1">Completed Tests</div>
-                <div>56</div>
-                <div class="col-span-2  border-r pr-2">Avg Test Score</div>
-                <div>45%</div>
-                <div class="col-span-3 border-t mt-3">
-                    <Link href="/logout" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"> Sign out</Link>
+                <div class="grid grid-cols-3 border-b p-2 mb-2">
+                    <div class="col-span-2  border-r pr-2 pb-1">Total Flashcards</div>
+                    <div>245</div>
+                    <div class="col-span-2  border-r pr-2 pb-1">Completed Tests</div>
+                    <div>56</div>
+                    <div class="col-span-2  border-r pr-2">Avg Test Score</div>
+                    <div>45%</div>
+                </div>
+                <div class="space-y-2">
+
+                    <div class="flex place-content-center">
+                        <Link :href="route('topics.home')" class="flex items-center">
+                            <IconButton tooltip="Main Topics">
+                                <Home width="20" height="20"/>
+                            </IconButton>
+                            <span>Home</span>
+                        </Link>
+                    </div>
+
+                    <div class="flex place-content-center">
+                        <Link :href="route('logout')" class="flex items-center">
+                            <IconButton tooltip="Logout">
+                                <Logout width="20" height="20"/>
+                            </IconButton>
+                            <span>Logout</span>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

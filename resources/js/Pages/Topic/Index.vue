@@ -74,7 +74,7 @@
 
 <template>
     <div @dragover.prevent @drop.prevent="dropHandler()" class="h-screen">
-        <Layout title="Topics Index" type="scrollable" :fade="backgroundFade">
+        <Layout title="Topics Index" type="scrollable" :fade="backgroundFade" navtitle="Flashcards">
 
             <!-- Intro if no topics created -->
             <div v-if="topics.length < 1">
@@ -89,10 +89,10 @@
                 </div>
             </div>
             <!-- Show the tree of all topics-->
-            <div class="relative w-5/6 text-white  text-lg lg:text-xl">
+            <div class="relative w-11/12 lg:w-5/6 text-white  text-lg lg:text-xl">
                 <TopicBlock :topics="topics" />
                 <div
-                    @click="currentTopic = {}; toggleCreateTopicForm()"
+                    @click="currentTopic = {}; toggleForms.createTopic()"
                     class="fill-white absolute right-2"
                 >
                     <IconButton tooltip="New Main Topic">
