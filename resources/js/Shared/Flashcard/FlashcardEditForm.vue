@@ -12,23 +12,23 @@
         errors: Object,
     });
 
-    const currentTopic = inject('currentTopic');
+    const currentFlashcard = inject('currentFlashcard');
     const toggleForms = inject('toggleForms');
 
 
     const form = useForm({
-        question: null,
-        answer: null,
-        max_score: null,
-        topic_id: currentTopic.value.id
+        question: currentFlashcard.value.question,
+        answer: currentFlashcard.value.answer,
+        max_score: currentFlashcard.value.max_score,
+        topic_id: currentFlashcard.value.topic_id
     })
 
 
     function submit(){
-        form.post(
-            route('flashcard.store'),
+        form.put(
+            route('flashcard.update', {flashcard:currentFlashcard.value}),
             {
-                onSuccess: () => toggleForms.createFlashcard(),
+                onSuccess: () => closeForm(),
                 preserveState: true,
                 preserveScroll: true,
         });
@@ -39,8 +39,13 @@
 
 
     const title = computed(() =>{
-        return 'Create new card in ' + currentTopic.value.name;
+        return 'Modifying flashcard';
     });
+
+
+    function closeForm(){
+        toggleForms.editFlashcard()
+    }
 
 
 </script>
@@ -49,7 +54,7 @@
 
 <div class="fixed grid place-items-center h-screen w-screen">
 
-    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleForms.createFlashcard()'>
+    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
         <FormInput
             id="question"
@@ -74,7 +79,7 @@
 
         <div class="flex justify-around w-full">
             <FormButton
-                label="Create Flashcard"
+                label="Update Flashcard"
             />
         </div>
     </FormLayout>

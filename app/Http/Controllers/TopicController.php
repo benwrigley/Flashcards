@@ -7,6 +7,7 @@ use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -33,12 +34,28 @@ class TopicController extends Controller
 
     }
 
-    public function show(Topic $topic)
+    public function show(Request $request, Topic $topic)
     {
+
+        $flashcards = $topic->flashcards()->paginate(10)->onEachSide(1);
+
+        if (Session::get('newflashcard')){
+            return Inertia::location($flashcards->url($flashcards->lastPage()));
+
+        }
+
+        if ($flashcards->count() === 0 && $flashcards->currentPage() > 1) {
+            return Inertia::location($flashcards->previousPageUrl());
+        }
+        elseif($flashcards->count() === 0 && $flashcards->currentPage() == 1){
+            return redirect()->route('topics.home')->with('success','Topic is empty');
+        }
 
         // return view('topics.show', [
         return Inertia::render('Topic/Show',[
-            'topic' => $topic
+            'topic' => $topic,
+            'flashcards' => $flashcards,
+            'flashcardParents' => Topic::myPossibleParents()
         ]);
     }
 
