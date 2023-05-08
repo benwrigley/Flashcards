@@ -81,7 +81,7 @@
         <!-- /Header-->
 
 
-        <div class="overflow-auto h-[70vh] lg:h-[60vh]">
+        <div class="overflow-auto h-[65vh] lg:h-[60vh]">
             <div v-for="flashcard in flashcards.data"
                 class="relative flex items-center bg-gray-700 rounded-lg p-2 mb-3 hover:border text-sm lg:text-xl"
                 :class="{
