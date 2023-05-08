@@ -72,10 +72,12 @@
             </div>
             <!-- Show the tree of all topics-->
             <div class="relative w-11/12 lg:w-5/6 text-white  text-lg lg:text-xl">
-                <TopicBlock :topics="topics" />
+                <div class="overflow-y-auto h-[80vh]">
+                    <TopicBlock :topics="topics" />
+                </div>
                 <div
                     @click="currentTopic = {}; currentForm=TopicCreateForm"
-                    class="fill-white absolute right-2"
+                    class="fill-white absolute right-2 mt-3"
                 >
                     <IconButton tooltip="New Main Topic">
                         <TopicNew width="20" height="20"/>

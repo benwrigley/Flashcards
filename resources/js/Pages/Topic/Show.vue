@@ -74,7 +74,6 @@
         </main>
 
     </Layout>
-    <Pagination class="absolute bottom-2 lg:hidden w-screen" :paginator="flashcards" />
 
     <FlashcardCreateForm v-if="currentForm === 'createFlashcard'" @close-form="closeForms"/>
     <FlashcardEditForm v-if="currentForm === 'editFlashcard'" @close-form="closeForms"/>

@@ -81,50 +81,54 @@
         <!-- /Header-->
 
 
-        <div v-for="flashcard in flashcards.data"
-            class="relative flex items-center bg-gray-700 rounded-lg p-2 mb-3 hover:border text-sm lg:text-xl"
-            :class="{
-                'border border-blue-500' : selectedCards.includes(flashcard.id)
-            }"
-            :key="flashcard.id"
-            @click="openForm('editFlashcard',flashcard)"
-        >
+        <div class="overflow-auto h-[70vh] lg:h-[60vh]">
+            <div v-for="flashcard in flashcards.data"
+                class="relative flex items-center bg-gray-700 rounded-lg p-2 mb-3 hover:border text-sm lg:text-xl"
+                :class="{
+                    'border border-blue-500' : selectedCards.includes(flashcard.id)
+                }"
+                :key="flashcard.id"
+                @click="openForm('editFlashcard',flashcard)"
+            >
 
-            <div class="flex ml-4">
-                <FormCheckbox :id="flashcard.id" @option-selected="toggleCardSelect"/>
-                <div class="italic ml-6 truncate w-52 lg:w-full">
-                    '{{ flashcard.question}}'
+                <div class="flex ml-4">
+                    <FormCheckbox :id="flashcard.id" @option-selected="toggleCardSelect"/>
+                    <div class="italic ml-6 truncate w-52 lg:w-full">
+                        '{{ flashcard.question}}'
+                    </div>
+
                 </div>
 
+                <div class="col-span-1 space-x-2 fill-white right-2 absolute flex">
+                    <div class="mr-3">
+                        {{flashcard.avg_score}}%
+                    </div>
+                <!-- Edit Button-->
+                    <div
+                        @click.stop="openForm('editFlashcard',flashcard)"
+                        class="hidden lg:block"
+                    >
+                        <IconButton tooltip="Edit Flashcard">
+                            <Edit width="20" height="20"/>
+                        </IconButton>
+
+                    </div>
+
+                    <!-- Delete Button-->
+                    <div
+                        @click.stop="openForm('deleteFlashcard',flashcard)"
+                        class="hidden lg:block"
+                    >
+
+                        <IconButton tooltip="Delete Flashcard">
+                            <Trash width="20" height="20"/>
+                        </IconButton>
+
+                    </div>
+                </div>
             </div>
 
-            <div class="col-span-1 space-x-2 fill-white right-2 absolute flex">
-                <div class="mr-3">
-                    {{flashcard.avg_score}}%
-                </div>
-            <!-- Edit Button-->
-                <div
-                    @click.stop="openForm('editFlashcard',flashcard)"
-                    class="hidden lg:block"
-                >
-                    <IconButton tooltip="Edit Flashcard">
-                        <Edit width="20" height="20"/>
-                    </IconButton>
-
-                </div>
-
-                <!-- Delete Button-->
-                <div
-                    @click.stop="openForm('deleteFlashcard',flashcard)"
-                    class="hidden lg:block"
-                >
-
-                    <IconButton tooltip="Delete Flashcard">
-                        <Trash width="20" height="20"/>
-                    </IconButton>
-
-                </div>
-            </div>
         </div>
+        <Pagination class="bottom-2 lg:hidden w-full" :paginator="flashcards" />
 
 </template>
