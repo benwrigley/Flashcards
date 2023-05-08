@@ -44,10 +44,10 @@ class TopicController extends Controller
 
         }
 
-        if ($flashcards->count() === 0 && $flashcards->currentPage() > 1) {
+        if ($flashcards->total() === 0 && $flashcards->currentPage() > 1) {
             return Inertia::location($flashcards->previousPageUrl());
         }
-        elseif($flashcards->count() === 0 && $flashcards->currentPage() == 1){
+        elseif($flashcards->total() === 0 && $flashcards->currentPage() == 1){
             return redirect()->route('topics.home')->with('success','Topic is empty');
         }
 
