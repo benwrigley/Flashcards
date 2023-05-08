@@ -26,48 +26,20 @@
         }
     });
 
-    const showCreateFlashcardForm = ref(false);
-    const showEditFlashcardForm = ref(false);
-    const showDeleteFlashcardForm = ref(false);
-    const showDeleteFlashcardGroupForm = ref(false);
-    const showMoveFlashcardGroupForm = ref(false);
     const backgroundFade = ref(false);
     const currentTopic = ref(props.topic);
     const currentFlashcard = ref('');
     const selectedCards = ref([]);
+    const currentForm = ref(null);
 
-    //providing ability for topic Bars to open/close and populate forms
-    const toggleForms = {
-        createFlashcard: () => {
-            showCreateFlashcardForm.value = !showCreateFlashcardForm.value;
-            backgroundFade.value = !backgroundFade.value;
-        },
-        editFlashcard: () => {
-            showEditFlashcardForm.value = !showEditFlashcardForm.value;
-            backgroundFade.value = !backgroundFade.value;
-        },
-        deleteFlashcard: () => {
-            showDeleteFlashcardForm.value = !showDeleteFlashcardForm.value;
-            backgroundFade.value = !backgroundFade.value;
-        },
-        deleteFlashcardGroup: () => {
-            if (selectedCards.value.length > 0){
-                showDeleteFlashcardGroupForm.value = !showDeleteFlashcardGroupForm.value;
-                backgroundFade.value = !backgroundFade.value;
-            }
-        },
-        moveFlashcardGroup: () => {
-            if (selectedCards.value.length > 0){
-                showMoveFlashcardGroupForm.value = !showMoveFlashcardGroupForm.value;
-                backgroundFade.value = !backgroundFade.value;
-            }
-        },
-    };
-
-    provide('toggleForms', toggleForms);
     provide('currentTopic', currentTopic);
     provide('currentFlashcard', currentFlashcard);
     provide('selectedCards', selectedCards);
+    provide('currentForm',currentForm);
+
+    function closeForms(){
+        currentForm.value = null;
+    }
 
 </script>
 
@@ -104,9 +76,9 @@
     </Layout>
     <Pagination class="absolute bottom-2 lg:hidden w-screen" :paginator="flashcards" />
 
-    <FlashcardCreateForm v-if="showCreateFlashcardForm"/>
-    <FlashcardEditForm v-if="showEditFlashcardForm"/>
-    <FlashcardDeleteForm v-if="showDeleteFlashcardForm"/>
-    <FlashcardDeleteGroupForm v-if="showDeleteFlashcardGroupForm" @close-form="toggleForms.deleteFlashcardGroup"/>
-    <FlashcardMoveGroupForm v-if="showMoveFlashcardGroupForm" @close-form="toggleForms.moveFlashcardGroup" :possibleParents="flashcardParents"/>
+    <FlashcardCreateForm v-if="currentForm === 'createFlashcard'" @close-form="closeForms"/>
+    <FlashcardEditForm v-if="currentForm === 'editFlashcard'" @close-form="closeForms"/>
+    <FlashcardDeleteForm v-if="currentForm === 'deleteFlashcard'" @close-form="closeForms"/>
+    <FlashcardDeleteGroupForm v-if="currentForm === 'deleteFlashcardGroup'" @close-form="closeForms"/>
+    <FlashcardMoveGroupForm v-if="currentForm === 'moveFlashcardGroup'" @close-form="closeForms" :possibleParents="flashcardParents"/>
 </template>

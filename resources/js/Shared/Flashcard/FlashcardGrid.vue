@@ -8,6 +8,7 @@
     import FlashcardNew from '@/Shared/SVG/FlashcardNew.vue'
     import Pagination from '@/Shared/Pagination.vue'
     import { inject, onMounted } from 'vue'
+    import { setFlashMessage } from '@/composables/setFlashMessage';
 
     defineProps({
         flashcards : {
@@ -15,9 +16,8 @@
         }
     })
 
-    const currentTopic = inject('currentTopic');
     const currentFlashcard = inject('currentFlashcard');
-    const toggleForms = inject('toggleForms');
+    const currentForm = inject('currentForm');
     const selectedCards = inject('selectedCards')
 
     function toggleCardSelect(n){
@@ -31,6 +31,12 @@
         }
     }
 
+    function openForm(formName,flashcard){
+
+        currentForm.value=formName;
+        currentFlashcard.value = flashcard;
+    }
+
     onMounted(() => {
         selectedCards.value=[];
     });
@@ -42,14 +48,14 @@
         <div class="flex justify-between lg:grid lg:grid-cols-3 mb-3 items-center mt-2">
             <div class="flex fill-white space-x-2 place-content-start">
                 <div
-                        @click="toggleForms.createFlashcard"
+                        @click="openForm('createFlashcard')"
                 >
                     <IconButton tooltip="New Flashcard">
                         <FlashcardNew width="20" height="20"/>
                     </IconButton>
                 </div>
                 <div
-                    @click="toggleForms.deleteFlashcardGroup()"
+                    @click="selectedCards.length > 0 ?  openForm('deleteFlashcardGroup') : setFlashMessage('error','Select cards to delete')"
                 >
 
                     <IconButton tooltip="Delete Selected">
@@ -58,7 +64,7 @@
 
                 </div>
                 <div
-                    @click="toggleForms.moveFlashcardGroup()"
+                    @click="selectedCards.length > 0 ? openForm('moveFlashcardGroup') : setFlashMessage('error','Select cards to move')"
                 >
 
                     <IconButton tooltip="Move Selected">
@@ -81,7 +87,7 @@
                 'border border-blue-500' : selectedCards.includes(flashcard.id)
             }"
             :key="flashcard.id"
-            @click="currentFlashcard = flashcard; toggleForms.editFlashcard()"
+            @click="openForm('editFlashcard',flashcard)"
         >
 
             <div class="flex ml-4">
@@ -98,7 +104,7 @@
                 </div>
             <!-- Edit Button-->
                 <div
-                    @click.stop="currentFlashcard = flashcard; toggleForms.editFlashcard()"
+                    @click.stop="openForm('editFlashcard',flashcard)"
                     class="hidden lg:block"
                 >
                     <IconButton tooltip="Edit Flashcard">
@@ -109,7 +115,7 @@
 
                 <!-- Delete Button-->
                 <div
-                    @click.stop="currentFlashcard = flashcard; toggleForms.deleteFlashcard()"
+                    @click.stop="openForm('deleteFlashcard',flashcard)"
                     class="hidden lg:block"
                 >
 

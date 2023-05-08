@@ -15,8 +15,6 @@
     });
 
     const currentTopic = inject('currentTopic');
-    const toggleForms = inject('toggleForms');
-
 
     const form = useForm({
         name: currentTopic.value.name,
@@ -31,7 +29,7 @@
             {
                 preserveState: true,
                 preserveScroll: true,
-                onSuccess: () => toggleForms.editTopic(),
+                onSuccess: () => closeForm(),
             },
         )
     };
@@ -53,6 +51,11 @@
         router.reload({ only: ['topicParents'], data: { edittopic: currentTopic.value.id } })
     });
 
+    const emit = defineEmits(['closeForm'])
+
+    function closeForm(){
+        emit('closeForm');
+    };
 
 </script>
 
@@ -60,7 +63,7 @@
 
 <div class="fixed grid place-items-center h-screen w-screen">
 
-    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleForms.editTopic()'>
+    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
         <FormInput
             id="name"

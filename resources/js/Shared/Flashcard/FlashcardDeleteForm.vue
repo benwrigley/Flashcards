@@ -12,7 +12,7 @@
     });
 
     const currentFlashcard = inject('currentFlashcard');
-    const toggleForms = inject('toggleForms');
+    const emit = defineEmits(['closeForm'])
 
 
     const form = useForm({})
@@ -24,7 +24,7 @@
     }
 
     function closeForm(){
-        toggleForms.deleteFlashcard();
+        emit('closeForm');
     }
 
     provide('form', form);

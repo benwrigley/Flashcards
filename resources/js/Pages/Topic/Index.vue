@@ -8,7 +8,7 @@
     import TopicEditForm from '@/Shared/Topic/TopicEditForm.vue';
     import IconButton from '@/Shared/IconButton.vue';
     import TopicNew from '@/Shared/SVG/TopicNew.vue';
-    import { provide, ref, reactive } from 'vue';
+    import { provide, ref, reactive, computed } from 'vue';
     import { updateTopicParent } from '@/composables/updateTopicParent';
 
     const props = defineProps({
@@ -24,39 +24,17 @@
 
     });
 
-    //Topic Forms
-    const  showCreateTopicForm = ref(false);
-    const  showDeleteTopicForm = ref(false);
-    const  showEditTopicForm = ref(false);
-    const  showCreateFlashcardForm = ref(false);
+
     const  currentTopic = ref({});
-    const  backgroundFade = ref(false);
     const  draggedItem = ref(null);
     const  openTree = reactive(props.openTree)
+    const  currentForm = ref(null);
 
+    const backgroundFade = computed(() => {
+        return currentForm.value !== null;
+    });
 
-    //providing ability for topic Bars to open/close and populate forms
-    const toggleForms = {
-        createTopic: () => {
-            showCreateTopicForm.value = !showCreateTopicForm.value;
-            backgroundFade.value = !backgroundFade.value;
-        },
-        deleteTopic: () => {
-            showDeleteTopicForm.value = !showDeleteTopicForm.value;
-            backgroundFade.value = !backgroundFade.value;
-        },
-        editTopic: () => {
-            showEditTopicForm.value = !showEditTopicForm.value;
-            backgroundFade.value = !backgroundFade.value;
-        },
-        createFlashcard: () => {
-            showCreateFlashcardForm.value = !showCreateFlashcardForm.value;
-            backgroundFade.value = !backgroundFade.value;
-        },
-    };
-
-
-    provide('toggleForms', toggleForms);
+    provide('currentForm', currentForm);
     provide('currentTopic', currentTopic)
 
     //passing down tree of topics to have open at the start
@@ -68,6 +46,10 @@
 
     function dropHandler(){
         updateTopicParent(null,draggedItem.value);
+    }
+
+    function closeForms(){
+        currentForm.value = null;
     }
 
 </script>
@@ -92,7 +74,7 @@
             <div class="relative w-11/12 lg:w-5/6 text-white  text-lg lg:text-xl">
                 <TopicBlock :topics="topics" />
                 <div
-                    @click="currentTopic = {}; toggleForms.createTopic()"
+                    @click="currentTopic = {}; currentForm=TopicCreateForm"
                     class="fill-white absolute right-2"
                 >
                     <IconButton tooltip="New Main Topic">
@@ -107,9 +89,12 @@
         </layout>
 
         <!-- Create/Delete/Edit forms -->
-        <TopicCreateForm v-if="showCreateTopicForm"/>
-        <TopicDeleteForm v-if="showDeleteTopicForm"/>
-        <TopicEditForm v-if="showEditTopicForm" :topicParents="topicParents"/>
-        <FlashcardCreateForm v-if="showCreateFlashcardForm"/>
+
+        <TopicCreateForm v-if="currentForm === 'createTopic'" @close-form="closeForms"/>
+        <TopicDeleteForm v-if="currentForm === 'deleteTopic'" @close-form="closeForms"/>
+        <TopicEditForm v-if="currentForm === 'editTopic'" :topicParents="topicParents" @close-form="closeForms"/>
+
+        <FlashcardCreateForm v-if="currentForm === 'createFlashcard'" @close-form="closeForms"/>
+
     </div>
 </template>

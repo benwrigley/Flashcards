@@ -13,8 +13,6 @@
     });
 
     const currentTopic = inject('currentTopic');
-    const toggleForms = inject('toggleForms');
-
 
     const form = useForm({
         question: null,
@@ -28,7 +26,7 @@
         form.post(
             route('flashcard.store'),
             {
-                onSuccess: () => toggleForms.createFlashcard(),
+                onSuccess: () => closeForm(),
                 preserveState: true,
                 preserveScroll: true,
         });
@@ -42,6 +40,12 @@
         return 'Create new card in ' + currentTopic.value.name;
     });
 
+    const emit = defineEmits(['closeForm'])
+
+    function closeForm(){
+        emit('closeForm');
+    };
+
 
 </script>
 
@@ -49,7 +53,7 @@
 
 <div class="fixed grid place-items-center h-screen w-screen">
 
-    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleForms.createFlashcard()'>
+    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
         <FormInput
             id="question"

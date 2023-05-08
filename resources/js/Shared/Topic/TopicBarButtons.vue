@@ -7,12 +7,18 @@
     import Trash from '@/Shared/SVG/Trash.vue'
     import { inject } from 'vue'
 
-    defineProps({
+    const props = defineProps({
         topic: Object
     });
 
-    const toggleForms = inject('toggleForms');
-    const currentTopic = inject('currentTopic');
+    const currentForm = inject('currentForm');
+    const currentTopic = inject('currentTopic')
+
+    function openForm(formName){
+
+        currentForm.value=formName;
+        currentTopic.value = props.topic;
+    }
 
 
 </script>
@@ -33,7 +39,7 @@
             <!-- New Flashcard Button-->
             <div
                 v-if="topic.flashcards_count > 0 || topic.descendants.length < 1"
-                @click="currentTopic = topic; toggleForms.createFlashcard()"
+                @click="openForm('createFlashcard')"
             >
 
                 <IconButton tooltip="New Flashcard">
@@ -45,7 +51,7 @@
             <!-- New Topic Button-->
             <div
                 v-if="topic.descendants.length > 0 || topic.flashcards_count < 1"
-                @click="currentTopic = topic; toggleForms.createTopic()"
+                @click="openForm('createTopic')"
             >
                 <!-- <Link :href="route('topic.create',{topic:topic.id})"> -->
                     <IconButton tooltip="New Topic">
@@ -56,7 +62,7 @@
 
             <!-- Edit Button-->
             <div
-                @click="currentTopic = topic; toggleForms.editTopic()"
+                @click="openForm('editTopic')"
             >
                 <IconButton tooltip="Edit Topic">
                     <Edit width="20" height="20"/>
@@ -66,7 +72,7 @@
 
             <!-- Delete Button-->
             <div
-                @click="currentTopic = topic; toggleForms.deleteTopic()"
+                @click="openForm('deleteTopic')"
             >
 
                 <IconButton tooltip="Delete Topic">

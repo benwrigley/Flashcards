@@ -12,7 +12,6 @@
     });
 
     const currentTopic = inject('currentTopic');
-    const toggleForms = inject('toggleForms');
 
 
     const form = useForm({
@@ -24,7 +23,7 @@
 
     function submit(){
         form.delete(route('topic.destroy',{topic : currentTopic.value.id}),{
-            onSuccess: () => toggleForms.deleteTopic()
+            onSuccess: () => closeForm()
         });
     }
 
@@ -40,13 +39,19 @@
         return cannotBeDeleted.value ?  'Cannot delete ' + currentTopic.value.name : 'Deleting ' + currentTopic.value.name;
     });
 
+    const emit = defineEmits(['closeForm'])
+
+    function closeForm(){
+        emit('closeForm');
+    };
+
 </script>
 
 <template>
 
 <div class="fixed grid place-items-center h-screen w-screen">
 
-    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleForms.deleteTopic()'>
+    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
         <div
 
@@ -55,7 +60,7 @@
                 <p>Please delete all subtopics and flashcards before this can be deleted.</p>
             </div>
 
-            <div class="flex justify-around w-full" @click="toggleForms.deleteTopic()">
+            <div class="flex justify-around w-full" @click="closeForm()">
                 <FormButton
                     type="button"
                     label="Cancel"
@@ -73,7 +78,7 @@
 
             <div class="flex justify-around w-full mt-6" >
                 <FormButton
-                @click="toggleForms.deleteTopic()"
+                @click="closeForm()"
                     type="button"
                     label="Cancel"
                 />

@@ -1,7 +1,7 @@
 <script setup>
 
-    import { router, useForm } from '@inertiajs/vue3';
-    import { inject, provide, computed, onMounted, ref } from 'vue';
+    import {  useForm } from '@inertiajs/vue3';
+    import { inject, provide, computed } from 'vue';
     import FormLayout from '@/Shared/Form/FormLayout.vue';
     import FormButton from '@/Shared/Form/FormButton.vue';
     import FormInput from '@/Shared/Form/FormInput.vue';
@@ -13,7 +13,6 @@
     });
 
     const currentTopic = inject('currentTopic');
-    const toggleForms = inject('toggleForms');
 
     let openTree = inject('openTree');
 
@@ -47,6 +46,12 @@
         return 'Create new ' + (Object.keys(currentTopic.value).length > 0 ? 'subtopic in ' + currentTopic.value.name : 'main topic');
     });
 
+    const emit = defineEmits(['closeForm'])
+
+    function closeForm(){
+        emit('closeForm');
+    };
+
 
 </script>
 
@@ -54,7 +59,7 @@
 
 <div class="fixed grid place-items-center h-screen w-screen">
 
-    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='toggleForms.createTopic()'>
+    <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
         <FormInput
             id="name"

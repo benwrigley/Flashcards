@@ -13,8 +13,8 @@
     });
 
     const currentFlashcard = inject('currentFlashcard');
-    const toggleForms = inject('toggleForms');
 
+    const emit = defineEmits(['closeForm'])
 
     const form = useForm({
         question: currentFlashcard.value.question,
@@ -44,7 +44,7 @@
 
 
     function closeForm(){
-        toggleForms.editFlashcard()
+        emit('closeForm');
     }
 
 
