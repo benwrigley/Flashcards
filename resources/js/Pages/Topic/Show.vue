@@ -8,10 +8,9 @@
     import FlashcardDeleteForm from '@/Shared/Flashcard/FlashcardDeleteForm.vue';
     import FlashcardDeleteGroupForm from '@/Shared/Flashcard/FlashcardDeleteGroupForm.vue';
     import FlashcardMoveGroupForm from '@/Shared/Flashcard/FlashcardMoveGroupForm.vue';
-    import Pagination from '@/Shared/Pagination.vue';
     import IconButton from '@/Shared/IconButton.vue';
     import { Link } from '@inertiajs/vue3';
-    import { provide,ref } from 'vue';
+    import { provide,ref,computed } from 'vue';
 
     const props = defineProps({
         topic : {
@@ -26,11 +25,14 @@
         }
     });
 
-    const backgroundFade = ref(false);
     const currentTopic = ref(props.topic);
     const currentFlashcard = ref('');
     const selectedCards = ref([]);
     const currentForm = ref(null);
+
+    const backgroundFade = computed(() => {
+        return currentForm.value !== null;
+    });
 
     provide('currentTopic', currentTopic);
     provide('currentFlashcard', currentFlashcard);

@@ -76,7 +76,7 @@
                     <TopicBlock :topics="topics" />
                 </div>
                 <div
-                    @click="currentTopic = {}; currentForm=TopicCreateForm"
+                    @click="currentTopic = {}; currentForm='createTopic'"
                     class="fill-white absolute right-2 mt-3"
                 >
                     <IconButton tooltip="New Main Topic">
