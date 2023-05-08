@@ -107,14 +107,16 @@ import LinkButton from '@/Shared/Form/LinkButton.vue';
     >
         <div class="rounded p-2 flex items-center relative">
 
+            <div class="w-5">
             <ChevronDown
                     v-if="topic.descendants && topic.descendants.length > 0"
                     width="20"
                     height="20"
                     @click="toggleOpen"
                     :class='{"-rotate-90" : !open}'
-                    class="fill-white absolute -left-5"
+                    class="fill-white"
             />
+            </div>
 
             <!-- Topic Name -->
             <LinkButton v-if="topic.flashcards_count > 0" :link="route('topic.show',[topic.slug])" :label="topic.name" :class="'truncate w-32 lg:w-40 rounded px-2 py-1 text-center ' + topic.background"/>

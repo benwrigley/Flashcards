@@ -37,7 +37,7 @@ import IconButton from './IconButton.vue';
                 <Component
                     :is="link.href ? Link : 'span'"
                     :href="link.href ">
-                    <IconButton tooltip="Previous Page" :disable="!link.href">
+                    <IconButton :tooltip="link.id === 0? 'Previous Page' : 'Next Page'" :disable="!link.href">
                         <Component
                             :is="link.id === 0? ArrowPrevious : ArrowNext"
                             width="30"
