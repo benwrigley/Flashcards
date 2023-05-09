@@ -8,6 +8,7 @@
     import FlashcardDeleteForm from '@/Shared/Flashcard/FlashcardDeleteForm.vue';
     import FlashcardDeleteGroupForm from '@/Shared/Flashcard/FlashcardDeleteGroupForm.vue';
     import FlashcardMoveGroupForm from '@/Shared/Flashcard/FlashcardMoveGroupForm.vue';
+    import Pagination from '@/Shared/Pagination.vue';
     import IconButton from '@/Shared/IconButton.vue';
     import { Link } from '@inertiajs/vue3';
     import { provide,ref,computed } from 'vue';
@@ -76,7 +77,7 @@
         </main>
 
     </Layout>
-
+    <Pagination class="fixed bottom-3 lg:hidden w-full" :paginator="flashcards" />
     <FlashcardCreateForm v-if="currentForm === 'createFlashcard'" @close-form="closeForms"/>
     <FlashcardEditForm v-if="currentForm === 'editFlashcard'" @close-form="closeForms"/>
     <FlashcardDeleteForm v-if="currentForm === 'deleteFlashcard'" @close-form="closeForms"/>
