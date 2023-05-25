@@ -26,14 +26,14 @@ provide('form', form);
             title="Welcome to Flashcards!"
             method="post"
             :routeName="route('login')">
-                <div class="w-4/6">
+                <div class="w-11/12 lg:w-4/6">
                     <FormInput
                         id="email"
                         placeholder="Email"
 
                     />
                 </div>
-                <div class="w-4/6">
+                <div class="w-11/12 lg:w-4/6">
                     <FormInput
                         type="password"
                         id="password"

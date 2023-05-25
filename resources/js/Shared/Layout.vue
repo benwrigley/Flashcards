@@ -29,7 +29,7 @@ const props = defineProps({
 </script>
 
 <template>
-<div class="bottom-0 fixed">*vue {{ !Object.values($page.props.flash).every(v => v===null) }}</div>
+<!-- <div class="bottom-0 fixed">*vue {{ !Object.values($page.props.flash).every(v => v===null) }}</div> -->
 
 
 

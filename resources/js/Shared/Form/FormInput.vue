@@ -52,7 +52,7 @@ watch(() => form[props.id], (newValue) => {
 
 <template>
 
-    <div class="flex text-black space-x-3 items-center" :class="class">
+    <div class="flex text-black space-y-3 items-center" :class="class">
 
         <label :for="id" v-if="label" class="text-white mr-2">{{ label }}</label>
 
@@ -66,15 +66,15 @@ watch(() => form[props.id], (newValue) => {
             @input="updateValue($event.target.value)"
             :rows="rows"
             :class="{
-                'border border-gray-400 p-2 rounded text-base lg:text-xl' : true,
+                'border border-gray-400 p-2 rounded text-base lg:text-xl w-full' : true,
                 [fieldclass] : fieldclass,
                 'bg-gray-800 text-white' : dark,
                 'text-gray-700' : !dark
             }"
         ></component>
     </div>
-    <div>
-        <FormError v-if="form.errors[props.id]">
+    <div v-if="form.errors[props.id]">
+        <FormError >
             {{ form.errors[props.id] }}
         </FormError>
     </div>

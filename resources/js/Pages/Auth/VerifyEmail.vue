@@ -35,18 +35,20 @@
                     Please check your email for the verification link
                 </div>
             </div>
-        <FormLayout method="post" :routeName="route('verification.resend')" class="lg:flex lg:justify-between lg:items-baseline text-gray-500 text-center fixed bottom-5 space-x-3 w-1/2" :box="false">
+        <FormLayout method="post" :routeName="route('verification.resend')" class="space-y-2 lg:flex items-center lg:justify-between lg:items-baseline text-gray-500 text-center fixed bottom-5 space-x-3 w-full lg:w-1/2" :box="false">
             <div class="text-xl lg:text-2xl mb-2 lg:mb-0">
                 No Email? Enter your email to resend
             </div>
 
-            <FormInput
-                id="email"
-                placeholder="Email"
-                class="lg:w-1/3"
-                fieldclass="h-10"
+            <div class="flex justify-center">
+                <FormInput
+                    id="email"
+                    placeholder="Email"
+                    class=""
+                    fieldclass="h-10"
 
-            />
+                />
+            </div>
 
             <FormButton
                 label="Resend"

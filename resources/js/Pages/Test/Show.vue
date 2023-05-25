@@ -129,10 +129,10 @@
 
 <template>
     <Layout title="Test" type="scrollable" :fade="backgroundFade" navtitle="Test">
-            <main class="rounded w-4/6 text-center">
+            <main class="rounded w-11/12 lg:w-4/6 text-center">
 
                 <div class="flex justify-between px-2 w-full items-center">
-                    <div class="italic text-gray-400">
+                    <div class="italic text-gray-400 text-base lg:text-2xl">
                         <p v-if="!ended">Card {{  position + 1  }} of {{ total }} :</p>
                         <p v-else>Score {{  test.final_score }} of {{test.max_score }}</p>
                     </div>
@@ -145,11 +145,11 @@
                     </div>
                 </div>
 
-                <div class="mt-10" >
+                <div class="mt-2 lg:mt-10" >
                     <transition name="fade" mode="out-in" appear>
                         <div v-if="questionMode && !ended"  class="flex flex-col justify-center items-center ">
-                            <div class="rounded-3xl w-4/6  items-center shadow-2xl shadow-blue-500 italic mb-20 bg-gray-800 p-6]">
-                                <div class="text-4xl p-6 h-96 items-center justify-center flex">
+                            <div class="rounded-3xl lg:w-4/6  items-center shadow-2xl shadow-blue-500 italic mb-5 lg:mb-20 bg-gray-800 lg:p-6">
+                                <div class="text-2xl lg:text-4xl p-6 lg:h-96 items-center justify-center flex">
                                     <p>"{{ currentFlashcard.question }}"</p>
                                 </div>
                             </div>
@@ -168,15 +168,15 @@
                         <!-- Answer Section-->
 
                         <div v-else-if="!questionMode && !ended" class="flex flex-col justify-center items-center">
-                            <div class="relative rounded-3xl w-4/6 items-center shadow-2xl shadow-blue-500 italic mb-20 bg-gray-800 p-6">
-                                <div class="text-4xl p-6 h-96 flex items-center justify-center">
+                            <div class="relative rounded-3xl lg:w-4/6 items-center shadow-2xl shadow-blue-500 italic mb-5 lg:mb-20 bg-gray-800 p-6">
+                                <div class="text-2xl lg:text-4xl p-2 lg:p-6 lg:h-96 flex items-center justify-center overflow-auto">
                                     "{{ currentFlashcard.answer }}"
                                 </div>
-                                <div class="absolute right-8 top-6 flex space-x-2 fill-white">
+                                <div class="absolute lg:right-8 lg:top-6 top-2 right-2 flex space-x-2 fill-white">
                                     <!-- Edit Button-->
                                     <div
                                         @click.stop="currentForm='editFlashcard'"
-                                        class="hidden lg:block"
+                                        class=""
                                     >
                                         <IconButton tooltip="Edit Flashcard">
                                             <Edit width="20" height="20"/>
@@ -187,7 +187,7 @@
                                     <!-- Delete Button-->
                                     <div
                                         @click.stop="currentForm='deleteFlashcard'"
-                                        class="hidden lg:block"
+                                        class=""
                                     >
 
                                         <IconButton tooltip="Delete Flashcard">
@@ -198,15 +198,15 @@
                                 </div>
                             </div>
 
-                            <div class="rounded bg-gray-800 w-5/6 items-center text-3xl p-6 border">
+                            <div class="rounded bg-gray-800 w-5/6 items-center text-xl lg:text-3xl p-6 border z-20">
                                 {{  form.answer }}
                             </div>
 
                             <div class="w-full flex mt-10 italic ">
                                 <ItemPicker
                                     id="score"
-                                    label="How did you do?:"
-                                    itemClasses="p-3  rounded-full hover:shadow-xl hover:shadow-blue-500"
+                                    label="How did you do?"
+                                    itemClasses="p-3 rounded-full hover:shadow-xl hover:shadow-blue-500"
                                     unselected="bg-gray-800"
                                     selected="bg-blue-600"
                                     @clicked="submit"
@@ -219,8 +219,8 @@
 
                         <!-- results section-->
 
-                        <div v-else class="flex flex-col justify-center items-center space-y-6">
-                            <div class="rounded-3xl w-1/3 items-center italic">
+                        <div v-else class="flex flex-col justify-center items-center space-y-6 mt-20">
+                            <div class="rounded-3xl lg:w-1/3 items-center italic">
                                 <div
                                     class="text-8xl p-6 shadow-2xl shadow-blue-500 rounded-xl bg-gray-800 py-24 "
                                     :class="{

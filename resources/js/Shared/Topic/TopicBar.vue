@@ -157,8 +157,12 @@
 
             <LinkButton v-if="topic.flashcards_count > 0 && !testMode" :link="route('topic.show',[topic.slug])" :label="topic.name" :class="'truncate w-32 lg:w-40 rounded px-2 py-1 text-center ' + topic.background"/>
             <div v-else
-                class="truncate w-32 lg:w-40 rounded px-2 py-1 text-center duration-500"
-                :class="{[topic.background]:true, 'bg-opacity-70':testMode}">
+                class="truncate  rounded px-2 py-1 text-center duration-500"
+                :class="{
+                    [topic.background]:true,
+                    'bg-opacity-70 w-full lg:w-80':testMode,
+                    'w-32 lg:w-40':!testMode
+                    }">
                 {{ topic.name }}
             </div>
 

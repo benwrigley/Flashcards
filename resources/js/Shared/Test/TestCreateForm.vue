@@ -55,14 +55,22 @@
 
 
 <template>
-    <div class="rounded-2xl p-2 shadow-2xl shadow-blue-500 lg:mb-20 mb-3 bg-gray-800">
+    <div class="rounded-2xl p-2 shadow-2xl shadow-blue-500 lg:mb-20 mb-3 bg-gray-800 m-5 ">
 
-    <FormLayout @run-submission="submit" :shadow="false" :closable="true" :box="false" @close-form='closeForm()' :fullwidth="true" class="w-full">
+    <FormLayout @run-submission="submit" :shadow="false" :closable="true" :box="false" @close-form='closeForm()' class="w-full lg:flex lg:h-[70vh] items-center " :fullwidth="true">
 
-        <div class="lg:flex lg:justify-around lg:items-center space-y-2">
+        <div class="space-y-2 lg:space-y-6">
             <div >
-                <div>
-                    <p >Select Topics/Subtopics Below : <span :class="{'text-red-500' : selectedTopics.length === 0}">{{ selectedTopics.length }}</span></p>
+                <div class="text-center flex items-baseline lg:block">
+                    <p class="lg:mb-5 mr-5">Select Topics/Subtopics</p>
+                    <span
+                    :class="
+                        {
+                            'text-red-500 shadow-xl shadow-red-500' : selectedTopics.length === 0,
+                            'bg-gray-800 rounded-full shadow-xl shadow-blue-500 p-3' : true
+                        }">
+                        {{ selectedTopics.length }}
+                    </span>
                 </div>
                 <div>
                     <FormError v-if="form.errors['topics']">
@@ -80,7 +88,7 @@
                     />
             </div>
 
-            <div>
+            <div >
                 <FormInput
                     id="quantity"
                     placeholder="How many cards?"
