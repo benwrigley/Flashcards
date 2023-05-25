@@ -38,6 +38,7 @@
             :disabled="form.processing"
             :type="type"
             :class="additionalClasses"
+            @click="$emit('clicked')"
     >
             {{ label }}
     </button>
