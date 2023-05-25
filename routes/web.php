@@ -51,11 +51,12 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::resource('topic', TopicController::class)->only(['store','edit','update','destroy','create']);
     Route::put('topic/{topic}/changeparent', [TopicController::class, 'changeParent'])->name('topic.change.parent');
 
-
-    Route::get('/test/{topic}/{type}', [TestController::class, 'store'])->name('test.store');
-    Route::get('/starttest/{test}', [TestController::class, 'start']);
-    Route::post('/answertest', [TestController::class, 'answer']);
-    Route::get('/tests/{test}/close', [TestController::class, 'close'])->name('test.close');
+    Route::resource('test', TestController::class)->only(['store','show','update']);
+    Route::post('/answertest', [TestController::class, 'answer'])->name('test.answer');
+    // Route::post('/test', [TestController::class, 'store'])->name('test.store');
+    // Route::get('/starttest/{test}', [TestController::class, 'start']);
+    // Route::post('/answertest', [TestController::class, 'answer']);
+    // Route::get('/tests/{test}/close', [TestController::class, 'close'])->name('test.close');
 });
 
 

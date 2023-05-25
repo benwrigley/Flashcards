@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class TestFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'final_score' => $this->faker->numberBetween(0,100),
+            'max_score' => $this->faker->numberBetween(1,100),
+            'topic_id' => 1,
+            'user_id' => User::factory(),
+            'completed_at' => $this->faker->optional()->dateTime(),
         ];
     }
 }

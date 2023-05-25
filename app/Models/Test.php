@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class Test extends Model
 {
@@ -38,9 +39,28 @@ class Test extends Model
             0;
     }
 
+    public function getLastFlashcard(){
+        return $this->flashcards->last();
+    }
+
+    public function getNextFlashcardPosition(){
+
+        $flashcards = $this->flashcards()->get();
+        $count =0;
+        foreach ($flashcards as $flashcard) {
+
+            if ($flashcard->pivot->created_at->getTimestamp() === $flashcard->pivot->updated_at->getTimestamp()) {
+                return $count;
+            }
+            $count++;
+        }
+
+        return null;
+    }
+
     public function flashcards()
     {
-        return $this->belongsToMany(Flashcard::class);
+        return $this->belongsToMany(Flashcard::class)->withTimestamps();
     }
 
 }

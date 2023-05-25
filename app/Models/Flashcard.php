@@ -30,6 +30,30 @@ class Flashcard extends Model
 
     }
 
+    public function scopeWorstPerforming($query,$limit)
+    {
+        return $query
+            ->withCount('tests')
+            ->orderBy('avg_score','asc')
+            ->limit($limit);
+    }
+
+    public function scopeLeastTested($query,$limit)
+    {
+        return $query
+            ->withCount('tests')
+            ->orderBy('tests_count','asc')
+            ->limit($limit);
+    }
+
+    public function scopeRandomSelection($query,$limit)
+    {
+        return $query
+            ->withCount('tests')
+            ->inRandomOrder()
+            ->limit($limit);
+    }
+
     public function topic()
     {
         return $this->belongsTo(Topic::class,'topic_id');
@@ -37,6 +61,6 @@ class Flashcard extends Model
 
     public function tests()
     {
-        return $this->belongsToMany(Test::class);
+        return $this->belongsToMany(Test::class)->withTimestamps();
     }
 }
