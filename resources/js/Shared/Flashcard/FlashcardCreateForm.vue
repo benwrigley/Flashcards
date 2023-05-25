@@ -55,26 +55,32 @@
 
     <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
-        <FormInput
-            id="question"
-            placeholder="Question"
-            type="textarea"
-            />
+        <div class="w-11/12 lg:w-4/6">
+            <FormInput
+                id="question"
+                placeholder="Question"
+                type="textarea"
+                />
+        </div>
 
-        <FormInput
-            id="answer"
-            placeholder="Answer"
-            type="textarea"
-            />
+        <div class="w-11/12 lg:w-4/6">
+            <FormInput
+                id="answer"
+                placeholder="Answer"
+                type="textarea"
+                />
+        </div>
 
-        <ItemPicker
-            id="max_score"
-            label="Max Score:"
-            itemClasses="rounded-full ring ring-gray-500 text-xl hover:bg-gray-500 p-2"
-            unselected="bg-gray-600"
-            selected="bg-blue-600"
-            :items="Array.from({ length: 5 }, (_, index) => index + 1)"
-        />
+        <div class="w-11/12 lg:w-4/6">
+            <ItemPicker
+                id="max_score"
+                label="Max Score:"
+                itemClasses="rounded-full ring ring-gray-500 text-xl hover:bg-gray-500 p-2"
+                unselected="bg-gray-600"
+                selected="bg-blue-600"
+                :items="Array.from({ length: 5 }, (_, index) => index + 1)"
+            />
+        </div>
 
         <div class="flex justify-around w-full">
             <FormButton

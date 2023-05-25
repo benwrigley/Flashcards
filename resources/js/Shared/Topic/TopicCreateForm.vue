@@ -29,7 +29,7 @@
         form.post(
             route('topic.store'),
             {
-                onSuccess: () => toggleForms.createTopic(),
+                onSuccess: () => closeForm(),
                 preserveState: true,
                 preserveScroll: true,
         });
@@ -61,19 +61,24 @@
 
     <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
-        <FormInput
-            id="name"
-            placeholder="Name"
+        <div class="w-11/12 lg:w-4/6">
+            <FormInput
+                id="name"
+                placeholder="Name"
 
-        />
-        <FormInput
-            id="description"
-            placeholder="Description"
-            type="textarea"
             />
-        <ColorPicker
-            id="background" />
-
+        </div>
+        <div class="w-11/12 lg:w-4/6">
+            <FormInput
+                id="description"
+                placeholder="Description"
+                type="textarea"
+                />
+        </div>
+        <div class="w-11/12 lg:w-4/6">
+            <ColorPicker
+                id="background" />
+        </div>
         <div class="flex justify-around w-full">
             <FormButton
                 label="Create Topic"

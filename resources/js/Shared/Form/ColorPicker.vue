@@ -33,7 +33,7 @@
 </script>
 
 <template>
-    <div class="flex justify mb-2 items-center">
+    <div class="flex justify-center mb-2">
         <div v-for="color in colors">
             <div
                 class="rounded ml-2 p-2 hover:bg-gray-200 w-8 h-8"

@@ -22,10 +22,12 @@
 
     const form = useForm({
         topic_id: currentTopic.value.id,
-        flashcards: selectedCards.value
+        flashcards: null
     })
 
     function submit(){
+
+        form.flashcards = selectedCards.value;
 
         form.put(
             route("flashcard.move.group"),

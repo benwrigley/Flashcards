@@ -1,6 +1,6 @@
 <script setup>
 
-    import { inject, computed } from 'vue';
+    import { inject, defineEmits  } from 'vue';
     import FormError from '@/Shared/Form/FormError.vue';
 
 
@@ -31,23 +31,25 @@
         error: String,
     });
 
+    const emits = defineEmits(['clicked']);
+
     const form = inject('form');
 
 </script>
 
 <template>
-    <div class="flex mb-5 items-center w-max space-x-3 text-xl">
+    <div class="flex mb-5 items-center justify-center w-full space-x-3 text-xl">
         <p class="mr-2">{{ label }}</p>
             <div
                 v-for="item in items"
-                class="flex justify-center"
+                class="flex justify-center "
                 :class="{
                     [selected]: form[props.id] === item,
                     [unselected]: form[props.id] !== item,
                     'rounded ml-2 p-2 hover:bg-gray-200 w-8 h-8': !itemClasses,
                     [itemClasses] : itemClasses
                     }"
-                @click="form[props.id] = item"
+                @click="form[props.id] = item; $emit('clicked')"
             >
             {{  item }}
             </div>
