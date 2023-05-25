@@ -1,7 +1,7 @@
 <script setup>
 
 import { provide } from 'vue'
-import { Link,useForm } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 
 import Layout from '@/Shared/Layout.vue'
 import FormLayout from '@/Shared/Form/FormLayout.vue'
@@ -22,18 +22,24 @@ provide('form', form);
 <template>
     <Layout title="Login">
         <div class="w-full grid place-items-center">
-        <FormLayout title="Welcome to Flashcards!" method="post" :routeName="route('login')">
-                <FormInput
-                    id="email"
-                    placeholder="Email"
+        <FormLayout
+            title="Welcome to Flashcards!"
+            method="post"
+            :routeName="route('login')">
+                <div class="w-4/6">
+                    <FormInput
+                        id="email"
+                        placeholder="Email"
 
-                />
-                <FormInput
-                    type="password"
-                    id="password"
-                    placeholder="Password"
                     />
-
+                </div>
+                <div class="w-4/6">
+                    <FormInput
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        />
+                </div>
                 <div class="flex justify-around w-full">
                     <LinkButton
                         label="Forgot Password"
