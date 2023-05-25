@@ -14,7 +14,7 @@
 
 <template>
     <nav class="bg-gray-800 p-2 flex  items-center justify-between fixed w-screen left-0 top-0 uppercase text-sm lg:text-lg">
-        <Streak />
+        <Streak :score="$page.props.auth.user.streak" />
         <div v-if="title" class="lg:hidden text-2xl">
             {{ title }}
         </div>
