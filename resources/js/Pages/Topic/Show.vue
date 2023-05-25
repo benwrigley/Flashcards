@@ -12,6 +12,7 @@
     import IconButton from '@/Shared/IconButton.vue';
     import { Link } from '@inertiajs/vue3';
     import { provide,ref,computed } from 'vue';
+    import { convertColour } from '@/composables/convertColour';
 
     const props = defineProps({
         topic : {
@@ -35,6 +36,8 @@
         return currentForm.value !== null;
     });
 
+    const shadowColour = convertColour(props.topic.background,'shadow-')
+
     provide('currentTopic', currentTopic);
     provide('currentFlashcard', currentFlashcard);
     provide('selectedCards', selectedCards);
@@ -50,9 +53,9 @@
     <Layout :title="'Flashcards in ' + topic.name"  type="scrollable" :fade="backgroundFade" :navtitle="topic.name">
             <main class="rounded relative w-5/6">
 
-                <div class="lg:flex items-baseline mb-16 relative hidden">
+                <div class=" lg:flex items-baseline mb-16 relative hidden " >
 
-                    <div class=" bg-gray-800 rounded-3xl w-full p-2 p-6  items-center">
+                    <div class="bg-gray-800 rounded-3xl w-full p-6  items-center shadow-2xl" :class="shadowColour">
                         <div class="text-4xl">
                             <span>{{ topic.name }}</span> : <span class="text-sm lg:text-2xl font-mono italic mt-3"> '{{ topic.description }}' </span>
                         </div>
