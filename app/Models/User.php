@@ -48,10 +48,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         $this->attributes['password'] = bcrypt($password);
     }
 
-    public function averageScore()
+    public function getTotalFlashcardsAttribute()
     {
+        return $this->flashcards->count();
+    }
 
-        if ($this->testsCompleted() < 1){
+    public function getAverageScoreAttribute()
+    {
+        if ($this->testsCompleted < 1){
             return 0;
         }
 
@@ -61,10 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
                     1
             );
         });
-
     }
 
-    public function leastTestedTopic(){
+
+    public function getLeastTestedTopicAttribute(){
 
         if (Topic::mine()->count() < 1){
             return null;
@@ -83,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     }
 
-    public function testsCompleted()
+    public function getTestsCompletedAttribute()
     {
         return cache()->rememberForever("test_completed." . $this->id, function(){
             return Test::myCompleted()->count();

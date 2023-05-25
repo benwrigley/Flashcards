@@ -43,11 +43,11 @@ const showPanel = ref(false);
             >
                 <div class="grid grid-cols-3 border-b p-2 mb-2">
                     <div class="col-span-2  border-r pr-2 pb-1">Total Flashcards</div>
-                    <div>245</div>
+                    <div>{{ $page.props.auth.user.totalFlashcards }}</div>
                     <div class="col-span-2  border-r pr-2 pb-1">Completed Tests</div>
-                    <div>56</div>
+                    <div>{{ $page.props.auth.user.testsCompleted }}</div>
                     <div class="col-span-2  border-r pr-2">Avg Test Score</div>
-                    <div>45%</div>
+                    <div>{{ $page.props.auth.user.averageScore }}%</div>
                 </div>
                 <div class="space-y-2">
 
