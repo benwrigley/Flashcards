@@ -1,6 +1,6 @@
 <script setup>
 
-import { inject } from 'vue';
+import { inject, ref, watch } from 'vue';
 
 import FormError from '@/Shared/Form/FormError.vue';
 
@@ -15,40 +15,65 @@ const props = defineProps({
     error: String,
     class : {
         type: String,
-        default: 'w-11/12 lg:w-4/6'
+        default: ''
     },
-    fieldclass: String
+    fieldclass: {
+        type: String,
+        default : 'w-full'
+    },
+    label : {
+        type: String,
+        default: null
+    },
+
+    dark: {
+        type:Boolean,
+        default:false
+    },
+    rows: {
+        type:String,
+        default:"4"
+    }
 
 });
 
 const form = inject('form');
+const getValue = ref(form[props.id]);
 
+const updateValue = (newValue) => {
+  form[props.id] = newValue;
+};
+
+watch(() => form[props.id], (newValue) => {
+  getValue.value = newValue;
+});
 
 </script>
 
 <template>
 
-    <div class="mb-4 text-black" :class="class">
+    <div class="flex text-black space-x-3 items-center" :class="class">
 
-        <input
-            v-if="['text','password'].indexOf(props.type) > -1"
+        <label :for="id" v-if="label" class="text-white mr-2">{{ label }}</label>
+
+        <component
+
+            :is="type === 'text' || type === 'password' ? 'input' : 'textarea'"
             :id="id"
             :type="type"
             :placeholder="placeholder"
-            v-model="form[props.id]"
-            class="border border-gray-400 p-2 text-gray-700 rounded text-base lg:text-xl w-full"
-            :class="fieldclass"/>
-
-        <textarea
-            v-else-if="props.type === 'textarea'"
-            :id="id"
-            :type="type"
-            :placeholder="placeholder"
-            v-model="form[props.id]"
-            class="border border-gray-400 p-2 text-gray-700 rounded text-base lg:text-xl w-full"
-            :class="fieldclass"></textarea>
-
-
+            :value="getValue"
+            @input="updateValue($event.target.value)"
+            :rows="rows"
+            :class="{
+                'border border-gray-400 p-2 rounded text-base lg:text-xl' : true,
+                [fieldclass] : fieldclass,
+                'bg-gray-800 text-white' : dark,
+                'text-gray-700' : !dark
+            }"
+        ></component>
+    </div>
+    <div>
         <FormError v-if="form.errors[props.id]">
             {{ form.errors[props.id] }}
         </FormError>
