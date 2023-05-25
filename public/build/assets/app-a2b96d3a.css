@@ -1,0 +1,1 @@
+.streak{transition-property:background-color,transform;transition-duration:.3s;transition-timing-function:ease}.fade-enter-active{transition:opacity .5s ease}.fade-leave-active{transition:opacity .5s}.fade-enter{transition:opacity .5s ease}.fade-enter-from,.fade-leave-to{opacity:0}
