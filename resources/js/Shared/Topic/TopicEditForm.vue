@@ -41,12 +41,6 @@
         return 'Edit topic ' + currentTopic.value.name;
     });
 
-
-    const parentTopics = computed(() =>{
-        props.topicParents.unshift({id: null, name: 'This is a main topic'});
-        return props.topicParents;
-    });
-
     onMounted(() => {
         router.reload({ only: ['topicParents'], data: { edittopic: currentTopic.value.id } })
     });
@@ -65,21 +59,28 @@
 
     <FormLayout :title="title" @run-submission="submit" child="flex justify-center" :shadow="true" :closable="true" @close-form='closeForm()'>
 
-        <FormInput
-            id="name"
-            placeholder="Name"
+        <div class="w-11/12 lg:w-4/6">
+            <FormInput
+                id="name"
+                placeholder="Name"
 
-        />
-        <FormInput
-            id="description"
-            placeholder="Description"
-            type="textarea"
             />
-        <FormSelect
-            label="Parent Topic"
-            id="topic_id"
-            :items="parentTopics"
-        />
+        </div>
+        <div class="w-11/12 lg:w-4/6">
+            <FormInput
+                id="description"
+                placeholder="Description"
+                type="textarea"
+                />
+        </div>
+        <div class="w-11/12 lg:w-4/6">
+            <FormSelect
+                label="Parent Topic"
+                id="topic_id"
+                :items="topicParents"
+                placeholder="This is a main topic"
+            />
+        </div>
         <ColorPicker
             id="background" />
 
