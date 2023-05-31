@@ -155,7 +155,7 @@
                             </div>
 
                             <div class="w-5/6">
-                                <FormInput type="textarea" placeholder="And the answer is ...?" id="answer" :dark="true" rows="5"/>
+                                <FormInput type="textarea" :placeholder="'And the answer is ...?' + ' (' + currentFlashcard.max_score + ' points )'" id="answer" :dark="true" rows="5"/>
                             </div>
                             <div v-if="form.answer" class=" mt-8">
                                 <FormButton label="Show Answer" class="bg-blue-600" type="button" @clicked="checkAnswer" />
