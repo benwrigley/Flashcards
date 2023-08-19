@@ -104,8 +104,8 @@ class FlashcardController extends Controller
     {
 
         $attributes = request()->validate([
-            'question' => ['required','max:255'],
-            'answer' => ['required','max:255'],
+            'question' => ['required','max:2000'],
+            'answer' => ['required','max:2000'],
             'max_score' => ['numeric','min:1','max:5','nullable'],
             'topic_id' => ['exists:topics,id','nullable'],
         ]);
